@@ -6,12 +6,12 @@
     "rarity": 5,
     "attribute": "fire",
     "role": "warrior",
-    "zodiac": "ram",
+    "zodiac": "aries",
     "region": "erasia",
     "date": "2023",
     "assets": {
       "icon": "https://raw.githubusercontent.com/fribbels/Fribbels-Epic-7-Optimizer/main/data/cachedimages/c1144_s.png",
-      "image": "https://raw.githubusercontent.com/fribbels/Fribbels-Epic-7-Optimizer/main/data/cachedimages/question_circle.png",
+      "image": "characterAssets/c1144_idle_normal.png",
       "thumbnail": "https://raw.githubusercontent.com/fribbels/Fribbels-Epic-7-Optimizer/main/data/cachedimages/c1144_l.png"
     }
   },
@@ -22,12 +22,12 @@
     "rarity": 5,
     "attribute": "dark",
     "role": "knight",
-    "zodiac": "waterbearer",
+    "zodiac": "aquarius",
     "region": "moonlight",
     "date": "2023",
     "assets": {
       "icon": "https://raw.githubusercontent.com/fribbels/Fribbels-Epic-7-Optimizer/main/data/cachedimages/c2016_s.png",
-      "image": "https://raw.githubusercontent.com/fribbels/Fribbels-Epic-7-Optimizer/main/data/cachedimages/question_circle.png",
+      "image": "characterAssets/c2016_idle_normal.png",
       "thumbnail": "https://epic7x.com/wp-content/uploads/2023/10/abyssal-yufine.png"
     }
   },
@@ -37,8 +37,8 @@
     "name": "Achates",
     "rarity": 4,
     "attribute": "fire",
-    "role": "manauser",
-    "zodiac": "twins",
+    "role": "soulweaver",
+    "zodiac": "gemini",
     "region": "ritania",
     "date": "2018",
     "assets": {
@@ -54,7 +54,7 @@
     "rarity": 3,
     "attribute": "wind",
     "role": "assassin",
-    "zodiac": "lion",
+    "zodiac": "leo",
     "region": "stars",
     "date": "2021",
     "assets": {
@@ -70,7 +70,7 @@
     "rarity": 3,
     "attribute": "wind",
     "role": "mage",
-    "zodiac": "archer",
+    "zodiac": "sagittarius",
     "region": "ritania",
     "date": "2018",
     "assets": {
@@ -86,7 +86,7 @@
     "rarity": 3,
     "attribute": "fire",
     "role": "knight",
-    "zodiac": "scales",
+    "zodiac": "libra",
     "region": "specialty",
     "date": "2020",
     "assets": {
@@ -102,7 +102,7 @@
     "rarity": 5,
     "attribute": "wind",
     "role": "mage",
-    "zodiac": "scorpion",
+    "zodiac": "scorpio",
     "region": "collab",
     "date": "2022",
     "assets": {
@@ -118,7 +118,7 @@
     "rarity": 5,
     "attribute": "ice",
     "role": "knight",
-    "zodiac": "ram",
+    "zodiac": "aries",
     "region": "collab",
     "date": "2022",
     "assets": {
@@ -133,8 +133,8 @@
     "name": "ae-NINGNING",
     "rarity": 5,
     "attribute": "fire",
-    "role": "manauser",
-    "zodiac": "scorpion",
+    "role": "soulweaver",
+    "zodiac": "scorpio",
     "region": "collab",
     "date": "2022",
     "assets": {
@@ -150,7 +150,7 @@
     "rarity": 5,
     "attribute": "fire",
     "role": "assassin",
-    "zodiac": "goat",
+    "zodiac": "capricorn",
     "region": "collab",
     "date": "2022",
     "assets": {
@@ -165,8 +165,8 @@
     "name": "Ainos",
     "rarity": 3,
     "attribute": "dark",
-    "role": "manauser",
-    "zodiac": "archer",
+    "role": "soulweaver",
+    "zodiac": "sagittarius",
     "region": "eureka",
     "date": "2020",
     "assets": {
@@ -181,8 +181,8 @@
     "name": "Ainos 2.0",
     "rarity": 3,
     "attribute": "dark",
-    "role": "manauser",
-    "zodiac": "archer",
+    "role": "soulweaver",
+    "zodiac": "sagittarius",
     "region": "specialty",
     "date": "2023",
     "assets": {
@@ -198,7 +198,7 @@
     "rarity": 3,
     "attribute": "wind",
     "role": "warrior",
-    "zodiac": "scales",
+    "zodiac": "libra",
     "region": "cidonia",
     "date": "2019",
     "assets": {
@@ -214,7 +214,7 @@
     "rarity": 5,
     "attribute": "dark",
     "role": "mage",
-    "zodiac": "bull",
+    "zodiac": "taurus",
     "region": "collab",
     "date": "2024",
     "assets": {
@@ -229,8 +229,8 @@
     "name": "Aither",
     "rarity": 3,
     "attribute": "ice",
-    "role": "manauser",
-    "zodiac": "scales",
+    "role": "soulweaver",
+    "zodiac": "libra",
     "region": "ritania",
     "date": "2018",
     "assets": {
@@ -246,7 +246,7 @@
     "rarity": 5,
     "attribute": "wind",
     "role": "knight",
-    "zodiac": "archer",
+    "zodiac": "sagittarius",
     "region": "collab",
     "date": "2024",
     "assets": {
@@ -262,7 +262,7 @@
     "rarity": 5,
     "attribute": "wind",
     "role": "warrior",
-    "zodiac": "crab",
+    "zodiac": "cancer",
     "region": "eureka",
     "date": "2019",
     "assets": {
@@ -278,7 +278,7 @@
     "rarity": 3,
     "attribute": "ice",
     "role": "assassin",
-    "zodiac": "lion",
+    "zodiac": "leo",
     "region": "ritania",
     "date": "2018",
     "assets": {
@@ -294,7 +294,7 @@
     "rarity": 3,
     "attribute": "dark",
     "role": "ranger",
-    "zodiac": "twins",
+    "zodiac": "gemini",
     "region": "specialty",
     "date": "2019",
     "assets": {
@@ -310,7 +310,7 @@
     "rarity": 5,
     "attribute": "light",
     "role": "knight",
-    "zodiac": "archer",
+    "zodiac": "sagittarius",
     "region": "moonlight",
     "date": "2020",
     "assets": {
@@ -325,8 +325,8 @@
     "name": "Amid",
     "rarity": 5,
     "attribute": "ice",
-    "role": "manauser",
-    "zodiac": "bull",
+    "role": "soulweaver",
+    "zodiac": "taurus",
     "region": "natalon",
     "date": "2023",
     "assets": {
@@ -342,7 +342,7 @@
     "rarity": 3,
     "attribute": "ice",
     "role": "warrior",
-    "zodiac": "scorpion",
+    "zodiac": "scorpio",
     "region": "erasia",
     "date": "2023",
     "assets": {
@@ -358,7 +358,7 @@
     "rarity": 4,
     "attribute": "light",
     "role": "mage",
-    "zodiac": "bull",
+    "zodiac": "taurus",
     "region": "moonlight",
     "date": "2021",
     "assets": {
@@ -373,8 +373,8 @@
     "name": "Angelic Montmorancy",
     "rarity": 3,
     "attribute": "ice",
-    "role": "manauser",
-    "zodiac": "fish",
+    "role": "soulweaver",
+    "zodiac": "pisces",
     "region": "specialty",
     "date": "2019",
     "assets": {
@@ -389,8 +389,8 @@
     "name": "Angelica",
     "rarity": 4,
     "attribute": "ice",
-    "role": "manauser",
-    "zodiac": "crab",
+    "role": "soulweaver",
+    "zodiac": "cancer",
     "region": "ritania",
     "date": "2018",
     "assets": {
@@ -406,7 +406,7 @@
     "rarity": 5,
     "attribute": "dark",
     "role": "warrior",
-    "zodiac": "crab",
+    "zodiac": "cancer",
     "region": "moonlight",
     "date": "2019",
     "assets": {
@@ -422,7 +422,7 @@
     "rarity": 5,
     "attribute": "fire",
     "role": "mage",
-    "zodiac": "twins",
+    "zodiac": "gemini",
     "region": "death",
     "date": "2018",
     "assets": {
@@ -438,7 +438,7 @@
     "rarity": 5,
     "attribute": "dark",
     "role": "assassin",
-    "zodiac": "lion",
+    "zodiac": "leo",
     "region": "moonlight",
     "date": "2018",
     "assets": {
@@ -454,7 +454,7 @@
     "rarity": 5,
     "attribute": "dark",
     "role": "mage",
-    "zodiac": "waterbearer",
+    "zodiac": "aquarius",
     "region": "stars",
     "date": "",
     "assets": {
@@ -470,7 +470,7 @@
     "rarity": 5,
     "attribute": "light",
     "role": "mage",
-    "zodiac": "maiden",
+    "zodiac": "virgo",
     "region": "moonlight",
     "date": "2023",
     "assets": {
@@ -486,7 +486,7 @@
     "rarity": 5,
     "attribute": "ice",
     "role": "mage",
-    "zodiac": "bull",
+    "zodiac": "taurus",
     "region": "natalon",
     "date": "2022",
     "assets": {
@@ -502,7 +502,7 @@
     "rarity": 4,
     "attribute": "wind",
     "role": "knight",
-    "zodiac": "goat",
+    "zodiac": "capricorn",
     "region": "ritania",
     "date": "2018",
     "assets": {
@@ -518,7 +518,7 @@
     "rarity": 3,
     "attribute": "light",
     "role": "knight",
-    "zodiac": "scales",
+    "zodiac": "libra",
     "region": "ritania",
     "date": "2018",
     "assets": {
@@ -534,7 +534,7 @@
     "rarity": 5,
     "attribute": "wind",
     "role": "warrior",
-    "zodiac": "scorpion",
+    "zodiac": "scorpio",
     "region": "stars",
     "date": "2022",
     "assets": {
@@ -550,7 +550,7 @@
     "rarity": 4,
     "attribute": "dark",
     "role": "warrior",
-    "zodiac": "scorpion",
+    "zodiac": "scorpio",
     "region": "moonlight",
     "date": "2018",
     "assets": {
@@ -566,7 +566,7 @@
     "rarity": 4,
     "attribute": "dark",
     "role": "assassin",
-    "zodiac": "waterbearer",
+    "zodiac": "aquarius",
     "region": "moonlight",
     "date": "2018",
     "assets": {
@@ -582,7 +582,7 @@
     "rarity": 4,
     "attribute": "dark",
     "role": "assassin",
-    "zodiac": "bull",
+    "zodiac": "taurus",
     "region": "moonlight",
     "date": "2018",
     "assets": {
@@ -598,7 +598,7 @@
     "rarity": 5,
     "attribute": "light",
     "role": "ranger",
-    "zodiac": "scales",
+    "zodiac": "libra",
     "region": "moonlight",
     "date": "2022",
     "assets": {
@@ -614,7 +614,7 @@
     "rarity": 4,
     "attribute": "dark",
     "role": "mage",
-    "zodiac": "fish",
+    "zodiac": "pisces",
     "region": "moonlight",
     "date": "2018",
     "assets": {
@@ -630,7 +630,7 @@
     "rarity": 3,
     "attribute": "fire",
     "role": "warrior",
-    "zodiac": "scorpion",
+    "zodiac": "scorpio",
     "region": "ritania",
     "date": "2018",
     "assets": {
@@ -646,7 +646,7 @@
     "rarity": 5,
     "attribute": "fire",
     "role": "mage",
-    "zodiac": "twins",
+    "zodiac": "gemini",
     "region": "ritania",
     "date": "2018",
     "assets": {
@@ -662,7 +662,7 @@
     "rarity": 4,
     "attribute": "dark",
     "role": "warrior",
-    "zodiac": "maiden",
+    "zodiac": "virgo",
     "region": "moonlight",
     "date": "2022",
     "assets": {
@@ -678,7 +678,7 @@
     "rarity": 5,
     "attribute": "wind",
     "role": "assassin",
-    "zodiac": "scorpion",
+    "zodiac": "scorpio",
     "region": "collab",
     "date": "2019",
     "assets": {
@@ -694,7 +694,7 @@
     "rarity": 5,
     "attribute": "wind",
     "role": "mage",
-    "zodiac": "waterbearer",
+    "zodiac": "aquarius",
     "region": "ritania",
     "date": "2018",
     "assets": {
@@ -710,7 +710,7 @@
     "rarity": 3,
     "attribute": "ice",
     "role": "knight",
-    "zodiac": "scorpion",
+    "zodiac": "scorpio",
     "region": "ritania",
     "date": "2018",
     "assets": {
@@ -726,7 +726,7 @@
     "rarity": 3,
     "attribute": "dark",
     "role": "warrior",
-    "zodiac": "bull",
+    "zodiac": "taurus",
     "region": "cidonia",
     "date": "2019",
     "assets": {
@@ -742,7 +742,7 @@
     "rarity": 5,
     "attribute": "fire",
     "role": "ranger",
-    "zodiac": "goat",
+    "zodiac": "capricorn",
     "region": "natalon",
     "date": "2023",
     "assets": {
@@ -758,7 +758,7 @@
     "rarity": 5,
     "attribute": "light",
     "role": "knight",
-    "zodiac": "ram",
+    "zodiac": "aries",
     "region": "stars",
     "date": "2021",
     "assets": {
@@ -774,7 +774,7 @@
     "rarity": 5,
     "attribute": "wind",
     "role": "ranger",
-    "zodiac": "goat",
+    "zodiac": "capricorn",
     "region": "death",
     "date": "2019",
     "assets": {
@@ -790,7 +790,7 @@
     "rarity": 4,
     "attribute": "light",
     "role": "mage",
-    "zodiac": "bull",
+    "zodiac": "taurus",
     "region": "moonlight",
     "date": "2019",
     "assets": {
@@ -806,7 +806,7 @@
     "rarity": 5,
     "attribute": "fire",
     "role": "warrior",
-    "zodiac": "archer",
+    "zodiac": "sagittarius",
     "region": "collab",
     "date": "2023",
     "assets": {
@@ -821,8 +821,8 @@
     "name": "Bernard",
     "rarity": 3,
     "attribute": "wind",
-    "role": "manauser",
-    "zodiac": "bull",
+    "role": "soulweaver",
+    "zodiac": "taurus",
     "region": "erasia",
     "date": "2024",
     "assets": {
@@ -837,8 +837,8 @@
     "name": "Birgitta",
     "rarity": 5,
     "attribute": "ice",
-    "role": "manauser",
-    "zodiac": "scorpion",
+    "role": "soulweaver",
+    "zodiac": "scorpio",
     "region": "erasia",
     "date": "2024",
     "assets": {
@@ -853,8 +853,8 @@
     "name": "Blaze Dingo",
     "rarity": 4,
     "attribute": "light",
-    "role": "manauser",
-    "zodiac": "archer",
+    "role": "soulweaver",
+    "zodiac": "sagittarius",
     "region": "moonlight",
     "date": "2019",
     "assets": {
@@ -870,7 +870,7 @@
     "rarity": 4,
     "attribute": "dark",
     "role": "assassin",
-    "zodiac": "scorpion",
+    "zodiac": "scorpio",
     "region": "moonlight",
     "date": "2018",
     "assets": {
@@ -885,8 +885,8 @@
     "name": "Blood Moon Haste",
     "rarity": 5,
     "attribute": "dark",
-    "role": "manauser",
-    "zodiac": "fish",
+    "role": "soulweaver",
+    "zodiac": "pisces",
     "region": "moonlight",
     "date": "2020",
     "assets": {
@@ -902,7 +902,7 @@
     "rarity": 5,
     "attribute": "wind",
     "role": "assassin",
-    "zodiac": "goat",
+    "zodiac": "capricorn",
     "region": "ritania",
     "date": "2023",
     "assets": {
@@ -918,7 +918,7 @@
     "rarity": 5,
     "attribute": "fire",
     "role": "ranger",
-    "zodiac": "twins",
+    "zodiac": "gemini",
     "region": "eureka",
     "date": "2020",
     "assets": {
@@ -934,7 +934,7 @@
     "rarity": 5,
     "attribute": "dark",
     "role": "ranger",
-    "zodiac": "twins",
+    "zodiac": "gemini",
     "region": "moonlight",
     "date": "2020",
     "assets": {
@@ -950,7 +950,7 @@
     "rarity": 5,
     "attribute": "ice",
     "role": "knight",
-    "zodiac": "ram",
+    "zodiac": "aries",
     "region": "erasia",
     "date": "2023",
     "assets": {
@@ -966,7 +966,7 @@
     "rarity": 3,
     "attribute": "fire",
     "role": "knight",
-    "zodiac": "lion",
+    "zodiac": "leo",
     "region": "ritania",
     "date": "2018",
     "assets": {
@@ -982,7 +982,7 @@
     "rarity": 5,
     "attribute": "ice",
     "role": "ranger",
-    "zodiac": "fish",
+    "zodiac": "pisces",
     "region": "ritania",
     "date": "2023",
     "assets": {
@@ -998,7 +998,7 @@
     "rarity": 3,
     "attribute": "light",
     "role": "warrior",
-    "zodiac": "maiden",
+    "zodiac": "virgo",
     "region": "eureka",
     "date": "2021",
     "assets": {
@@ -1014,7 +1014,7 @@
     "rarity": 3,
     "attribute": "light",
     "role": "warrior",
-    "zodiac": "scales",
+    "zodiac": "libra",
     "region": "specialty",
     "date": "2019",
     "assets": {
@@ -1030,7 +1030,7 @@
     "rarity": 3,
     "attribute": "fire",
     "role": "mage",
-    "zodiac": "waterbearer",
+    "zodiac": "aquarius",
     "region": "death",
     "date": "2018",
     "assets": {
@@ -1046,7 +1046,7 @@
     "rarity": 3,
     "attribute": "fire",
     "role": "mage",
-    "zodiac": "archer",
+    "zodiac": "sagittarius",
     "region": "ritania",
     "date": "2018",
     "assets": {
@@ -1062,7 +1062,7 @@
     "rarity": 4,
     "attribute": "wind",
     "role": "warrior",
-    "zodiac": "crab",
+    "zodiac": "cancer",
     "region": "ritania",
     "date": "2018",
     "assets": {
@@ -1078,7 +1078,7 @@
     "rarity": 5,
     "attribute": "fire",
     "role": "knight",
-    "zodiac": "ram",
+    "zodiac": "aries",
     "region": "eureka",
     "date": "2018",
     "assets": {
@@ -1094,7 +1094,7 @@
     "rarity": 3,
     "attribute": "light",
     "role": "ranger",
-    "zodiac": "archer",
+    "zodiac": "sagittarius",
     "region": "ritania",
     "date": "2018",
     "assets": {
@@ -1110,7 +1110,7 @@
     "rarity": 4,
     "attribute": "dark",
     "role": "mage",
-    "zodiac": "scorpion",
+    "zodiac": "scorpio",
     "region": "moonlight",
     "date": "2018",
     "assets": {
@@ -1126,7 +1126,7 @@
     "rarity": 5,
     "attribute": "wind",
     "role": "assassin",
-    "zodiac": "scorpion",
+    "zodiac": "scorpio",
     "region": "foreign",
     "date": "2020",
     "assets": {
@@ -1142,7 +1142,7 @@
     "rarity": 5,
     "attribute": "ice",
     "role": "ranger",
-    "zodiac": "waterbearer",
+    "zodiac": "aquarius",
     "region": "cidonia",
     "date": "2020",
     "assets": {
@@ -1158,7 +1158,7 @@
     "rarity": 5,
     "attribute": "fire",
     "role": "warrior",
-    "zodiac": "lion",
+    "zodiac": "leo",
     "region": "ritania",
     "date": "2019",
     "assets": {
@@ -1174,7 +1174,7 @@
     "rarity": 4,
     "attribute": "dark",
     "role": "mage",
-    "zodiac": "scorpion",
+    "zodiac": "scorpio",
     "region": "moonlight",
     "date": "2018",
     "assets": {
@@ -1190,7 +1190,7 @@
     "rarity": 4,
     "attribute": "dark",
     "role": "mage",
-    "zodiac": "ram",
+    "zodiac": "aries",
     "region": "moonlight",
     "date": "2019",
     "assets": {
@@ -1206,7 +1206,7 @@
     "rarity": 3,
     "attribute": "fire",
     "role": "knight",
-    "zodiac": "lion",
+    "zodiac": "leo",
     "region": "specialty",
     "date": "2019",
     "assets": {
@@ -1222,7 +1222,7 @@
     "rarity": 3,
     "attribute": "dark",
     "role": "warrior",
-    "zodiac": "lion",
+    "zodiac": "leo",
     "region": "specialty",
     "date": "2018",
     "assets": {
@@ -1238,7 +1238,7 @@
     "rarity": 5,
     "attribute": "wind",
     "role": "knight",
-    "zodiac": "twins",
+    "zodiac": "gemini",
     "region": "ritania",
     "date": "2019",
     "assets": {
@@ -1254,7 +1254,7 @@
     "rarity": 5,
     "attribute": "fire",
     "role": "knight",
-    "zodiac": "lion",
+    "zodiac": "leo",
     "region": "ritania",
     "date": "2018",
     "assets": {
@@ -1270,7 +1270,7 @@
     "rarity": 5,
     "attribute": "ice",
     "role": "warrior",
-    "zodiac": "archer",
+    "zodiac": "sagittarius",
     "region": "eureka",
     "date": "2018",
     "assets": {
@@ -1286,7 +1286,7 @@
     "rarity": 5,
     "attribute": "ice",
     "role": "warrior",
-    "zodiac": "goat",
+    "zodiac": "capricorn",
     "region": "eureka",
     "date": "2020",
     "assets": {
@@ -1302,7 +1302,7 @@
     "rarity": 3,
     "attribute": "wind",
     "role": "knight",
-    "zodiac": "goat",
+    "zodiac": "capricorn",
     "region": "eureka",
     "date": "2021",
     "assets": {
@@ -1318,7 +1318,7 @@
     "rarity": 3,
     "attribute": "dark",
     "role": "warrior",
-    "zodiac": "lion",
+    "zodiac": "leo",
     "region": "ritania",
     "date": "2018",
     "assets": {
@@ -1334,7 +1334,7 @@
     "rarity": 4,
     "attribute": "wind",
     "role": "assassin",
-    "zodiac": "ram",
+    "zodiac": "aries",
     "region": "ritania",
     "date": "2018",
     "assets": {
@@ -1350,7 +1350,7 @@
     "rarity": 4,
     "attribute": "ice",
     "role": "warrior",
-    "zodiac": "lion",
+    "zodiac": "leo",
     "region": "ritania",
     "date": "2018",
     "assets": {
@@ -1366,7 +1366,7 @@
     "rarity": 3,
     "attribute": "fire",
     "role": "knight",
-    "zodiac": "ram",
+    "zodiac": "aries",
     "region": "erasia",
     "date": "2023",
     "assets": {
@@ -1382,7 +1382,7 @@
     "rarity": 5,
     "attribute": "dark",
     "role": "assassin",
-    "zodiac": "scorpion",
+    "zodiac": "scorpio",
     "region": "moonlight",
     "date": "2021",
     "assets": {
@@ -1398,7 +1398,7 @@
     "rarity": 4,
     "attribute": "ice",
     "role": "assassin",
-    "zodiac": "scorpion",
+    "zodiac": "scorpio",
     "region": "ritania",
     "date": "2018",
     "assets": {
@@ -1414,7 +1414,7 @@
     "rarity": 3,
     "attribute": "dark",
     "role": "warrior",
-    "zodiac": "lion",
+    "zodiac": "leo",
     "region": "specialty",
     "date": "2018",
     "assets": {
@@ -1430,7 +1430,7 @@
     "rarity": 5,
     "attribute": "light",
     "role": "ranger",
-    "zodiac": "bull",
+    "zodiac": "taurus",
     "region": "moonlight",
     "date": "2022",
     "assets": {
@@ -1446,7 +1446,7 @@
     "rarity": 5,
     "attribute": "wind",
     "role": "ranger",
-    "zodiac": "twins",
+    "zodiac": "gemini",
     "region": "eureka",
     "date": "2021",
     "assets": {
@@ -1462,7 +1462,7 @@
     "rarity": 5,
     "attribute": "light",
     "role": "warrior",
-    "zodiac": "waterbearer",
+    "zodiac": "aquarius",
     "region": "moonlight",
     "date": "2021",
     "assets": {
@@ -1478,7 +1478,7 @@
     "rarity": 4,
     "attribute": "fire",
     "role": "warrior",
-    "zodiac": "crab",
+    "zodiac": "cancer",
     "region": "ritania",
     "date": "2018",
     "assets": {
@@ -1494,7 +1494,7 @@
     "rarity": 4,
     "attribute": "dark",
     "role": "assassin",
-    "zodiac": "bull",
+    "zodiac": "taurus",
     "region": "moonlight",
     "date": "2019",
     "assets": {
@@ -1510,7 +1510,7 @@
     "rarity": 4,
     "attribute": "light",
     "role": "knight",
-    "zodiac": "scales",
+    "zodiac": "libra",
     "region": "moonlight",
     "date": "2018",
     "assets": {
@@ -1526,7 +1526,7 @@
     "rarity": 4,
     "attribute": "ice",
     "role": "knight",
-    "zodiac": "crab",
+    "zodiac": "cancer",
     "region": "ritania",
     "date": "2018",
     "assets": {
@@ -1542,7 +1542,7 @@
     "rarity": 5,
     "attribute": "dark",
     "role": "warrior",
-    "zodiac": "goat",
+    "zodiac": "capricorn",
     "region": "moonlight",
     "date": "2018",
     "assets": {
@@ -1557,8 +1557,8 @@
     "name": "Death Dealer Ray",
     "rarity": 5,
     "attribute": "dark",
-    "role": "manauser",
-    "zodiac": "crab",
+    "role": "soulweaver",
+    "zodiac": "cancer",
     "region": "moonlight",
     "date": "2022",
     "assets": {
@@ -1573,8 +1573,8 @@
     "name": "Desert Jewel Basar",
     "rarity": 5,
     "attribute": "light",
-    "role": "manauser",
-    "zodiac": "archer",
+    "role": "soulweaver",
+    "zodiac": "sagittarius",
     "region": "moonlight",
     "date": "2019",
     "assets": {
@@ -1590,7 +1590,7 @@
     "rarity": 5,
     "attribute": "dark",
     "role": "warrior",
-    "zodiac": "crab",
+    "zodiac": "cancer",
     "region": "moonlight",
     "date": "2021",
     "assets": {
@@ -1605,8 +1605,8 @@
     "name": "Destina",
     "rarity": 5,
     "attribute": "wind",
-    "role": "manauser",
-    "zodiac": "crab",
+    "role": "soulweaver",
+    "zodiac": "cancer",
     "region": "stars",
     "date": "2018",
     "assets": {
@@ -1621,8 +1621,8 @@
     "name": "Diene",
     "rarity": 5,
     "attribute": "ice",
-    "role": "manauser",
-    "zodiac": "twins",
+    "role": "soulweaver",
+    "zodiac": "gemini",
     "region": "ritania",
     "date": "2018",
     "assets": {
@@ -1638,7 +1638,7 @@
     "rarity": 4,
     "attribute": "fire",
     "role": "warrior",
-    "zodiac": "maiden",
+    "zodiac": "virgo",
     "region": "ritania",
     "date": "2018",
     "assets": {
@@ -1654,7 +1654,7 @@
     "rarity": 5,
     "attribute": "ice",
     "role": "mage",
-    "zodiac": "bull",
+    "zodiac": "taurus",
     "region": "collab",
     "date": "2019",
     "assets": {
@@ -1670,7 +1670,7 @@
     "rarity": 3,
     "attribute": "wind",
     "role": "mage",
-    "zodiac": "bull",
+    "zodiac": "taurus",
     "region": "specialty",
     "date": "2020",
     "assets": {
@@ -1686,7 +1686,7 @@
     "rarity": 4,
     "attribute": "ice",
     "role": "mage",
-    "zodiac": "bull",
+    "zodiac": "taurus",
     "region": "ritania",
     "date": "2018",
     "assets": {
@@ -1701,8 +1701,8 @@
     "name": "Doris",
     "rarity": 3,
     "attribute": "light",
-    "role": "manauser",
-    "zodiac": "crab",
+    "role": "soulweaver",
+    "zodiac": "cancer",
     "region": "ritania",
     "date": "2018",
     "assets": {
@@ -1718,7 +1718,7 @@
     "rarity": 5,
     "attribute": "light",
     "role": "knight",
-    "zodiac": "archer",
+    "zodiac": "sagittarius",
     "region": "moonlight",
     "date": "2024",
     "assets": {
@@ -1733,8 +1733,8 @@
     "name": "Dragon King Sharun",
     "rarity": 5,
     "attribute": "light",
-    "role": "manauser",
-    "zodiac": "scorpion",
+    "role": "soulweaver",
+    "zodiac": "scorpio",
     "region": "moonlight",
     "date": "2024",
     "assets": {
@@ -1750,7 +1750,7 @@
     "rarity": 3,
     "attribute": "light",
     "role": "knight",
-    "zodiac": "crab",
+    "zodiac": "cancer",
     "region": "cidonia",
     "date": "2019",
     "assets": {
@@ -1766,7 +1766,7 @@
     "rarity": 5,
     "attribute": "ice",
     "role": "mage",
-    "zodiac": "ram",
+    "zodiac": "aries",
     "region": "eureka",
     "date": "2021",
     "assets": {
@@ -1782,7 +1782,7 @@
     "rarity": 5,
     "attribute": "fire",
     "role": "warrior",
-    "zodiac": "ram",
+    "zodiac": "aries",
     "region": "collab",
     "date": "2022",
     "assets": {
@@ -1797,8 +1797,8 @@
     "name": "Elena",
     "rarity": 5,
     "attribute": "ice",
-    "role": "manauser",
-    "zodiac": "twins",
+    "role": "soulweaver",
+    "zodiac": "gemini",
     "region": "cidonia",
     "date": "2019",
     "assets": {
@@ -1814,7 +1814,7 @@
     "rarity": 5,
     "attribute": "fire",
     "role": "ranger",
-    "zodiac": "maiden",
+    "zodiac": "virgo",
     "region": "ritania",
     "date": "2023",
     "assets": {
@@ -1830,7 +1830,7 @@
     "rarity": 5,
     "attribute": "fire",
     "role": "ranger",
-    "zodiac": "goat",
+    "zodiac": "capricorn",
     "region": "collab",
     "date": "2020",
     "assets": {
@@ -1845,8 +1845,8 @@
     "name": "Elson",
     "rarity": 3,
     "attribute": "light",
-    "role": "manauser",
-    "zodiac": "fish",
+    "role": "soulweaver",
+    "zodiac": "pisces",
     "region": "ritania",
     "date": "2018",
     "assets": {
@@ -1862,7 +1862,7 @@
     "rarity": 5,
     "attribute": "ice",
     "role": "assassin",
-    "zodiac": "goat",
+    "zodiac": "capricorn",
     "region": "erasia",
     "date": "2024",
     "assets": {
@@ -1877,14 +1877,30 @@
     "name": "Emilia",
     "rarity": 5,
     "attribute": "ice",
-    "role": "manauser",
-    "zodiac": "twins",
+    "role": "soulweaver",
+    "zodiac": "gemini",
     "region": "collab",
     "date": "2021",
     "assets": {
       "icon": "https://raw.githubusercontent.com/fribbels/Fribbels-Epic-7-Optimizer/main/data/cachedimages/c1116_s.png",
       "image": "https://raw.githubusercontent.com/fribbels/Fribbels-Epic-7-Optimizer/main/data/cachedimages/question_circle.png",
       "thumbnail": "https://raw.githubusercontent.com/fribbels/Fribbels-Epic-7-Optimizer/main/data/cachedimages/c1116_l.png"
+    }
+  },
+  "Empyrean Ilynav": {
+    "code": "c2113",
+    "_id": "empyrean-ilynav",
+    "name": "Empyrean Ilynav",
+    "rarity": 5,
+    "attribute": "dark",
+    "role": "knight",
+    "zodiac": "gemini",
+    "region": "moonlight",
+    "date": "2024",
+    "assets": {
+      "icon": "https://raw.githubusercontent.com/fribbels/Fribbels-Epic-7-Optimizer/main/data/cachedimages/c2113_s.png",
+      "image": "https://raw.githubusercontent.com/fribbels/Fribbels-Epic-7-Optimizer/main/data/cachedimages/question_circle.png",
+      "thumbnail": "https://raw.githubusercontent.com/fribbels/Fribbels-Epic-7-Optimizer/main/data/cachedimages/c2113_l.png"
     }
   },
   "Enott": {
@@ -1894,7 +1910,7 @@
     "rarity": 3,
     "attribute": "ice",
     "role": "warrior",
-    "zodiac": "scorpion",
+    "zodiac": "scorpio",
     "region": "ritania",
     "date": "2018",
     "assets": {
@@ -1910,7 +1926,7 @@
     "rarity": 5,
     "attribute": "wind",
     "role": "assassin",
-    "zodiac": "scorpion",
+    "zodiac": "scorpio",
     "region": "eureka",
     "date": "2020",
     "assets": {
@@ -1926,7 +1942,7 @@
     "rarity": 5,
     "attribute": "dark",
     "role": "mage",
-    "zodiac": "lion",
+    "zodiac": "leo",
     "region": "moonlight",
     "date": "2023",
     "assets": {
@@ -1942,7 +1958,7 @@
     "rarity": 3,
     "attribute": "wind",
     "role": "assassin",
-    "zodiac": "maiden",
+    "zodiac": "virgo",
     "region": "erasia",
     "date": "2023",
     "assets": {
@@ -1958,7 +1974,7 @@
     "rarity": 5,
     "attribute": "ice",
     "role": "mage",
-    "zodiac": "bull",
+    "zodiac": "taurus",
     "region": "stars",
     "date": "2020",
     "assets": {
@@ -1974,7 +1990,7 @@
     "rarity": 5,
     "attribute": "light",
     "role": "ranger",
-    "zodiac": "twins",
+    "zodiac": "gemini",
     "region": "moonlight",
     "date": "2019",
     "assets": {
@@ -1990,7 +2006,7 @@
     "rarity": 3,
     "attribute": "wind",
     "role": "knight",
-    "zodiac": "ram",
+    "zodiac": "aries",
     "region": "specialty",
     "date": "2018",
     "assets": {
@@ -2006,13 +2022,29 @@
     "rarity": 5,
     "attribute": "dark",
     "role": "knight",
-    "zodiac": "archer",
+    "zodiac": "sagittarius",
     "region": "moonlight",
     "date": "2019",
     "assets": {
       "icon": "https://raw.githubusercontent.com/fribbels/Fribbels-Epic-7-Optimizer/main/data/cachedimages/c2002_s.png",
       "image": "https://raw.githubusercontent.com/fribbels/Fribbels-Epic-7-Optimizer/main/data/cachedimages/question_circle.png",
       "thumbnail": "https://raw.githubusercontent.com/fribbels/Fribbels-Epic-7-Optimizer/main/data/cachedimages/c2002_l.png"
+    }
+  },
+  "Festive Eda": {
+    "code": "c5111",
+    "_id": "festive-eda",
+    "name": "Festive Eda",
+    "rarity": 5,
+    "attribute": "fire",
+    "role": "mage",
+    "zodiac": "pisces",
+    "region": "eureka",
+    "date": "2024",
+    "assets": {
+      "icon": "https://raw.githubusercontent.com/fribbels/Fribbels-Epic-7-Optimizer/main/data/cachedimages/c5111_s.png",
+      "image": "https://raw.githubusercontent.com/fribbels/Fribbels-Epic-7-Optimizer/main/data/cachedimages/question_circle.png",
+      "thumbnail": "https://raw.githubusercontent.com/fribbels/Fribbels-Epic-7-Optimizer/main/data/cachedimages/c5111_l.png"
     }
   },
   "Fighter Maya": {
@@ -2022,7 +2054,7 @@
     "rarity": 4,
     "attribute": "light",
     "role": "knight",
-    "zodiac": "scales",
+    "zodiac": "libra",
     "region": "moonlight",
     "date": "2018",
     "assets": {
@@ -2038,7 +2070,7 @@
     "rarity": 5,
     "attribute": "ice",
     "role": "ranger",
-    "zodiac": "goat",
+    "zodiac": "capricorn",
     "region": "eureka",
     "date": "2020",
     "assets": {
@@ -2054,13 +2086,29 @@
     "rarity": 4,
     "attribute": "light",
     "role": "warrior",
-    "zodiac": "maiden",
+    "zodiac": "virgo",
     "region": "moonlight",
     "date": "2020",
     "assets": {
       "icon": "https://raw.githubusercontent.com/fribbels/Fribbels-Epic-7-Optimizer/main/data/cachedimages/c3026_s.png",
       "image": "https://raw.githubusercontent.com/fribbels/Fribbels-Epic-7-Optimizer/main/data/cachedimages/question_circle.png",
       "thumbnail": "https://raw.githubusercontent.com/fribbels/Fribbels-Epic-7-Optimizer/main/data/cachedimages/c3026_l.png"
+    }
+  },
+  "Frida": {
+    "code": "c1163",
+    "_id": "frida",
+    "name": "Frida",
+    "rarity": 5,
+    "attribute": "ice",
+    "role": "soulweaver",
+    "zodiac": "taurus",
+    "region": "eureka",
+    "date": "2024",
+    "assets": {
+      "icon": "https://raw.githubusercontent.com/fribbels/Fribbels-Epic-7-Optimizer/main/data/cachedimages/c1163_s.png",
+      "image": "https://raw.githubusercontent.com/fribbels/Fribbels-Epic-7-Optimizer/main/data/cachedimages/question_circle.png",
+      "thumbnail": "https://raw.githubusercontent.com/fribbels/Fribbels-Epic-7-Optimizer/main/data/cachedimages/c1163_l.png"
     }
   },
   "Fumyr": {
@@ -2070,7 +2118,7 @@
     "rarity": 5,
     "attribute": "ice",
     "role": "mage",
-    "zodiac": "bull",
+    "zodiac": "taurus",
     "region": "erasia",
     "date": "2023",
     "assets": {
@@ -2086,7 +2134,7 @@
     "rarity": 4,
     "attribute": "ice",
     "role": "ranger",
-    "zodiac": "lion",
+    "zodiac": "leo",
     "region": "cidonia",
     "date": "2019",
     "assets": {
@@ -2102,7 +2150,7 @@
     "rarity": 4,
     "attribute": "light",
     "role": "warrior",
-    "zodiac": "crab",
+    "zodiac": "cancer",
     "region": "moonlight",
     "date": "2018",
     "assets": {
@@ -2118,7 +2166,7 @@
     "rarity": 3,
     "attribute": "wind",
     "role": "ranger",
-    "zodiac": "scales",
+    "zodiac": "libra",
     "region": "eureka",
     "date": "2020",
     "assets": {
@@ -2134,7 +2182,7 @@
     "rarity": 3,
     "attribute": "light",
     "role": "mage",
-    "zodiac": "crab",
+    "zodiac": "cancer",
     "region": "death",
     "date": "2018",
     "assets": {
@@ -2150,7 +2198,7 @@
     "rarity": 3,
     "attribute": "fire",
     "role": "ranger",
-    "zodiac": "twins",
+    "zodiac": "gemini",
     "region": "eureka",
     "date": "2020",
     "assets": {
@@ -2166,7 +2214,7 @@
     "rarity": 4,
     "attribute": "dark",
     "role": "warrior",
-    "zodiac": "crab",
+    "zodiac": "cancer",
     "region": "moonlight",
     "date": "2021",
     "assets": {
@@ -2182,7 +2230,7 @@
     "rarity": 4,
     "attribute": "light",
     "role": "mage",
-    "zodiac": "crab",
+    "zodiac": "cancer",
     "region": "moonlight",
     "date": "2018",
     "assets": {
@@ -2198,7 +2246,7 @@
     "rarity": 3,
     "attribute": "light",
     "role": "warrior",
-    "zodiac": "scales",
+    "zodiac": "libra",
     "region": "ritania",
     "date": "2018",
     "assets": {
@@ -2214,7 +2262,7 @@
     "rarity": 3,
     "attribute": "dark",
     "role": "knight",
-    "zodiac": "archer",
+    "zodiac": "sagittarius",
     "region": "natalon",
     "date": "2022",
     "assets": {
@@ -2230,7 +2278,7 @@
     "rarity": 5,
     "attribute": "fire",
     "role": "assassin",
-    "zodiac": "twins",
+    "zodiac": "gemini",
     "region": "ritania",
     "date": "2018",
     "assets": {
@@ -2246,7 +2294,7 @@
     "rarity": 3,
     "attribute": "fire",
     "role": "assassin",
-    "zodiac": "lion",
+    "zodiac": "leo",
     "region": "cidonia",
     "date": "2019",
     "assets": {
@@ -2261,8 +2309,8 @@
     "name": "Hazel",
     "rarity": 3,
     "attribute": "fire",
-    "role": "manauser",
-    "zodiac": "waterbearer",
+    "role": "soulweaver",
+    "zodiac": "aquarius",
     "region": "ritania",
     "date": "2018",
     "assets": {
@@ -2278,7 +2326,7 @@
     "rarity": 3,
     "attribute": "ice",
     "role": "knight",
-    "zodiac": "crab",
+    "zodiac": "cancer",
     "region": "eureka",
     "date": "2021",
     "assets": {
@@ -2294,7 +2342,7 @@
     "rarity": 3,
     "attribute": "wind",
     "role": "warrior",
-    "zodiac": "archer",
+    "zodiac": "sagittarius",
     "region": "ritania",
     "date": "2018",
     "assets": {
@@ -2310,7 +2358,7 @@
     "rarity": 5,
     "attribute": "fire",
     "role": "warrior",
-    "zodiac": "scales",
+    "zodiac": "libra",
     "region": "eureka",
     "date": "2020",
     "assets": {
@@ -2326,7 +2374,7 @@
     "rarity": 3,
     "attribute": "fire",
     "role": "assassin",
-    "zodiac": "lion",
+    "zodiac": "leo",
     "region": "specialty",
     "date": "2022",
     "assets": {
@@ -2342,7 +2390,7 @@
     "rarity": 3,
     "attribute": "dark",
     "role": "mage",
-    "zodiac": "fish",
+    "zodiac": "pisces",
     "region": "natalon",
     "date": "2018",
     "assets": {
@@ -2358,7 +2406,7 @@
     "rarity": 5,
     "attribute": "fire",
     "role": "warrior",
-    "zodiac": "scales",
+    "zodiac": "libra",
     "region": "natalon",
     "date": "2022",
     "assets": {
@@ -2374,7 +2422,7 @@
     "rarity": 3,
     "attribute": "ice",
     "role": "ranger",
-    "zodiac": "maiden",
+    "zodiac": "virgo",
     "region": "eureka",
     "date": "2020",
     "assets": {
@@ -2390,7 +2438,7 @@
     "rarity": 5,
     "attribute": "fire",
     "role": "knight",
-    "zodiac": "twins",
+    "zodiac": "gemini",
     "region": "eureka",
     "date": "2021",
     "assets": {
@@ -2406,7 +2454,7 @@
     "rarity": 5,
     "attribute": "wind",
     "role": "warrior",
-    "zodiac": "scorpion",
+    "zodiac": "scorpio",
     "region": "eureka",
     "date": "2024",
     "assets": {
@@ -2422,7 +2470,7 @@
     "rarity": 4,
     "attribute": "dark",
     "role": "warrior",
-    "zodiac": "scorpion",
+    "zodiac": "scorpio",
     "region": "moonlight",
     "date": "2021",
     "assets": {
@@ -2437,8 +2485,8 @@
     "name": "Infinite Horizon Achates",
     "rarity": 4,
     "attribute": "light",
-    "role": "manauser",
-    "zodiac": "fish",
+    "role": "soulweaver",
+    "zodiac": "pisces",
     "region": "moonlight",
     "date": "2023",
     "assets": {
@@ -2454,7 +2502,7 @@
     "rarity": 5,
     "attribute": "wind",
     "role": "ranger",
-    "zodiac": "lion",
+    "zodiac": "leo",
     "region": "stars",
     "date": "2018",
     "assets": {
@@ -2470,7 +2518,7 @@
     "rarity": 5,
     "attribute": "fire",
     "role": "warrior",
-    "zodiac": "bull",
+    "zodiac": "taurus",
     "region": "collab",
     "date": "2022",
     "assets": {
@@ -2486,7 +2534,7 @@
     "rarity": 3,
     "attribute": "fire",
     "role": "warrior",
-    "zodiac": "lion",
+    "zodiac": "leo",
     "region": "natalon",
     "date": "2022",
     "assets": {
@@ -2501,8 +2549,8 @@
     "name": "Jecht",
     "rarity": 3,
     "attribute": "wind",
-    "role": "manauser",
-    "zodiac": "archer",
+    "role": "soulweaver",
+    "zodiac": "sagittarius",
     "region": "ritania",
     "date": "2018",
     "assets": {
@@ -2518,7 +2566,7 @@
     "rarity": 3,
     "attribute": "ice",
     "role": "mage",
-    "zodiac": "ram",
+    "zodiac": "aries",
     "region": "ritania",
     "date": "2018",
     "assets": {
@@ -2534,7 +2582,7 @@
     "rarity": 5,
     "attribute": "fire",
     "role": "assassin",
-    "zodiac": "scorpion",
+    "zodiac": "scorpio",
     "region": "ritania",
     "date": "2024",
     "assets": {
@@ -2550,7 +2598,7 @@
     "rarity": 5,
     "attribute": "light",
     "role": "warrior",
-    "zodiac": "maiden",
+    "zodiac": "virgo",
     "region": "moonlight",
     "date": "2018",
     "assets": {
@@ -2566,7 +2614,7 @@
     "rarity": 3,
     "attribute": "fire",
     "role": "assassin",
-    "zodiac": "fish",
+    "zodiac": "pisces",
     "region": "ritania",
     "date": "2018",
     "assets": {
@@ -2582,7 +2630,7 @@
     "rarity": 3,
     "attribute": "fire",
     "role": "warrior",
-    "zodiac": "archer",
+    "zodiac": "sagittarius",
     "region": "natalon",
     "date": "2022",
     "assets": {
@@ -2598,7 +2646,7 @@
     "rarity": 5,
     "attribute": "fire",
     "role": "warrior",
-    "zodiac": "lion",
+    "zodiac": "leo",
     "region": "erasia",
     "date": "2023",
     "assets": {
@@ -2614,7 +2662,7 @@
     "rarity": 4,
     "attribute": "ice",
     "role": "assassin",
-    "zodiac": "lion",
+    "zodiac": "leo",
     "region": "ritania",
     "date": "2018",
     "assets": {
@@ -2630,7 +2678,7 @@
     "rarity": 5,
     "attribute": "fire",
     "role": "mage",
-    "zodiac": "maiden",
+    "zodiac": "virgo",
     "region": "cidonia",
     "date": "2020",
     "assets": {
@@ -2646,7 +2694,7 @@
     "rarity": 5,
     "attribute": "fire",
     "role": "assassin",
-    "zodiac": "ram",
+    "zodiac": "aries",
     "region": "stars",
     "date": "2018",
     "assets": {
@@ -2662,7 +2710,7 @@
     "rarity": 5,
     "attribute": "fire",
     "role": "warrior",
-    "zodiac": "goat",
+    "zodiac": "capricorn",
     "region": "natalon",
     "date": "2018",
     "assets": {
@@ -2678,7 +2726,7 @@
     "rarity": 4,
     "attribute": "fire",
     "role": "assassin",
-    "zodiac": "fish",
+    "zodiac": "pisces",
     "region": "cidonia",
     "date": "2019",
     "assets": {
@@ -2694,7 +2742,7 @@
     "rarity": 4,
     "attribute": "fire",
     "role": "warrior",
-    "zodiac": "scorpion",
+    "zodiac": "scorpio",
     "region": "cidonia",
     "date": "2019",
     "assets": {
@@ -2710,7 +2758,7 @@
     "rarity": 3,
     "attribute": "light",
     "role": "knight",
-    "zodiac": "goat",
+    "zodiac": "capricorn",
     "region": "ritania",
     "date": "2018",
     "assets": {
@@ -2726,7 +2774,7 @@
     "rarity": 3,
     "attribute": "wind",
     "role": "ranger",
-    "zodiac": "goat",
+    "zodiac": "capricorn",
     "region": "ritania",
     "date": "2018",
     "assets": {
@@ -2742,7 +2790,7 @@
     "rarity": 5,
     "attribute": "ice",
     "role": "assassin",
-    "zodiac": "lion",
+    "zodiac": "leo",
     "region": "ritania",
     "date": "2018",
     "assets": {
@@ -2758,7 +2806,7 @@
     "rarity": 4,
     "attribute": "dark",
     "role": "warrior",
-    "zodiac": "maiden",
+    "zodiac": "virgo",
     "region": "moonlight",
     "date": "2019",
     "assets": {
@@ -2773,8 +2821,8 @@
     "name": "Kizuna AI",
     "rarity": 4,
     "attribute": "fire",
-    "role": "manauser",
-    "zodiac": "crab",
+    "role": "soulweaver",
+    "zodiac": "cancer",
     "region": "collab",
     "date": "2020",
     "assets": {
@@ -2790,7 +2838,7 @@
     "rarity": 3,
     "attribute": "wind",
     "role": "knight",
-    "zodiac": "ram",
+    "zodiac": "aries",
     "region": "ritania",
     "date": "2018",
     "assets": {
@@ -2806,7 +2854,7 @@
     "rarity": 5,
     "attribute": "ice",
     "role": "knight",
-    "zodiac": "fish",
+    "zodiac": "pisces",
     "region": "stars",
     "date": "2018",
     "assets": {
@@ -2822,7 +2870,7 @@
     "rarity": 5,
     "attribute": "wind",
     "role": "warrior",
-    "zodiac": "ram",
+    "zodiac": "aries",
     "region": "stars",
     "date": "2024",
     "assets": {
@@ -2838,7 +2886,7 @@
     "rarity": 5,
     "attribute": "wind",
     "role": "ranger",
-    "zodiac": "lion",
+    "zodiac": "leo",
     "region": "eureka",
     "date": "2020",
     "assets": {
@@ -2854,7 +2902,7 @@
     "rarity": 4,
     "attribute": "light",
     "role": "assassin",
-    "zodiac": "ram",
+    "zodiac": "aries",
     "region": "moonlight",
     "date": "2023",
     "assets": {
@@ -2870,7 +2918,7 @@
     "rarity": 5,
     "attribute": "light",
     "role": "knight",
-    "zodiac": "fish",
+    "zodiac": "pisces",
     "region": "moonlight",
     "date": "2020",
     "assets": {
@@ -2886,7 +2934,7 @@
     "rarity": 3,
     "attribute": "wind",
     "role": "ranger",
-    "zodiac": "maiden",
+    "zodiac": "virgo",
     "region": "erasia",
     "date": "2024",
     "assets": {
@@ -2902,7 +2950,7 @@
     "rarity": 3,
     "attribute": "ice",
     "role": "warrior",
-    "zodiac": "scales",
+    "zodiac": "libra",
     "region": "cidonia",
     "date": "2019",
     "assets": {
@@ -2918,7 +2966,7 @@
     "rarity": 4,
     "attribute": "wind",
     "role": "ranger",
-    "zodiac": "goat",
+    "zodiac": "capricorn",
     "region": "ritania",
     "date": "2018",
     "assets": {
@@ -2934,7 +2982,7 @@
     "rarity": 5,
     "attribute": "ice",
     "role": "warrior",
-    "zodiac": "waterbearer",
+    "zodiac": "aquarius",
     "region": "foreign",
     "date": "2023",
     "assets": {
@@ -2950,29 +2998,13 @@
     "rarity": 5,
     "attribute": "fire",
     "role": "ranger",
-    "zodiac": "maiden",
+    "zodiac": "virgo",
     "region": "death",
     "date": "2019",
     "assets": {
       "icon": "https://raw.githubusercontent.com/fribbels/Fribbels-Epic-7-Optimizer/main/data/cachedimages/c1046_s.png",
       "image": "https://raw.githubusercontent.com/fribbels/Fribbels-Epic-7-Optimizer/main/data/cachedimages/question_circle.png",
       "thumbnail": "https://raw.githubusercontent.com/fribbels/Fribbels-Epic-7-Optimizer/main/data/cachedimages/c1046_l.png"
-    }
-  },
-  "Lilka": {
-    "code": "c3153",
-    "_id": "lilka",
-    "name": "Lilka",
-    "rarity": 3,
-    "attribute": "wind",
-    "role": "ranger",
-    "zodiac": "twins",
-    "region": "natalon",
-    "date": "2023",
-    "assets": {
-      "icon": "https://raw.githubusercontent.com/fribbels/Fribbels-Epic-7-Optimizer/main/data/cachedimages/c3153_s.png",
-      "image": "https://raw.githubusercontent.com/fribbels/Fribbels-Epic-7-Optimizer/main/data/cachedimages/question_circle.png",
-      "thumbnail": "https://raw.githubusercontent.com/fribbels/Fribbels-Epic-7-Optimizer/main/data/cachedimages/c3153_l.png"
     }
   },
   "Lilias": {
@@ -2982,7 +3014,7 @@
     "rarity": 5,
     "attribute": "fire",
     "role": "knight",
-    "zodiac": "ram",
+    "zodiac": "aries",
     "region": "cidonia",
     "date": "2019",
     "assets": {
@@ -2998,13 +3030,29 @@
     "rarity": 5,
     "attribute": "wind",
     "role": "warrior",
-    "zodiac": "scales",
+    "zodiac": "libra",
     "region": "stars",
     "date": "2019",
     "assets": {
       "icon": "https://raw.githubusercontent.com/fribbels/Fribbels-Epic-7-Optimizer/main/data/cachedimages/c1095_s.png",
       "image": "https://raw.githubusercontent.com/fribbels/Fribbels-Epic-7-Optimizer/main/data/cachedimages/question_circle.png",
       "thumbnail": "https://raw.githubusercontent.com/fribbels/Fribbels-Epic-7-Optimizer/main/data/cachedimages/c1095_l.png"
+    }
+  },
+  "Lilka": {
+    "code": "c3153",
+    "_id": "lilka",
+    "name": "Lilka",
+    "rarity": 3,
+    "attribute": "wind",
+    "role": "ranger",
+    "zodiac": "gemini",
+    "region": "natalon",
+    "date": "2023",
+    "assets": {
+      "icon": "https://raw.githubusercontent.com/fribbels/Fribbels-Epic-7-Optimizer/main/data/cachedimages/c3153_s.png",
+      "image": "https://raw.githubusercontent.com/fribbels/Fribbels-Epic-7-Optimizer/main/data/cachedimages/question_circle.png",
+      "thumbnail": "https://raw.githubusercontent.com/fribbels/Fribbels-Epic-7-Optimizer/main/data/cachedimages/c3153_l.png"
     }
   },
   "Lionheart Cermia": {
@@ -3014,7 +3062,7 @@
     "rarity": 5,
     "attribute": "light",
     "role": "warrior",
-    "zodiac": "fish",
+    "zodiac": "pisces",
     "region": "moonlight",
     "date": "2022",
     "assets": {
@@ -3030,7 +3078,7 @@
     "rarity": 5,
     "attribute": "light",
     "role": "warrior",
-    "zodiac": "scales",
+    "zodiac": "libra",
     "region": "moonlight",
     "date": "2020",
     "assets": {
@@ -3046,7 +3094,7 @@
     "rarity": 5,
     "attribute": "dark",
     "role": "warrior",
-    "zodiac": "scorpion",
+    "zodiac": "scorpio",
     "region": "moonlight",
     "date": "2023",
     "assets": {
@@ -3062,7 +3110,7 @@
     "rarity": 3,
     "attribute": "dark",
     "role": "warrior",
-    "zodiac": "lion",
+    "zodiac": "leo",
     "region": "ritania",
     "date": "2018",
     "assets": {
@@ -3077,8 +3125,8 @@
     "name": "Lots",
     "rarity": 4,
     "attribute": "wind",
-    "role": "manauser",
-    "zodiac": "twins",
+    "role": "soulweaver",
+    "zodiac": "gemini",
     "region": "death",
     "date": "2018",
     "assets": {
@@ -3094,7 +3142,7 @@
     "rarity": 5,
     "attribute": "ice",
     "role": "ranger",
-    "zodiac": "fish",
+    "zodiac": "pisces",
     "region": "natalon",
     "date": "2022",
     "assets": {
@@ -3109,8 +3157,8 @@
     "name": "Lucy",
     "rarity": 3,
     "attribute": "wind",
-    "role": "manauser",
-    "zodiac": "maiden",
+    "role": "soulweaver",
+    "zodiac": "virgo",
     "region": "ritania",
     "date": "2021",
     "assets": {
@@ -3126,7 +3174,7 @@
     "rarity": 5,
     "attribute": "wind",
     "role": "mage",
-    "zodiac": "lion",
+    "zodiac": "leo",
     "region": "stars",
     "date": "2018",
     "assets": {
@@ -3142,7 +3190,7 @@
     "rarity": 5,
     "attribute": "ice",
     "role": "mage",
-    "zodiac": "waterbearer",
+    "zodiac": "aquarius",
     "region": "stars",
     "date": "2019",
     "assets": {
@@ -3158,7 +3206,7 @@
     "rarity": 5,
     "attribute": "ice",
     "role": "warrior",
-    "zodiac": "scales",
+    "zodiac": "libra",
     "region": "eureka",
     "date": "2018",
     "assets": {
@@ -3173,8 +3221,8 @@
     "name": "Magic Scholar Doris",
     "rarity": 3,
     "attribute": "light",
-    "role": "manauser",
-    "zodiac": "crab",
+    "role": "soulweaver",
+    "zodiac": "cancer",
     "region": "specialty",
     "date": "2020",
     "assets": {
@@ -3189,8 +3237,8 @@
     "name": "Maid Chloe",
     "rarity": 5,
     "attribute": "light",
-    "role": "manauser",
-    "zodiac": "maiden",
+    "role": "soulweaver",
+    "zodiac": "virgo",
     "region": "moonlight",
     "date": "2018",
     "assets": {
@@ -3206,7 +3254,7 @@
     "rarity": 5,
     "attribute": "dark",
     "role": "warrior",
-    "zodiac": "lion",
+    "zodiac": "leo",
     "region": "moonlight",
     "date": "2018",
     "assets": {
@@ -3221,8 +3269,8 @@
     "name": "Mascot Hazel",
     "rarity": 3,
     "attribute": "fire",
-    "role": "manauser",
-    "zodiac": "waterbearer",
+    "role": "soulweaver",
+    "zodiac": "aquarius",
     "region": "specialty",
     "date": "2019",
     "assets": {
@@ -3238,7 +3286,7 @@
     "rarity": 4,
     "attribute": "fire",
     "role": "knight",
-    "zodiac": "ram",
+    "zodiac": "aries",
     "region": "ritania",
     "date": "2018",
     "assets": {
@@ -3254,7 +3302,7 @@
     "rarity": 5,
     "attribute": "dark",
     "role": "warrior",
-    "zodiac": "goat",
+    "zodiac": "capricorn",
     "region": "moonlight",
     "date": "2021",
     "assets": {
@@ -3270,7 +3318,7 @@
     "rarity": 3,
     "attribute": "fire",
     "role": "warrior",
-    "zodiac": "scales",
+    "zodiac": "libra",
     "region": "eureka",
     "date": "2021",
     "assets": {
@@ -3286,7 +3334,7 @@
     "rarity": 5,
     "attribute": "fire",
     "role": "mage",
-    "zodiac": "lion",
+    "zodiac": "leo",
     "region": "erasia",
     "date": "2019",
     "assets": {
@@ -3302,7 +3350,7 @@
     "rarity": 4,
     "attribute": "fire",
     "role": "mage",
-    "zodiac": "scorpion",
+    "zodiac": "scorpio",
     "region": "ritania",
     "date": "2018",
     "assets": {
@@ -3318,7 +3366,7 @@
     "rarity": 3,
     "attribute": "wind",
     "role": "warrior",
-    "zodiac": "archer",
+    "zodiac": "sagittarius",
     "region": "specialty",
     "date": "2020",
     "assets": {
@@ -3334,7 +3382,7 @@
     "rarity": 5,
     "attribute": "wind",
     "role": "assassin",
-    "zodiac": "scales",
+    "zodiac": "libra",
     "region": "cidonia",
     "date": "2023",
     "assets": {
@@ -3350,7 +3398,7 @@
     "rarity": 5,
     "attribute": "fire",
     "role": "mage",
-    "zodiac": "crab",
+    "zodiac": "cancer",
     "region": "collab",
     "date": "2021",
     "assets": {
@@ -3366,7 +3414,7 @@
     "rarity": 3,
     "attribute": "light",
     "role": "assassin",
-    "zodiac": "fish",
+    "zodiac": "pisces",
     "region": "ritania",
     "date": "2018",
     "assets": {
@@ -3382,7 +3430,7 @@
     "rarity": 3,
     "attribute": "ice",
     "role": "mage",
-    "zodiac": "lion",
+    "zodiac": "leo",
     "region": "death",
     "date": "2018",
     "assets": {
@@ -3397,8 +3445,8 @@
     "name": "Montmorancy",
     "rarity": 3,
     "attribute": "ice",
-    "role": "manauser",
-    "zodiac": "fish",
+    "role": "soulweaver",
+    "zodiac": "pisces",
     "region": "ritania",
     "date": "2018",
     "assets": {
@@ -3413,8 +3461,8 @@
     "name": "Moon Bunny Dominiel",
     "rarity": 4,
     "attribute": "light",
-    "role": "manauser",
-    "zodiac": "bull",
+    "role": "soulweaver",
+    "zodiac": "taurus",
     "region": "moonlight",
     "date": "2022",
     "assets": {
@@ -3430,7 +3478,7 @@
     "rarity": 5,
     "attribute": "wind",
     "role": "knight",
-    "zodiac": "twins",
+    "zodiac": "gemini",
     "region": "eureka",
     "date": "2020",
     "assets": {
@@ -3446,7 +3494,7 @@
     "rarity": 3,
     "attribute": "wind",
     "role": "warrior",
-    "zodiac": "archer",
+    "zodiac": "sagittarius",
     "region": "ritania",
     "date": "2018",
     "assets": {
@@ -3462,7 +3510,7 @@
     "rarity": 5,
     "attribute": "wind",
     "role": "warrior",
-    "zodiac": "maiden",
+    "zodiac": "virgo",
     "region": "ritania",
     "date": "2020",
     "assets": {
@@ -3478,7 +3526,7 @@
     "rarity": 3,
     "attribute": "ice",
     "role": "ranger",
-    "zodiac": "waterbearer",
+    "zodiac": "aquarius",
     "region": "specialty",
     "date": "2021",
     "assets": {
@@ -3494,7 +3542,7 @@
     "rarity": 3,
     "attribute": "ice",
     "role": "assassin",
-    "zodiac": "scorpion",
+    "zodiac": "scorpio",
     "region": "natalon",
     "date": "2022",
     "assets": {
@@ -3510,7 +3558,7 @@
     "rarity": 5,
     "attribute": "fire",
     "role": "ranger",
-    "zodiac": "goat",
+    "zodiac": "capricorn",
     "region": "natalon",
     "date": "2023",
     "assets": {
@@ -3526,7 +3574,7 @@
     "rarity": 5,
     "attribute": "light",
     "role": "knight",
-    "zodiac": "lion",
+    "zodiac": "leo",
     "region": "moonlight",
     "date": "2023",
     "assets": {
@@ -3542,7 +3590,7 @@
     "rarity": 3,
     "attribute": "fire",
     "role": "ranger",
-    "zodiac": "scales",
+    "zodiac": "libra",
     "region": "eureka",
     "date": "2018",
     "assets": {
@@ -3551,14 +3599,30 @@
       "thumbnail": "https://raw.githubusercontent.com/fribbels/Fribbels-Epic-7-Optimizer/main/data/cachedimages/c3061_l.png"
     }
   },
+  "New Moon Luna": {
+    "code": "c2066",
+    "_id": "new-moon-luna",
+    "name": "New Moon Luna",
+    "rarity": 5,
+    "attribute": "light",
+    "role": "knight",
+    "zodiac": "libra",
+    "region": "moonlight",
+    "date": "2024",
+    "assets": {
+      "icon": "https://raw.githubusercontent.com/fribbels/Fribbels-Epic-7-Optimizer/main/data/cachedimages/c2066_s.png",
+      "image": "https://raw.githubusercontent.com/fribbels/Fribbels-Epic-7-Optimizer/main/data/cachedimages/question_circle.png",
+      "thumbnail": "https://raw.githubusercontent.com/fribbels/Fribbels-Epic-7-Optimizer/main/data/cachedimages/c2066_l.png"
+    }
+  },
   "Ocean Breeze Luluca": {
     "code": "c5082",
     "_id": "ocean-breeze-luluca",
     "name": "Ocean Breeze Luluca",
     "rarity": 5,
     "attribute": "wind",
-    "role": "manauser",
-    "zodiac": "twins",
+    "role": "soulweaver",
+    "zodiac": "gemini",
     "region": "stars",
     "date": "2023",
     "assets": {
@@ -3574,7 +3638,7 @@
     "rarity": 5,
     "attribute": "dark",
     "role": "ranger",
-    "zodiac": "scales",
+    "zodiac": "libra",
     "region": "moonlight",
     "date": "2020",
     "assets": {
@@ -3590,7 +3654,7 @@
     "rarity": 3,
     "attribute": "wind",
     "role": "assassin",
-    "zodiac": "waterbearer",
+    "zodiac": "aquarius",
     "region": "natalon",
     "date": "2022",
     "assets": {
@@ -3606,7 +3670,7 @@
     "rarity": 3,
     "attribute": "dark",
     "role": "mage",
-    "zodiac": "bull",
+    "zodiac": "taurus",
     "region": "ritania",
     "date": "2018",
     "assets": {
@@ -3622,7 +3686,7 @@
     "rarity": 5,
     "attribute": "wind",
     "role": "ranger",
-    "zodiac": "maiden",
+    "zodiac": "virgo",
     "region": "cidonia",
     "date": "2020",
     "assets": {
@@ -3638,7 +3702,7 @@
     "rarity": 4,
     "attribute": "dark",
     "role": "ranger",
-    "zodiac": "scorpion",
+    "zodiac": "scorpio",
     "region": "moonlight",
     "date": "2023",
     "assets": {
@@ -3654,7 +3718,7 @@
     "rarity": 3,
     "attribute": "wind",
     "role": "mage",
-    "zodiac": "bull",
+    "zodiac": "taurus",
     "region": "death",
     "date": "2018",
     "assets": {
@@ -3670,7 +3734,7 @@
     "rarity": 5,
     "attribute": "ice",
     "role": "assassin",
-    "zodiac": "maiden",
+    "zodiac": "virgo",
     "region": "natalon",
     "date": "2022",
     "assets": {
@@ -3686,7 +3750,7 @@
     "rarity": 3,
     "attribute": "dark",
     "role": "assassin",
-    "zodiac": "scorpion",
+    "zodiac": "scorpio",
     "region": "eureka",
     "date": "2021",
     "assets": {
@@ -3702,7 +3766,7 @@
     "rarity": 3,
     "attribute": "dark",
     "role": "warrior",
-    "zodiac": "lion",
+    "zodiac": "leo",
     "region": "erasia",
     "date": "2024",
     "assets": {
@@ -3718,7 +3782,7 @@
     "rarity": 5,
     "attribute": "dark",
     "role": "ranger",
-    "zodiac": "twins",
+    "zodiac": "gemini",
     "region": "moonlight",
     "date": "2022",
     "assets": {
@@ -3734,7 +3798,7 @@
     "rarity": 5,
     "attribute": "fire",
     "role": "mage",
-    "zodiac": "twins",
+    "zodiac": "gemini",
     "region": "eureka",
     "date": "2021",
     "assets": {
@@ -3750,7 +3814,7 @@
     "rarity": 4,
     "attribute": "wind",
     "role": "warrior",
-    "zodiac": "scorpion",
+    "zodiac": "scorpio",
     "region": "ritania",
     "date": "2018",
     "assets": {
@@ -3766,7 +3830,7 @@
     "rarity": 3,
     "attribute": "dark",
     "role": "knight",
-    "zodiac": "crab",
+    "zodiac": "cancer",
     "region": "ritania",
     "date": "2018",
     "assets": {
@@ -3782,7 +3846,7 @@
     "rarity": 3,
     "attribute": "ice",
     "role": "assassin",
-    "zodiac": "lion",
+    "zodiac": "leo",
     "region": "erasia",
     "date": "2024",
     "assets": {
@@ -3798,7 +3862,7 @@
     "rarity": 5,
     "attribute": "wind",
     "role": "mage",
-    "zodiac": "twins",
+    "zodiac": "gemini",
     "region": "collab",
     "date": "2021",
     "assets": {
@@ -3814,7 +3878,7 @@
     "rarity": 5,
     "attribute": "ice",
     "role": "assassin",
-    "zodiac": "ram",
+    "zodiac": "aries",
     "region": "stars",
     "date": "2021",
     "assets": {
@@ -3830,7 +3894,7 @@
     "rarity": 3,
     "attribute": "fire",
     "role": "knight",
-    "zodiac": "scales",
+    "zodiac": "libra",
     "region": "stars",
     "date": "2018",
     "assets": {
@@ -3846,7 +3910,7 @@
     "rarity": 5,
     "attribute": "fire",
     "role": "warrior",
-    "zodiac": "goat",
+    "zodiac": "capricorn",
     "region": "ritania",
     "date": "2018",
     "assets": {
@@ -3861,8 +3925,8 @@
     "name": "Ray",
     "rarity": 5,
     "attribute": "wind",
-    "role": "manauser",
-    "zodiac": "bull",
+    "role": "soulweaver",
+    "zodiac": "taurus",
     "region": "cidonia",
     "date": "2020",
     "assets": {
@@ -3878,7 +3942,7 @@
     "rarity": 5,
     "attribute": "ice",
     "role": "warrior",
-    "zodiac": "scorpion",
+    "zodiac": "scorpio",
     "region": "collab",
     "date": "2021",
     "assets": {
@@ -3894,7 +3958,7 @@
     "rarity": 5,
     "attribute": "dark",
     "role": "assassin",
-    "zodiac": "lion",
+    "zodiac": "leo",
     "region": "moonlight",
     "date": "2020",
     "assets": {
@@ -3910,7 +3974,7 @@
     "rarity": 5,
     "attribute": "dark",
     "role": "mage",
-    "zodiac": "waterbearer",
+    "zodiac": "aquarius",
     "region": "moonlight",
     "date": "2023",
     "assets": {
@@ -3925,8 +3989,8 @@
     "name": "Requiemroar",
     "rarity": 3,
     "attribute": "dark",
-    "role": "manauser",
-    "zodiac": "archer",
+    "role": "soulweaver",
+    "zodiac": "sagittarius",
     "region": "death",
     "date": "2018",
     "assets": {
@@ -3942,7 +4006,7 @@
     "rarity": 3,
     "attribute": "fire",
     "role": "mage",
-    "zodiac": "archer",
+    "zodiac": "sagittarius",
     "region": "specialty",
     "date": "2019",
     "assets": {
@@ -3958,7 +4022,7 @@
     "rarity": 3,
     "attribute": "wind",
     "role": "assassin",
-    "zodiac": "twins",
+    "zodiac": "gemini",
     "region": "specialty",
     "date": "2019",
     "assets": {
@@ -3974,7 +4038,7 @@
     "rarity": 3,
     "attribute": "light",
     "role": "warrior",
-    "zodiac": "scales",
+    "zodiac": "libra",
     "region": "ritania",
     "date": "2018",
     "assets": {
@@ -3990,7 +4054,7 @@
     "rarity": 3,
     "attribute": "ice",
     "role": "ranger",
-    "zodiac": "waterbearer",
+    "zodiac": "aquarius",
     "region": "ritania",
     "date": "2018",
     "assets": {
@@ -4006,7 +4070,7 @@
     "rarity": 5,
     "attribute": "wind",
     "role": "warrior",
-    "zodiac": "scales",
+    "zodiac": "libra",
     "region": "collab",
     "date": "2021",
     "assets": {
@@ -4021,8 +4085,8 @@
     "name": "Rin",
     "rarity": 4,
     "attribute": "wind",
-    "role": "manauser",
-    "zodiac": "maiden",
+    "role": "soulweaver",
+    "zodiac": "virgo",
     "region": "death",
     "date": "2018",
     "assets": {
@@ -4038,7 +4102,7 @@
     "rarity": 5,
     "attribute": "ice",
     "role": "ranger",
-    "zodiac": "goat",
+    "zodiac": "capricorn",
     "region": "collab",
     "date": "2022",
     "assets": {
@@ -4054,7 +4118,7 @@
     "rarity": 4,
     "attribute": "dark",
     "role": "ranger",
-    "zodiac": "twins",
+    "zodiac": "gemini",
     "region": "moonlight",
     "date": "2019",
     "assets": {
@@ -4069,8 +4133,8 @@
     "name": "Roana",
     "rarity": 5,
     "attribute": "wind",
-    "role": "manauser",
-    "zodiac": "fish",
+    "role": "soulweaver",
+    "zodiac": "pisces",
     "region": "stars",
     "date": "2020",
     "assets": {
@@ -4086,7 +4150,7 @@
     "rarity": 4,
     "attribute": "ice",
     "role": "mage",
-    "zodiac": "twins",
+    "zodiac": "gemini",
     "region": "eureka",
     "date": "2018",
     "assets": {
@@ -4102,7 +4166,7 @@
     "rarity": 3,
     "attribute": "wind",
     "role": "assassin",
-    "zodiac": "twins",
+    "zodiac": "gemini",
     "region": "ritania",
     "date": "2018",
     "assets": {
@@ -4118,7 +4182,7 @@
     "rarity": 4,
     "attribute": "ice",
     "role": "knight",
-    "zodiac": "scales",
+    "zodiac": "libra",
     "region": "eureka",
     "date": "2018",
     "assets": {
@@ -4134,7 +4198,7 @@
     "rarity": 5,
     "attribute": "fire",
     "role": "mage",
-    "zodiac": "lion",
+    "zodiac": "leo",
     "region": "collab",
     "date": "2022",
     "assets": {
@@ -4149,8 +4213,8 @@
     "name": "Ruele of Light",
     "rarity": 5,
     "attribute": "light",
-    "role": "manauser",
-    "zodiac": "fish",
+    "role": "soulweaver",
+    "zodiac": "pisces",
     "region": "moonlight",
     "date": "2018",
     "assets": {
@@ -4166,7 +4230,7 @@
     "rarity": 5,
     "attribute": "light",
     "role": "mage",
-    "zodiac": "bull",
+    "zodiac": "taurus",
     "region": "moonlight",
     "date": "2019",
     "assets": {
@@ -4182,7 +4246,7 @@
     "rarity": 3,
     "attribute": "light",
     "role": "assassin",
-    "zodiac": "lion",
+    "zodiac": "leo",
     "region": "specialty",
     "date": "2022",
     "assets": {
@@ -4198,7 +4262,7 @@
     "rarity": 4,
     "attribute": "fire",
     "role": "ranger",
-    "zodiac": "lion",
+    "zodiac": "leo",
     "region": "ritania",
     "date": "2018",
     "assets": {
@@ -4214,7 +4278,7 @@
     "rarity": 5,
     "attribute": "dark",
     "role": "ranger",
-    "zodiac": "fish",
+    "zodiac": "pisces",
     "region": "moonlight",
     "date": "2024",
     "assets": {
@@ -4230,7 +4294,7 @@
     "rarity": 5,
     "attribute": "ice",
     "role": "ranger",
-    "zodiac": "twins",
+    "zodiac": "gemini",
     "region": "death",
     "date": "2019",
     "assets": {
@@ -4246,7 +4310,7 @@
     "rarity": 5,
     "attribute": "wind",
     "role": "knight",
-    "zodiac": "bull",
+    "zodiac": "taurus",
     "region": "eureka",
     "date": "2021",
     "assets": {
@@ -4262,7 +4326,7 @@
     "rarity": 3,
     "attribute": "ice",
     "role": "assassin",
-    "zodiac": "lion",
+    "zodiac": "leo",
     "region": "specialty",
     "date": "2022",
     "assets": {
@@ -4278,7 +4342,7 @@
     "rarity": 4,
     "attribute": "fire",
     "role": "mage",
-    "zodiac": "waterbearer",
+    "zodiac": "aquarius",
     "region": "ritania",
     "date": "2018",
     "assets": {
@@ -4294,7 +4358,7 @@
     "rarity": 5,
     "attribute": "ice",
     "role": "assassin",
-    "zodiac": "scorpion",
+    "zodiac": "scorpio",
     "region": "death",
     "date": "2018",
     "assets": {
@@ -4310,7 +4374,7 @@
     "rarity": 3,
     "attribute": "dark",
     "role": "knight",
-    "zodiac": "crab",
+    "zodiac": "cancer",
     "region": "specialty",
     "date": "2021",
     "assets": {
@@ -4326,7 +4390,7 @@
     "rarity": 4,
     "attribute": "dark",
     "role": "knight",
-    "zodiac": "twins",
+    "zodiac": "gemini",
     "region": "moonlight",
     "date": "2018",
     "assets": {
@@ -4342,7 +4406,7 @@
     "rarity": 5,
     "attribute": "fire",
     "role": "warrior",
-    "zodiac": "archer",
+    "zodiac": "sagittarius",
     "region": "collab",
     "date": "2024",
     "assets": {
@@ -4357,8 +4421,8 @@
     "name": "Sharun",
     "rarity": 5,
     "attribute": "wind",
-    "role": "manauser",
-    "zodiac": "maiden",
+    "role": "soulweaver",
+    "zodiac": "virgo",
     "region": "natalon",
     "date": "2022",
     "assets": {
@@ -4374,7 +4438,7 @@
     "rarity": 3,
     "attribute": "ice",
     "role": "mage",
-    "zodiac": "ram",
+    "zodiac": "aries",
     "region": "specialty",
     "date": "2023",
     "assets": {
@@ -4389,8 +4453,8 @@
     "name": "Shooting Star Achates",
     "rarity": 4,
     "attribute": "dark",
-    "role": "manauser",
-    "zodiac": "crab",
+    "role": "soulweaver",
+    "zodiac": "cancer",
     "region": "moonlight",
     "date": "2018",
     "assets": {
@@ -4405,8 +4469,8 @@
     "name": "Shuna",
     "rarity": 5,
     "attribute": "fire",
-    "role": "manauser",
-    "zodiac": "twins",
+    "role": "soulweaver",
+    "zodiac": "gemini",
     "region": "collab",
     "date": "2021",
     "assets": {
@@ -4422,7 +4486,7 @@
     "rarity": 5,
     "attribute": "ice",
     "role": "warrior",
-    "zodiac": "bull",
+    "zodiac": "taurus",
     "region": "ritania",
     "date": "2018",
     "assets": {
@@ -4438,7 +4502,7 @@
     "rarity": 4,
     "attribute": "wind",
     "role": "ranger",
-    "zodiac": "maiden",
+    "zodiac": "virgo",
     "region": "ritania",
     "date": "2018",
     "assets": {
@@ -4454,7 +4518,7 @@
     "rarity": 3,
     "attribute": "wind",
     "role": "knight",
-    "zodiac": "goat",
+    "zodiac": "capricorn",
     "region": "specialty",
     "date": "2023",
     "assets": {
@@ -4470,7 +4534,7 @@
     "rarity": 5,
     "attribute": "light",
     "role": "mage",
-    "zodiac": "twins",
+    "zodiac": "gemini",
     "region": "moonlight",
     "date": "2019",
     "assets": {
@@ -4485,8 +4549,8 @@
     "name": "Sinful Angelica",
     "rarity": 4,
     "attribute": "dark",
-    "role": "manauser",
-    "zodiac": "bull",
+    "role": "soulweaver",
+    "zodiac": "taurus",
     "region": "moonlight",
     "date": "2020",
     "assets": {
@@ -4502,7 +4566,7 @@
     "rarity": 5,
     "attribute": "fire",
     "role": "warrior",
-    "zodiac": "archer",
+    "zodiac": "sagittarius",
     "region": "collab",
     "date": "2019",
     "assets": {
@@ -4518,7 +4582,7 @@
     "rarity": 5,
     "attribute": "light",
     "role": "mage",
-    "zodiac": "bull",
+    "zodiac": "taurus",
     "region": "moonlight",
     "date": "2021",
     "assets": {
@@ -4533,8 +4597,8 @@
     "name": "Sonia",
     "rarity": 3,
     "attribute": "light",
-    "role": "manauser",
-    "zodiac": "fish",
+    "role": "soulweaver",
+    "zodiac": "pisces",
     "region": "eureka",
     "date": "2020",
     "assets": {
@@ -4550,7 +4614,7 @@
     "rarity": 5,
     "attribute": "light",
     "role": "assassin",
-    "zodiac": "scorpion",
+    "zodiac": "scorpio",
     "region": "moonlight",
     "date": "2019",
     "assets": {
@@ -4566,7 +4630,7 @@
     "rarity": 5,
     "attribute": "dark",
     "role": "mage",
-    "zodiac": "twins",
+    "zodiac": "gemini",
     "region": "moonlight",
     "date": "2018",
     "assets": {
@@ -4582,7 +4646,7 @@
     "rarity": 5,
     "attribute": "light",
     "role": "assassin",
-    "zodiac": "archer",
+    "zodiac": "sagittarius",
     "region": "moonlight",
     "date": "2021",
     "assets": {
@@ -4598,7 +4662,7 @@
     "rarity": 5,
     "attribute": "dark",
     "role": "warrior",
-    "zodiac": "bull",
+    "zodiac": "taurus",
     "region": "stars",
     "date": "2021",
     "assets": {
@@ -4614,7 +4678,7 @@
     "rarity": 5,
     "attribute": "ice",
     "role": "knight",
-    "zodiac": "twins",
+    "zodiac": "gemini",
     "region": "ritania",
     "date": "2022",
     "assets": {
@@ -4630,7 +4694,7 @@
     "rarity": 3,
     "attribute": "ice",
     "role": "assassin",
-    "zodiac": "lion",
+    "zodiac": "leo",
     "region": "specialty",
     "date": "2022",
     "assets": {
@@ -4646,7 +4710,7 @@
     "rarity": 5,
     "attribute": "fire",
     "role": "ranger",
-    "zodiac": "goat",
+    "zodiac": "capricorn",
     "region": "stars",
     "date": "2021",
     "assets": {
@@ -4662,7 +4726,7 @@
     "rarity": 4,
     "attribute": "fire",
     "role": "assassin",
-    "zodiac": "twins",
+    "zodiac": "gemini",
     "region": "natalon",
     "date": "2018",
     "assets": {
@@ -4678,7 +4742,7 @@
     "rarity": 3,
     "attribute": "dark",
     "role": "mage",
-    "zodiac": "waterbearer",
+    "zodiac": "aquarius",
     "region": "natalon",
     "date": "2023",
     "assets": {
@@ -4694,7 +4758,7 @@
     "rarity": 3,
     "attribute": "dark",
     "role": "assassin",
-    "zodiac": "scorpion",
+    "zodiac": "scorpio",
     "region": "ritania",
     "date": "2018",
     "assets": {
@@ -4710,7 +4774,7 @@
     "rarity": 5,
     "attribute": "light",
     "role": "mage",
-    "zodiac": "crab",
+    "zodiac": "cancer",
     "region": "moonlight",
     "date": "2022",
     "assets": {
@@ -4726,7 +4790,7 @@
     "rarity": 5,
     "attribute": "ice",
     "role": "warrior",
-    "zodiac": "maiden",
+    "zodiac": "virgo",
     "region": "stars",
     "date": "2022",
     "assets": {
@@ -4742,7 +4806,7 @@
     "rarity": 3,
     "attribute": "ice",
     "role": "warrior",
-    "zodiac": "lion",
+    "zodiac": "leo",
     "region": "natalon",
     "date": "2022",
     "assets": {
@@ -4758,7 +4822,7 @@
     "rarity": 3,
     "attribute": "light",
     "role": "assassin",
-    "zodiac": "goat",
+    "zodiac": "capricorn",
     "region": "natalon",
     "date": "2022",
     "assets": {
@@ -4773,8 +4837,8 @@
     "name": "Tamarinne",
     "rarity": 5,
     "attribute": "fire",
-    "role": "manauser",
-    "zodiac": "archer",
+    "role": "soulweaver",
+    "zodiac": "sagittarius",
     "region": "stars",
     "date": "2019",
     "assets": {
@@ -4790,7 +4854,7 @@
     "rarity": 3,
     "attribute": "ice",
     "role": "warrior",
-    "zodiac": "scales",
+    "zodiac": "libra",
     "region": "ritania",
     "date": "2018",
     "assets": {
@@ -4806,7 +4870,7 @@
     "rarity": 3,
     "attribute": "ice",
     "role": "knight",
-    "zodiac": "scorpion",
+    "zodiac": "scorpio",
     "region": "ritania",
     "date": "2018",
     "assets": {
@@ -4822,7 +4886,7 @@
     "rarity": 4,
     "attribute": "light",
     "role": "assassin",
-    "zodiac": "twins",
+    "zodiac": "gemini",
     "region": "moonlight",
     "date": "2020",
     "assets": {
@@ -4838,7 +4902,7 @@
     "rarity": 5,
     "attribute": "fire",
     "role": "mage",
-    "zodiac": "crab",
+    "zodiac": "cancer",
     "region": "stars",
     "date": "2018",
     "assets": {
@@ -4854,7 +4918,7 @@
     "rarity": 3,
     "attribute": "fire",
     "role": "warrior",
-    "zodiac": "ram",
+    "zodiac": "aries",
     "region": "ritania",
     "date": "2018",
     "assets": {
@@ -4870,7 +4934,7 @@
     "rarity": 5,
     "attribute": "dark",
     "role": "mage",
-    "zodiac": "archer",
+    "zodiac": "sagittarius",
     "region": "moonlight",
     "date": "2020",
     "assets": {
@@ -4886,7 +4950,7 @@
     "rarity": 4,
     "attribute": "dark",
     "role": "knight",
-    "zodiac": "fish",
+    "zodiac": "pisces",
     "region": "moonlight",
     "date": "2019",
     "assets": {
@@ -4902,7 +4966,7 @@
     "rarity": 5,
     "attribute": "light",
     "role": "assassin",
-    "zodiac": "scorpion",
+    "zodiac": "scorpio",
     "region": "moonlight",
     "date": "2023",
     "assets": {
@@ -4918,7 +4982,7 @@
     "rarity": 5,
     "attribute": "ice",
     "role": "knight",
-    "zodiac": "ram",
+    "zodiac": "aries",
     "region": "eureka",
     "date": "2018",
     "assets": {
@@ -4934,7 +4998,7 @@
     "rarity": 3,
     "attribute": "light",
     "role": "knight",
-    "zodiac": "scales",
+    "zodiac": "libra",
     "region": "specialty",
     "date": "2022",
     "assets": {
@@ -4950,7 +5014,7 @@
     "rarity": 5,
     "attribute": "dark",
     "role": "warrior",
-    "zodiac": "ram",
+    "zodiac": "aries",
     "region": "moonlight",
     "date": "2023",
     "assets": {
@@ -4966,7 +5030,7 @@
     "rarity": 3,
     "attribute": "wind",
     "role": "assassin",
-    "zodiac": "lion",
+    "zodiac": "leo",
     "region": "specialty",
     "date": "2022",
     "assets": {
@@ -4982,7 +5046,7 @@
     "rarity": 4,
     "attribute": "fire",
     "role": "ranger",
-    "zodiac": "maiden",
+    "zodiac": "virgo",
     "region": "erasia",
     "date": "2023",
     "assets": {
@@ -4998,7 +5062,7 @@
     "rarity": 3,
     "attribute": "wind",
     "role": "ranger",
-    "zodiac": "scales",
+    "zodiac": "libra",
     "region": "specialty",
     "date": "2022",
     "assets": {
@@ -5014,7 +5078,7 @@
     "rarity": 5,
     "attribute": "wind",
     "role": "assassin",
-    "zodiac": "lion",
+    "zodiac": "leo",
     "region": "ritania",
     "date": "2018",
     "assets": {
@@ -5030,7 +5094,7 @@
     "rarity": 5,
     "attribute": "wind",
     "role": "assassin",
-    "zodiac": "scorpion",
+    "zodiac": "scorpio",
     "region": "cidonia",
     "date": "2019",
     "assets": {
@@ -5046,7 +5110,7 @@
     "rarity": 5,
     "attribute": "wind",
     "role": "mage",
-    "zodiac": "archer",
+    "zodiac": "sagittarius",
     "region": "cidonia",
     "date": "2019",
     "assets": {
@@ -5062,7 +5126,7 @@
     "rarity": 3,
     "attribute": "dark",
     "role": "ranger",
-    "zodiac": "twins",
+    "zodiac": "gemini",
     "region": "ritania",
     "date": "2018",
     "assets": {
@@ -5078,7 +5142,7 @@
     "rarity": 4,
     "attribute": "light",
     "role": "ranger",
-    "zodiac": "goat",
+    "zodiac": "capricorn",
     "region": "moonlight",
     "date": "2018",
     "assets": {
@@ -5094,7 +5158,7 @@
     "rarity": 4,
     "attribute": "light",
     "role": "mage",
-    "zodiac": "fish",
+    "zodiac": "pisces",
     "region": "moonlight",
     "date": "2024",
     "assets": {
@@ -5110,7 +5174,7 @@
     "rarity": 4,
     "attribute": "light",
     "role": "ranger",
-    "zodiac": "scorpion",
+    "zodiac": "scorpio",
     "region": "moonlight",
     "date": "2018",
     "assets": {
@@ -5126,7 +5190,7 @@
     "rarity": 3,
     "attribute": "light",
     "role": "knight",
-    "zodiac": "ram",
+    "zodiac": "aries",
     "region": "natalon",
     "date": "2022",
     "assets": {
@@ -5142,7 +5206,7 @@
     "rarity": 5,
     "attribute": "wind",
     "role": "warrior",
-    "zodiac": "bull",
+    "zodiac": "taurus",
     "region": "eureka",
     "date": "2018",
     "assets": {
@@ -5158,7 +5222,7 @@
     "rarity": 5,
     "attribute": "wind",
     "role": "knight",
-    "zodiac": "archer",
+    "zodiac": "sagittarius",
     "region": "natalon",
     "date": "2022",
     "assets": {
@@ -5174,7 +5238,7 @@
     "rarity": 5,
     "attribute": "ice",
     "role": "ranger",
-    "zodiac": "lion",
+    "zodiac": "leo",
     "region": "stars",
     "date": "2018",
     "assets": {
@@ -5190,7 +5254,7 @@
     "rarity": 5,
     "attribute": "wind",
     "role": "warrior",
-    "zodiac": "archer",
+    "zodiac": "sagittarius",
     "region": "natalon",
     "date": "2021",
     "assets": {
@@ -5206,7 +5270,7 @@
     "rarity": 3,
     "attribute": "fire",
     "role": "mage",
-    "zodiac": "waterbearer",
+    "zodiac": "aquarius",
     "region": "specialty",
     "date": "2021",
     "assets": {
@@ -5222,7 +5286,7 @@
     "rarity": 5,
     "attribute": "ice",
     "role": "mage",
-    "zodiac": "bull",
+    "zodiac": "taurus",
     "region": "stars",
     "date": "2019",
     "assets": {
@@ -5238,7 +5302,7 @@
     "rarity": 4,
     "attribute": "ice",
     "role": "mage",
-    "zodiac": "ram",
+    "zodiac": "aries",
     "region": "ritania",
     "date": "2018",
     "assets": {
@@ -5254,7 +5318,7 @@
     "rarity": 5,
     "attribute": "dark",
     "role": "mage",
-    "zodiac": "ram",
+    "zodiac": "aries",
     "region": "stars",
     "date": "2022",
     "assets": {

@@ -47,23 +47,23 @@ function MainGame() {
     knight: '/classAssets/Knight.png',
     mage: '/classAssets/Mage.png',
     ranger: '/classAssets/Ranger.png',
-    manauser: '/classAssets/Soul Weaver.png',
+    soulweaver: '/classAssets/Soul Weaver.png',
     assassin: '/classAssets/Thief.png',
     warrior: '/classAssets/Warrior.png',
 
     //zodiac
-    waterbearer: '/zodiacAssets/Aquarius.png',
-    ram: '/zodiacAssets/Aries.png',
-    crab: '/zodiacAssets/Cancer.png',
-    goat: '/zodiacAssets/Capricorn.png',
-    twins: '/zodiacAssets/Gemini.png',
-    lion: '/zodiacAssets/Leo.png',
-    scales: '/zodiacAssets/Libra.png',
-    fish: '/zodiacAssets/Pisces.png',
-    archer: '/zodiacAssets/Sagittarius.png',
+    aquarius: '/zodiacAssets/Aquarius.png',
+    aries: '/zodiacAssets/Aries.png',
+    cancer: '/zodiacAssets/Cancer.png',
+    capricorn: '/zodiacAssets/Capricorn.png',
+    gemini: '/zodiacAssets/Gemini.png',
+    leo: '/zodiacAssets/Leo.png',
+    libra: '/zodiacAssets/Libra.png',
+    pisces: '/zodiacAssets/Pisces.png',
+    sagittarius: '/zodiacAssets/Sagittarius.png',
     scorpion: '/zodiacAssets/Scorpio.png',
-    bull: '/zodiacAssets/Taurus.png',
-    maiden: '/zodiacAssets/Virgo.png',
+    taurus: '/zodiacAssets/Taurus.png',
+    virgo: '/zodiacAssets/Virgo.png',
 
     //region
     stars: 'https://static.wikia.nocookie.net/epic-seven/images/6/68/Star_Genealogy.png',
@@ -118,7 +118,7 @@ function MainGame() {
       .then(response => response.json())
       .then(data => {
         const characterList = Object.keys(data).map(key => ({
-          picture: data[key].assets.thumbnail,
+          picture: data[key].assets.image,
           id: data[key]._id,
           name: key,
           element: data[key].attribute,
@@ -236,7 +236,7 @@ function MainGame() {
       const response = await fetch('http://127.0.0.1:5000/api/characters');
       const data = await response.json();
       const characterList = Object.keys(data).map(key => ({
-        picture: data[key].assets.thumbnail,
+        picture: data[key].assets.image,
         id: data[key]._id,
         name: key,
         element: data[key].attribute,

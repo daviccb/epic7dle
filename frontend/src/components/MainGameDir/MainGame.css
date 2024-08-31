@@ -23,6 +23,8 @@
 .character-imagesol {
   width: 100%; /* Ensures the image uses the full width of its container */
   max-width: 85%; /* Limits how large the image can grow */
+  overflow-x: hidden;
+  background-color: #272626;
 }
 
 .game-info {
