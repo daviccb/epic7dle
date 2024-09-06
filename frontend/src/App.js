@@ -3,9 +3,10 @@ import Cookies from 'js-cookie';
 import './App.css';
 import Header from './components/HeaderDir/Header';
 import MainGame from './components/MainGameDir/MainGame';
-// import Sidebar from './components/SidebarDir/Sidebar';
+import SettingsPage from './components/SettingsPageDir/SettingsPage';
 
 function App() {
+// CODE FOR BACKGROUND CHANGING:
   const [backgroundImage, setBackgroundImage] = useState('');
 
   useEffect(() => {
@@ -24,20 +25,34 @@ function App() {
 
   // Dynamic style to ensure background covers correctly every time it's updated
   const backgroundStyle = {
-    background: `url(${backgroundImage}) no-repeat center center fixed`,
-    backgroundSize: 'cover'
+    background: `url(${backgroundImage}) center center/cover no-repeat fixed`,
+
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    fontFamily: 'Arial, sans-serif',
+    height: '100vh',
+    width: '100%',
+    position: 'relative',
+    overflowX: 'hidden',
+    overflowY: 'scroll',
+    scrollbarWidth: 'none',
+    msOverflowStyle: 'none',
   };
+
+// CODE FOR SETTINGS PAGE:
+  const [isSettingsOpen, setIsSettingsOpen] = useState(false);
+
+  const openSettings = () => setIsSettingsOpen(true);
+  const closeSettings = () => setIsSettingsOpen(false);
 
   return (
     <div className="App" style={backgroundStyle}>
-      <Header />
-      {/* <h1>Choose Your Background</h1>
-      <select onChange={handleBackgroundChange} value={backgroundImage}>
-        <option value="">Select a Background</option>
-        <option value="background1.webp">Background 1</option>
-        <option value="background2.jpg">Background 2</option>
-        <option value="background3.webp">Background 3</option>
-      </select> */}
+      <Header openSettings={openSettings} />
+      <SettingsPage isOpen={isSettingsOpen} onClose={closeSettings}
+        backgroundImage={backgroundImage} 
+        handleBackgroundChange={handleBackgroundChange} 
+        closeSettings={closeSettings} />
       <div className="maingame-container">
         <MainGame />
       </div>

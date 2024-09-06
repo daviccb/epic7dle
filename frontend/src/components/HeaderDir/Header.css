@@ -1,13 +1,34 @@
 .header {
-  background-color: #333;
+   background-color: #333;
+   color: white;
+   padding: 0 20px;  /* Adjust padding to fit all items properly */
+   width: 100%;
+   height: 40px;  /* Define a fixed height for consistency */
+   display: flex;
+   justify-content: space-between;
+   align-items: center;  /* Ensure vertical centering of children */
+   box-sizing: border-box;
+   position: fixed;
+   top: 0;  /* Ensure header is at the top */
+}
+
+
+.settingsbtn {
+  font-size: 26px;
   color: white;
-  padding: 1px 20px;
-  width: 100%;
-  height: 5%;
-  display: flex;
-  justify-content: space-between;
-  box-sizing: border-box;
-  position: fixed;
+  cursor: pointer;
+  background: none;
+  border: none;
+  margin-top: 0;  /* Adjust margin-top if necessary */
+  padding: 2px 2px; /* Adjust padding for better spacing */
+  display: flex;  /* Add display flex */
+  align-items: center;  /* Align icon vertically */
+  justify-content: center;  /* Center content horizontally */
+}
+
+
+.settingsbtn:hover {
+  color: #e4e3e3;     /* Darker color on hover */
 }
 
 h1 {

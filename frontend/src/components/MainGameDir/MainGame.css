@@ -2,8 +2,9 @@
   margin: auto; /* This centers the main-game div on the page */
   text-align: center;
   justify-content: center;
-  width: 70%;
-  height: 100%;
+  width: 90%;
+  padding-bottom: 2%;
+  overflow: hidden;
 }
 
 .game-container {
@@ -21,18 +22,28 @@
 }
 
 .character-imagesol {
-  width: 100%; /* Ensures the image uses the full width of its container */
-  max-width: 85%; /* Limits how large the image can grow */
-  overflow-x: hidden;
+  width: 100%;
+  max-height: 100vh;
   background-color: #272626;
+  border-radius: 5px;
+  padding: 3%;
+}
+
+.character-imageqstnmk {
+  width: 100%;
+  max-height: 60vh;
+  background-color: #272626;
+  border-radius: 5px;
+  padding: 3%;
 }
 
 .game-info {
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-  background-color: #00FFFF;
-  width: 100%; /* This makes the background color extend fully */
+  background-color: #92a8d1;
+  width: 70%;
   margin-left: 5%;
+  padding: 2%;
 }
 
 
@@ -69,7 +80,7 @@
   box-shadow: 0 4px 6px rgba(0,0,0,0.1);
   max-height: 300px;
   overflow-y: auto;
-  z-index: 1000;
+  z-index: 10;
 }
 
 .autocomplete-dropdown li {
@@ -164,14 +175,14 @@ input[type="text"], button {
   margin-right: 5px;  /* Ensures spacing between elements */
 }
 
-button {
+.guessbtn {
   background-color: #4CAF50;  /* Green to match the theme */
   color: white;
   cursor: pointer;
   transition: background-color 0.3s;
 }
 
-button:hover {
+.guessbtn:hover {
   background-color: #45a049;  /* Darker green on hover */
 }
 

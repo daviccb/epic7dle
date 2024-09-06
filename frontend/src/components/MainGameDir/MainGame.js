@@ -4,17 +4,20 @@ import './MainGame.css';
 
 /*
 TODO:
-background pictures
+background pictures (more)
 button to show solution's skin
+post-game guess review in info center
+
 hover icon to see name (region icon -> region name)
+fix assets (region icons/date)
+arrow for release year to give more of a hint
 
 fix layout + add theme (green buttons from game?)
-
-add additional attributes (episode, release date)
-
-make own database + rework + fix assets (dark png)
 make pretty
 animations
+
+retake characterAssets:
+  bmhaste
 */
 
 
@@ -133,7 +136,7 @@ function MainGame() {
         // Set a random solution from the list
         if (characterList.length > 0) {
           const randomIndex = Math.floor(Math.random() * characterList.length);
-          setSolution(characterList[1]); //[randomIndex]
+          setSolution(characterList[randomIndex]); //[1]
         }
       });
   }, []);
@@ -200,14 +203,16 @@ function MainGame() {
           setInput(''); // Clear input
 
           setGameState(isCorrect ? true : false); // game win
-          if (guesses.length + 1 >= MAX_GUESSES) {
-            setGameState(true); // game loss
-            resetWinStreak();
-          }
 
           if (isCorrect === true) {
             incrementWinStreak();
             updateHighestStreak();
+          }
+          else {
+            if (guesses.length + 1 >= MAX_GUESSES) {
+              setGameState(true); // game loss
+              resetWinStreak();
+            }
           }
           setFeedback(isCorrect ? 'Correct! Well done.' : 'Incorrect, try again!');
 
@@ -240,7 +245,7 @@ function MainGame() {
         id: data[key]._id,
         name: key,
         element: data[key].attribute,
-        class: data[key].role, // Assuming role is equivalent to class
+        class: data[key].role,
         starsign: data[key].zodiac,
         region: data[key].region,
         rarity: data[key].rarity,
@@ -267,9 +272,10 @@ function MainGame() {
           {gameState && solution ? (
             <img src={solution.picture} alt="Character" className="character-imagesol" />
           ) : (
-            <img src={'silhouette_question_mark.png'} alt="Character" className="character-imagesol" />
+            <img src={'silhouette_question_mark.png'} alt="Character" className="character-imageqstnmk" />
           )}
         </div>
+
         <div className="game-info">
           <h1>Endless Mode</h1>
           <p>Tries {guesses.length}/{MAX_GUESSES}</p>
@@ -277,38 +283,39 @@ function MainGame() {
             <p>Streak: {getWinStreak()}</p>
             <p>Highest score: {highestStreak}</p>
           </div>
+
+          <div className="guess-input">
+            {!gameState ? (
+              <>
+                <div className="input-button-wrapper">
+                  <input
+                    type="text"
+                    placeholder="Enter character name..."
+                    value={input}
+                    onChange={handleInputChange}
+                  />
+                  <button className='guessbtn' onClick={handleGuessSubmit}>Guess</button>
+                </div>
+                {filteredCharacters.length > 0 && (
+                  <ul className="autocomplete-dropdown">
+                    {filteredCharacters.map(character => (
+                      <li key={character.id} onClick={() => setInput(character.name)}>
+                        <img src={character.photo} alt={character.name} />
+                        {character.name}
+                      </li>
+                    ))}
+                  </ul>
+                )}
+              </>
+            ) : (
+              <button onClick={resetGame} className="play-again-button">Play Again</button>
+            )}
+          </div>
+
+          <p>{feedback}</p> {/* Display feedback message */}
         </div>
       </div>
-
-      <p>{feedback}</p> {/* Display feedback message */}
       
-      <div className="guess-input">
-        {!gameState ? (
-          <>
-            <div className="input-button-wrapper">
-              <input
-                type="text"
-                placeholder="Enter character name..."
-                value={input}
-                onChange={handleInputChange}
-              />
-              <button onClick={handleGuessSubmit}>Guess</button>
-            </div>
-            {filteredCharacters.length > 0 && (
-              <ul className="autocomplete-dropdown">
-                {filteredCharacters.map(character => (
-                  <li key={character.id} onClick={() => setInput(character.name)}>
-                    <img src={character.photo} alt={character.name} />
-                    {character.name}
-                  </li>
-                ))}
-              </ul>
-            )}
-          </>
-        ) : (
-          <button onClick={resetGame} className="play-again-button">Play Again</button>
-        )}
-      </div>
       <div className="guess-table">
         <table>
           <thead>
@@ -327,8 +334,8 @@ function MainGame() {
           <tbody>
             {guesses.map((item, index) => (
               <tr key={index}>
-                <td>
-                  <img src={item.photo} alt="Character" className="character-imageicon" />
+                <td className={item.photo === solution.photo ? 'correct-answer' : 'incorrect-answer'}>
+                  <img src={item.photo} alt={item.photo} className="character-imageicon"/>
                 </td>
                 <td className={item.guess === solution.name ? 'correct-answer' : 'incorrect-answer'}>
                   {item.guess}
