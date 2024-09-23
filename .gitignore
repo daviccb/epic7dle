@@ -1,0 +1,5 @@
+backend/data.pack
+backend/extracted_image.png
+backend/output_result
+backend/png_file_list.txt
+backend/filter_data.py
