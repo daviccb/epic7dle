@@ -13,7 +13,7 @@ def load_json_data(filepath):
         return json.load(file)
 
 # Assuming your JSON file is in the same directory as app.py
-json_filepath = os.path.join(os.path.dirname(__file__), 'updated-game-data.json')
+json_filepath = os.path.join(os.path.dirname(__file__), 'updated-game-data_modified.json')
 data = load_json_data(json_filepath)
 
 @app.route('/api')

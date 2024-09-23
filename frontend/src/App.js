@@ -40,6 +40,29 @@ function App() {
     msOverflowStyle: 'none',
   };
 
+// CODE FOR ICONNAMES
+  const [visibility, setVisibility] = useState({
+    element: Cookies.get('element') === 'true',
+    class: Cookies.get('class') === 'true',
+    starsign: Cookies.get('starsign') ? Cookies.get('starsign') === 'true' : true,
+    region: Cookies.get('region') ? Cookies.get('region') === 'true' : true,
+    rarity: Cookies.get('rarity') === 'true'
+  });
+
+  const toggleVisibility = (key) => {
+    setVisibility(prevVisibility => ({
+        ...prevVisibility,
+        [key]: !prevVisibility[key]
+    }));
+  };
+
+  // Update cookies whenever the visibility state changes
+  useEffect(() => {
+    Object.entries(visibility).forEach(([key, value]) => {
+        Cookies.set(key, value, { expires: 7 }); // Set each cookie to expire in 7 days
+    });
+  }, [visibility]);
+
 // CODE FOR SETTINGS PAGE:
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
 
@@ -49,12 +72,17 @@ function App() {
   return (
     <div className="App" style={backgroundStyle}>
       <Header openSettings={openSettings} />
-      <SettingsPage isOpen={isSettingsOpen} onClose={closeSettings}
+      <SettingsPage isOpen={isSettingsOpen} onClose={closeSettings} closeSettings={closeSettings} 
+        //background settings
         backgroundImage={backgroundImage} 
-        handleBackgroundChange={handleBackgroundChange} 
-        closeSettings={closeSettings} />
+        handleBackgroundChange={handleBackgroundChange}
+
+        //iconname settings
+        visibility={visibility}
+        toggleVisibility={toggleVisibility}
+      />
       <div className="maingame-container">
-        <MainGame />
+        <MainGame visibility={visibility} />
       </div>
     </div>
   );

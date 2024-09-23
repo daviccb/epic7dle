@@ -44,7 +44,13 @@
         "assets": {
             "icon": "https://raw.githubusercontent.com/fribbels/Fribbels-Epic-7-Optimizer/main/data/cachedimages/c1017_s.png",
             "image": "characterAssets/c1017_idle_normal.png",
-            "thumbnail": "https://raw.githubusercontent.com/fribbels/Fribbels-Epic-7-Optimizer/main/data/cachedimages/c1017_l.png"
+            "thumbnail": "https://raw.githubusercontent.com/fribbels/Fribbels-Epic-7-Optimizer/main/data/cachedimages/c1017_l.png",
+            "skin": {
+                "has": true,
+                "icon": "",
+                "image": "characterAssets/c1017_s01_idle_normal.png",
+                "thumbnail": ""
+            }
         }
     },
     "Adin": {
