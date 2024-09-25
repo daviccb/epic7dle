@@ -50,16 +50,17 @@ add more background pictures
 }
 
 post-game guess review in info center (add share button?) (clipboard icon)
-hover icon to see name (region icon -> region name)
 style settings page (iconname toggle buttons + background changing)
 redo rarity stars with awakened ones
 add emojis to result message
-hover icon for name
+
+redo json for cleaner hover titles
 
 fix layout + add theme (green buttons from game?) (nice borders) (style the dropdown)
 make pretty
 animations
 
+sagittarius
 retake characterAssets:
   bmhaste (top of scythe is cut off)
   chaos sect axe ?
@@ -76,7 +77,7 @@ retake characterAssets:
 function MainGame({ visibility }) {
   const [input, setInput] = useState('');
   const [guesses, setGuesses] = useState([]);
-  const [gameState, setGameState] = useState(false); // eslint-disable-next-line
+  const [gameState, setGameState] = useState(false);
   const [feedback, setFeedback] = useState('');
   const [characters, setCharacters] = useState([]);
   const [filteredCharacters, setFilteredCharacters] = useState([]);
@@ -431,40 +432,43 @@ function MainGame({ visibility }) {
                 )}
               </>
             ) : (
-              <>
-              <div className="summary-table">
-                <table>
-                <caption>Your Score</caption>
-                  <tbody>
-                    {guesses.map((item, index) => (
-                      <tr key={index}>
-                        <td className={'score-cell'}>
-                        </td>
-                        <td className={item.guess === solution.name ? 'correct-score' : 'incorrect-score'}>
-                        </td>
-                        <td className={item.element === solution.element ? 'correct-score' : 'incorrect-score'}>
-                        </td>
-                        <td className={item.class === solution.class ? 'correct-score' : 'incorrect-score'}>
-                        </td>
-                        <td className={item.starsign === solution.starsign ? 'correct-score' : 'incorrect-score'}>
-                        </td>
-                        <td className={item.region === solution.region ? 'correct-score' : 'incorrect-score'}>
-                        </td>
-                        <td className={item.rarity === solution.rarity ? 'correct-score' : 'incorrect-score'}>
-                        </td>
-                        <td className={item.date === solution.date ? 'correct-score' : 'incorrect-score'}>
-                        </td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
+              <div className={guesses[0].guess === solution.name ? 'end-screen-correct' : 'end-screen-incorrect'}>
+                <div className='end-message-container'>
+                  <img src={guesses[0].guess === solution.name ? '/emoticonAssets/extracted_image_32.png' : '/emoticonAssets/extracted_image_6.png'} alt='emoticon' className="emoji1"/>
+                  <h1 className='end-message-text'>{feedback}</h1>
+                  <img src={guesses[0].guess === solution.name ? '/emoticonAssets/extracted_image_7.png' : '/emoticonAssets/extracted_image_16.png'} alt='emoticon' className="emoji2"/>
+                </div>
+                <div className="summary-table">
+                  <table>
+                  <caption>Your Score</caption>
+                    <tbody>
+                      {guesses.map((item, index) => (
+                        <tr key={index}>
+                          <td className={'score-cell'}>
+                          </td>
+                          <td className={item.guess === solution.name ? 'correct-score' : 'incorrect-score'}>
+                          </td>
+                          <td className={item.element === solution.element ? 'correct-score' : 'incorrect-score'}>
+                          </td>
+                          <td className={item.class === solution.class ? 'correct-score' : 'incorrect-score'}>
+                          </td>
+                          <td className={item.starsign === solution.starsign ? 'correct-score' : 'incorrect-score'}>
+                          </td>
+                          <td className={item.region === solution.region ? 'correct-score' : 'incorrect-score'}>
+                          </td>
+                          <td className={item.rarity === solution.rarity ? 'correct-score' : 'incorrect-score'}>
+                          </td>
+                          <td className={item.date === solution.date ? 'correct-score' : 'incorrect-score'}>
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+                <button onClick={resetGame} className="play-again-button">Play Again</button>
               </div>
-              <button onClick={resetGame} className="play-again-button">Play Again</button>
-              </>
             )}
           </div>
-
-          {/* <p>{feedback}</p> Display feedback message */}
         </div>
       </div>
       
@@ -493,31 +497,31 @@ function MainGame({ visibility }) {
                 </td>
                 <td className={item.element === solution.element ? 'correct-answer' : 'incorrect-answer'}>
                   <div className='iconname-container'>
-                    <img src={imageMap[item.element]} alt={item.element} />
+                    <img src={imageMap[item.element]} alt={item.element} title={item.element}/>
                     {visibility.element && <p className='iconname'>{nameMap[item.element]}</p>}
                   </div>
                 </td>
                 <td className={item.class === solution.class ? 'correct-answer' : 'incorrect-answer'}>
                   <div className='iconname-container'>
-                    <img src={imageMap[item.class]} alt={item.class} />
+                    <img src={imageMap[item.class]} alt={item.class} title={item.class}/>
                     {visibility.class && <p className='iconname'>{nameMap[item.class]}</p>}
                   </div>
                 </td>
                 <td className={item.starsign === solution.starsign ? 'correct-answer' : 'incorrect-answer'}>
                   <div className='iconname-container'>
-                    <img src={imageMap[item.starsign]} alt={item.starsign} />
+                    <img src={imageMap[item.starsign]} alt={item.starsign} title={item.starsign}/>
                     {visibility.starsign && <p className='iconname'>{nameMap[item.starsign]}</p>}
                   </div>
                 </td>
                 <td className={item.region === solution.region ? 'correct-answer' : 'incorrect-answer'}>
                   <div className='iconname-container'>
-                    <img src={imageMap[item.region]} alt={item.region} className="character-regionicon"/>
+                    <img src={imageMap[item.region]} alt={item.region} title={item.region} className="character-regionicon"/>
                     {visibility.region && <p className='iconname'>{nameMap[item.region]}</p>}
                   </div>
                 </td>
                 <td className={item.rarity === solution.rarity ? 'correct-answer' : 'incorrect-answer'}>
                   <div className='iconname-container'>
-                    <img src={imageMap[item.rarity]} alt={item.rarity} />
+                    <img src={imageMap[item.rarity]} alt={item.rarity} title={item.rarity}/>
                     {visibility.rarity && <p className='iconname'>{nameMap[item.rarity]}</p>}
                   </div>
                 </td>
