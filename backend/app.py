@@ -16,6 +16,10 @@ def load_json_data(filepath):
 json_filepath = os.path.join(os.path.dirname(__file__), 'updated-game-data_modified.json')
 data = load_json_data(json_filepath)
 
+@app.route('/')
+def home():
+    return "Flask heroku app"
+
 @app.route('/api')
 def home():
     return "Welcome to the API!"

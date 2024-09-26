@@ -210,7 +210,7 @@ function MainGame({ visibility }) {
 
   //get characters from json and create list with their data
   useEffect(() => {
-    fetch('http://127.0.0.1:5000/api/characters')
+    fetch('https://epic7dle-server-432df96e6d2b.herokuapp.com/api/characters') //http://127.0.0.1:5000/api/characters
       .then(response => response.json())
       .then(data => {
         const characterList = Object.keys(data).map(key => ({
@@ -274,7 +274,7 @@ function MainGame({ visibility }) {
       // First, disable the button or show a loading indicator (not shown here)
 
       try {
-        const response = await fetch(`http://127.0.0.1:5000/api/characters/${input.trim()}`);
+        const response = await fetch(`https://epic7dle-server-432df96e6d2b.herokuapp.com/api/characters/${input.trim()}`);
         const details = await response.json();
         console.log(details);
 
@@ -334,7 +334,7 @@ function MainGame({ visibility }) {
 
     // Fetch a new solution from your character list or backend if neede
     try {
-      const response = await fetch('http://127.0.0.1:5000/api/characters');
+      const response = await fetch('https://epic7dle-server-432df96e6d2b.herokuapp.com/api/characters');
       const data = await response.json();
       const characterList = Object.keys(data).map(key => ({
         picture: data[key].assets.image,
