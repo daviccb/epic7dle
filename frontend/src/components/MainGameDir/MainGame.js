@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import Cookies from 'js-cookie';
 import './MainGame.css';
 
@@ -49,10 +49,14 @@ add more background pictures
   2024.09.02 - bgs + /story/ + dividing lines
 }
 
+ADD FILTERING TO DROPDOWN LIST
+
 post-game guess review in info center (add share button?) (clipboard icon)
 style settings page (iconname toggle buttons + background changing)
 redo rarity stars with awakened ones
 add emojis to result message
+make cookies (highestscore, solution, guesses)
+animations for guess counter (increment, ! last guess !)
 
 redo json for cleaner hover titles
 
@@ -84,7 +88,17 @@ function MainGame({ visibility }) {
   const [solution, setSolution] = useState(null);  // State to hold the solution
   const [highestStreak, setHighestStreak] = useState(0);
   const [imageSrc, setImageSrc] = useState(null);
+  const [isFocused, setIsFocused] = useState(false);
+  const [filters, setFilters] = useState({
+    element: [],
+    class: [],
+    region: [],
+    zodiac: [],
+    rarity: [],
+    date: [],
+  });
 
+  const inputRef = useRef(null);
 
   const MAX_GUESSES = 5;
   const imageMap = {
@@ -183,6 +197,14 @@ function MainGame({ visibility }) {
     specialty: 'Specialty Change',
     collab: 'Collab',
   }
+  const filterConfig = {
+    element: ['ice', 'fire', 'wind', 'dark', 'light'],
+    class: ['warrior', 'knight', 'ranger', 'mage', 'assassin', 'soulweaver'],
+    region: ['stars', 'ritania', 'death', 'cidonia', 'eureka', 'natalon', 'erasia', 'foreign', 'moonlight', 'specialty', 'collab', ],
+    zodiac: ['aries', 'taurus', 'gemini', 'cancer', 'leo', 'virgo', 'libra', 'scorpio', 'sagittarius', 'capricorn', 'aquarius', 'pisces'],
+    rarity: [3, 4, 5],
+    date: ['2018', '2019', '2020', '2021', '2022', '2023', '2024']
+  };
 
   // Win Streak Functions
   const getHighestStreak = () => {
@@ -219,7 +241,7 @@ function MainGame({ visibility }) {
           name: key,
           element: data[key].attribute,
           class: data[key].role, // Assuming role is equivalent to class
-          starsign: data[key].zodiac,
+          zodiac: data[key].zodiac,
           rarity: data[key].rarity,
           region: data[key].region,
           date: data[key].date,
@@ -237,32 +259,70 @@ function MainGame({ visibility }) {
       });
   }, []);
 
+  const toggleFilter = (category, value) => {
+    setFilters(prevFilters => ({
+      ...prevFilters,
+      [category]: prevFilters[category].includes(value)
+        ? prevFilters[category].filter(item => item !== value)  // Remove filter
+        : [...prevFilters[category], value]                    // Add filter
+    }));
+  };
+
   //sort input dropdown
   useEffect(() => {
-    if (input.trim() === '') {
-      setFilteredCharacters([]);
-    } else {
-      const filtered = characters.filter(char =>
+    let updatedCharacters = characters;
+  
+    // Filter by name if there is input
+    if (input.trim() !== '') {
+      updatedCharacters = updatedCharacters.filter(char =>
         char.name.toLowerCase().includes(input.toLowerCase())
       );
-
-      // Sort so that names starting with the input are at the top
-      filtered.sort((a, b) => {
-        const aStartsWith = a.name.toLowerCase().startsWith(input.toLowerCase());
-        const bStartsWith = b.name.toLowerCase().startsWith(input.toLowerCase());
-        if (aStartsWith && !bStartsWith) {
-          return -1;  // a should come before b
-        } else if (!aStartsWith && bStartsWith) {
-          return 1;  // b should come before a
-        } else {
-          return 0;  // default order
-        }
-      });
-
-      setFilteredCharacters(filtered);
     }
-  }, [input, characters]);
+  
+    Object.keys(filters).forEach(category => {
+      if (filters[category].length > 0) {
+        updatedCharacters = updatedCharacters.filter(char =>
+          char[category] && filters[category].includes(char[category])
+        );
+      }
+    });
 
+    // Sort so that names starting with the input are at the top
+    updatedCharacters.sort((a, b) => {
+      const aStartsWith = a.name.toLowerCase().startsWith(input.toLowerCase());
+      const bStartsWith = b.name.toLowerCase().startsWith(input.toLowerCase());
+      if (aStartsWith && !bStartsWith) {
+        return -1;  // a should come before b
+      } else if (!aStartsWith && bStartsWith) {
+        return 1;  // b should come before a
+      } else {
+        return 0;  // default order
+      }
+    });
+  
+    setFilteredCharacters(updatedCharacters);
+  }, [input, characters, filters]);  // Update dependency to activeFilters
+  
+  const handleBlur = () => {
+    // Delay the onBlur to allow for interaction with the list
+    setTimeout(() => {
+      if (!document.activeElement.closest('.autocomplete-dropdown')) {
+        setIsFocused(false);
+      }
+    }, 100);  // Delay might need adjusting
+  };
+
+  const handleSelect = (name) => {
+      setIsFocused(true);
+      setInput(name)
+      if (inputRef.current && !document.activeElement.isEqualNode(inputRef.current)) {
+        inputRef.current.focus();
+      }
+  };
+
+  const handleDropdownMouseDown = (event) => {
+    event.preventDefault();  // Prevents the input from losing focus
+  };
 
   const handleInputChange = (event) => {
     setInput(event.target.value);
@@ -287,7 +347,7 @@ function MainGame({ visibility }) {
             guess: input,
             element: details.attribute,
             class: details.role,
-            starsign: details.zodiac,
+            zodiac: details.zodiac,
             region: details.region,
             rarity: details.rarity,
             date: details.date,
@@ -342,7 +402,7 @@ function MainGame({ visibility }) {
         name: key,
         element: data[key].attribute,
         class: data[key].role,
-        starsign: data[key].zodiac,
+        zodiac: data[key].zodiac,
         region: data[key].region,
         rarity: data[key].rarity,
         date: data[key].date,
@@ -417,18 +477,45 @@ function MainGame({ visibility }) {
                     placeholder="Enter character name..."
                     value={input}
                     onChange={handleInputChange}
+                    onFocus={() => setIsFocused(true)}
+                    onBlur={handleBlur}
+                    ref={inputRef}
                   />
                   <button className='guessbtn' onClick={handleGuessSubmit}>Guess</button>
                 </div>
-                {filteredCharacters.length > 0 && (
-                  <ul className="autocomplete-dropdown">
-                    {filteredCharacters.map(character => (
-                      <li key={character.id} onClick={() => setInput(character.name)}>
-                        <img src={character.photo} alt={character.name} />
-                        {character.name}
-                      </li>
-                    ))}
-                  </ul>
+                {isFocused && (
+                  <div className="dropdown-container" onMouseDown={handleDropdownMouseDown}>
+                    <ul className="autocomplete-dropdown">
+                      {filteredCharacters.map(character => (
+                        <li key={character.id} onClick={() => handleSelect(character.name)}>
+                          <img src={character.photo} alt={character.name} />
+                          {character.name}
+                        </li>
+                      ))}
+                    </ul>
+                    <div className="filter-container">
+                      {Object.keys(filterConfig).map(category => (
+                        <div key={category} className="filter-category">
+                          <div className="filter-category-title">{category.charAt(0).toUpperCase() + category.slice(1)}</div>
+                          <div className="filter-icons">
+                            {filterConfig[category].map(value => (
+                              <button
+                                key={value}
+                                onClick={() => toggleFilter(category, value)}
+                                className={`filter-icon ${filters[category].includes(value) ? 'active' : ''}`}
+                              >
+                                {imageMap[value] ? (
+                                  <img src={imageMap[value]} alt={value} />
+                                ) : (
+                                  <span className='datefilterbtns'>{value}</span> // Display the value as text if no icon exists
+                                )}
+                              </button>
+                            ))}
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
                 )}
               </>
             ) : (
@@ -452,7 +539,7 @@ function MainGame({ visibility }) {
                           </td>
                           <td className={item.class === solution.class ? 'correct-score' : 'incorrect-score'}>
                           </td>
-                          <td className={item.starsign === solution.starsign ? 'correct-score' : 'incorrect-score'}>
+                          <td className={item.zodiac === solution.zodiac ? 'correct-score' : 'incorrect-score'}>
                           </td>
                           <td className={item.region === solution.region ? 'correct-score' : 'incorrect-score'}>
                           </td>
@@ -507,10 +594,10 @@ function MainGame({ visibility }) {
                     {visibility.class && <p className='iconname'>{nameMap[item.class]}</p>}
                   </div>
                 </td>
-                <td className={item.starsign === solution.starsign ? 'correct-answer' : 'incorrect-answer'}>
+                <td className={item.zodiac === solution.zodiac ? 'correct-answer' : 'incorrect-answer'}>
                   <div className='iconname-container'>
-                    <img src={imageMap[item.starsign]} alt={item.starsign} title={item.starsign}/>
-                    {visibility.starsign && <p className='iconname'>{nameMap[item.starsign]}</p>}
+                    <img src={imageMap[item.zodiac]} alt={item.zodiac} title={item.zodiac}/>
+                    {visibility.zodiac && <p className='iconname'>{nameMap[item.zodiac]}</p>}
                   </div>
                 </td>
                 <td className={item.region === solution.region ? 'correct-answer' : 'incorrect-answer'}>
@@ -549,7 +636,9 @@ function MainGame({ visibility }) {
           </tbody>
         </table>
       </div>
-      {solution && <div>Debug: Solution is {solution.name}</div>}
+      <div className="debug-container">
+        {solution && <div className="debug-info">Debug: Solution is {solution.name}</div>}
+      </div>
     </div>
   );
 

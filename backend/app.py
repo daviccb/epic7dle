@@ -21,7 +21,7 @@ def home():
     return "Flask heroku app"
 
 @app.route('/api')
-def home():
+def home2():
     return "Welcome to the API!"
 
 @app.route('/api/characters')
