@@ -9,11 +9,16 @@ function App() {
 // CODE FOR BACKGROUND CHANGING:
   const [backgroundImage, setBackgroundImage] = useState('');
 
+  const defaultBackgroundImage = 'backgroundAssets/pvp_rta_ss14_r.--old--.png';
+
   useEffect(() => {
     // Check if a background image is saved in cookies
     const savedBackground = Cookies.get('backgroundImage');
     if (savedBackground) {
       setBackgroundImage(savedBackground);
+    } else {
+      // Set the default background image if no cookie is found
+      setBackgroundImage(defaultBackgroundImage);
     }
   }, []);
 
