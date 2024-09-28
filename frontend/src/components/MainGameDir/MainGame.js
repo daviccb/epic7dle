@@ -469,20 +469,8 @@ function MainGame({ visibility }) {
     const handleFocus = () => {
       if (isMobile === true){
         setTimeout(() => {
-          if (inputRef.current) {
-            const yOffset = 223; // Set the offset value here (negative to scroll up, positive to scroll down)
-            
-            // Scroll element into view
+          if(inputRef.current) {
             inputRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    
-            // Apply additional offset
-            const scrolledY = window.scrollY;
-            if (scrolledY) {
-              window.scroll({
-                top: scrolledY + yOffset,
-                behavior: 'smooth'
-              });
-            }
           }
         }, 300); // Delay to account for the mobile keyboard opening
       }
@@ -509,8 +497,8 @@ function MainGame({ visibility }) {
                 <h1 className='gamemodetitle-text'>Endless Mode</h1>
                 <h3 className='tries-text' >Tries {guesses.length}/{MAX_GUESSES}</h3>
                 <div className="streak-info">
-                  <p>🔥   Streak: {getWinStreak()}   🔥</p>
-                  <p>🔥🔥 Highest score: {highestStreak} 🔥🔥</p>
+                  <p>🔥🔥 Streak: {getWinStreak()} 🔥🔥</p>
+                  <p>🔥 Highest score: {highestStreak} 🔥</p>
                 </div>
               </div>
             </div>

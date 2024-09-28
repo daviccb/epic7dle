@@ -557,6 +557,7 @@ input::placeholder {
 
   .character-display {
     box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.274);
+    display: flex;
   }
 
   .solution-container {
@@ -568,7 +569,7 @@ input::placeholder {
   }
 
   .character-imagesol {
-    max-width: 40vw;
+    width: 40vw;
     height: auto;
   }
 
