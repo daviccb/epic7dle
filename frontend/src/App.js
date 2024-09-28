@@ -44,7 +44,7 @@ function App() {
   const [visibility, setVisibility] = useState({
     element: Cookies.get('element') === 'true',
     class: Cookies.get('class') === 'true',
-    starsign: Cookies.get('starsign') ? Cookies.get('starsign') === 'true' : true,
+    zodiac: Cookies.get('zodiac') ? Cookies.get('zodiac') === 'true' : true,
     region: Cookies.get('region') ? Cookies.get('region') === 'true' : true,
     rarity: Cookies.get('rarity') === 'true'
   });
