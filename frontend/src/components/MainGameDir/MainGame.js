@@ -420,9 +420,7 @@ function MainGame({ visibility }) {
       console.error('Failed to fetch new characters:', error);
       setFeedback('Failed to load new game data.');
     }
-  };
-
-  
+  };  
 
     // Toggle handler to change the image source
     const toggleImage = () => {
@@ -434,129 +432,280 @@ function MainGame({ visibility }) {
         }
     };
 
+    // if on a mobile device, change html structure
+    const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
+
+    const handleResize = () => {
+        setIsMobile(window.innerWidth <= 768);
+    };
+
     useEffect(() => {
-      console.log("Image source updated:", imageSrc);
-      // Any other action that needs to run right after imageSrc updates
-    }, [imageSrc]);  // Dependency array includes imageSrc to watch for change
+        window.addEventListener('resize', handleResize);
+        return () => {
+            window.removeEventListener('resize', handleResize);
+        };
+    }, []);
+
+    const characterDisplay = (
+      <div className="character-display">
+        {gameState && solution ? (
+          <div className='solution-container'>
+            <img src={imageSrc} alt="Character" className="character-imagesol" />
+            {solution.hasSkin === "true" && (
+              <button className="skin-button" onClick={toggleImage}>
+                  <img src={'miscAssets/skin.png'} alt="Toggle Skin" className="skin-button-icon" />
+              </button>
+            )}
+          </div>
+        ) : (
+          <img src={'miscAssets/avatar-npc0000.png'} alt="Character" className="character-image-blank" />
+        )}
+      </div>
+    );
+
+  // on mobile device, scroll up when opening guess input dropdown
+  useEffect(() => {
+    // Function to handle scrolling the input into view
+    const handleFocus = () => {
+      if (isMobile === true){
+        setTimeout(() => {
+          if (inputRef.current) {
+            const yOffset = 223; // Set the offset value here (negative to scroll up, positive to scroll down)
+            
+            // Scroll element into view
+            inputRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    
+            // Apply additional offset
+            const scrolledY = window.scrollY;
+            if (scrolledY) {
+              window.scroll({
+                top: scrolledY + yOffset,
+                behavior: 'smooth'
+              });
+            }
+          }
+        }, 300); // Delay to account for the mobile keyboard opening
+      }
+    };
+
+    const inputElement = inputRef.current;
+    inputElement.addEventListener('focus', handleFocus);
+
+    return () => {
+      // Cleanup the event listener when the component unmounts
+      inputElement.removeEventListener('focus', handleFocus);
+    };
+  }, [isMobile]);
 
 
   return (
     <div className="main-game">
-
-
       <div className="game-container">
-        <div className="character-display">
-          {gameState && solution ? (
-            <div className='solution-container'>
-              <img src={imageSrc} alt="Character" className="character-imagesol" />
-              {solution.hasSkin === "true" && (
-                <button className="skin-button" onClick={toggleImage}>
-                    <img src={'miscAssets/skin.png'} alt="Toggle Skin" className="skin-button-icon" />
-                </button>
+        {isMobile ? (
+          <div className="game-info">
+            <div className='mobile-info-container'>
+              {characterDisplay}
+              <div className='mobile-info'>
+                <h1 className='gamemodetitle-text'>Endless Mode</h1>
+                <h3 className='tries-text' >Tries {guesses.length}/{MAX_GUESSES}</h3>
+                <div className="streak-info">
+                  <p>🔥   Streak: {getWinStreak()}   🔥</p>
+                  <p>🔥🔥 Highest score: {highestStreak} 🔥🔥</p>
+                </div>
+              </div>
+            </div>
+
+            <div className="guess-input">
+              {!gameState ? (
+                <>
+                  <div className="input-button-wrapper">
+                    <input
+                      type="text"
+                      placeholder="Enter character name..."
+                      value={input}
+                      onChange={handleInputChange}
+                      onFocus={() => setIsFocused(true)}
+                      onBlur={handleBlur}
+                      ref={inputRef}
+                    />
+                    <button className='guessbtn' onClick={handleGuessSubmit}>Guess</button>
+                  </div>
+                  {isFocused && (
+                    <div className="dropdown-container" onMouseDown={handleDropdownMouseDown}>
+                      <ul className="autocomplete-dropdown">
+                        {filteredCharacters.map(character => (
+                          <li key={character.id} onClick={() => handleSelect(character.name)}>
+                            <img src={character.photo} alt={character.name} />
+                            {character.name}
+                          </li>
+                        ))}
+                      </ul>
+                      <div className="filter-container">
+                        {Object.keys(filterConfig).map(category => (
+                          <div key={category} className="filter-category">
+                            <div className="filter-category-title">{category.charAt(0).toUpperCase() + category.slice(1)}</div>
+                            <div className="filter-icons">
+                              {filterConfig[category].map(value => (
+                                <button
+                                  key={value}
+                                  onClick={() => toggleFilter(category, value)}
+                                  className={`filter-icon ${filters[category].includes(value) ? 'active' : ''}`}
+                                >
+                                  {imageMap[value] ? (
+                                    <img src={imageMap[value]} alt={value} />
+                                  ) : (
+                                    <span className='datefilterbtns'>{value}</span> // Display the value as text if no icon exists
+                                  )}
+                                </button>
+                              ))}
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+                </>
+              ) : (
+                <div className={guesses[0].guess === solution.name ? 'end-screen-correct' : 'end-screen-incorrect'}>
+                  <div className='end-message-container'>
+                    <img src={guesses[0].guess === solution.name ? '/emoticonAssets/extracted_image_32.png' : '/emoticonAssets/extracted_image_6.png'} alt='emoticon' className="emoji1"/>
+                    <h1 className='end-message-text'>{feedback}</h1>
+                    <img src={guesses[0].guess === solution.name ? '/emoticonAssets/extracted_image_7.png' : '/emoticonAssets/extracted_image_16.png'} alt='emoticon' className="emoji2"/>
+                  </div>
+                  <div className="summary-table">
+                    <table>
+                    <caption>Your Score</caption>
+                      <tbody>
+                        {guesses.map((item, index) => (
+                          <tr key={index}>
+                            <td className={'score-cell'}>
+                            </td>
+                            <td className={item.guess === solution.name ? 'correct-score' : 'incorrect-score'}>
+                            </td>
+                            <td className={item.element === solution.element ? 'correct-score' : 'incorrect-score'}>
+                            </td>
+                            <td className={item.class === solution.class ? 'correct-score' : 'incorrect-score'}>
+                            </td>
+                            <td className={item.zodiac === solution.zodiac ? 'correct-score' : 'incorrect-score'}>
+                            </td>
+                            <td className={item.region === solution.region ? 'correct-score' : 'incorrect-score'}>
+                            </td>
+                            <td className={item.rarity === solution.rarity ? 'correct-score' : 'incorrect-score'}>
+                            </td>
+                            <td className={item.date === solution.date ? 'correct-score' : 'incorrect-score'}>
+                            </td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
+                  <button onClick={resetGame} className="play-again-button">Play Again</button>
+                </div>
               )}
             </div>
-          ) : (
-            <img src={'miscAssets/avatar-npc0000.png'} alt="Character" className="character-image-blank" />
-          )}
-        </div>
-
-        <div className="game-info">
-          <h1 className='gamemodetitle-text'>Endless Mode</h1>
-          <h3 className='tries-text' >Tries {guesses.length}/{MAX_GUESSES}</h3>
-          <div className="streak-info">
-            <p>🔥   Streak: {getWinStreak()}   🔥</p>
-            <p>🔥🔥 Highest score: {highestStreak} 🔥🔥</p>
           </div>
+        ) : (
+          <>
+            {characterDisplay}
+            <div className="game-info">
+              <h1 className='gamemodetitle-text'>Endless Mode</h1>
+              <h3 className='tries-text' >Tries {guesses.length}/{MAX_GUESSES}</h3>
+              <div className="streak-info">
+                <p>🔥   Streak: {getWinStreak()}   🔥</p>
+                <p>🔥🔥 Highest score: {highestStreak} 🔥🔥</p>
+              </div>
 
-          <div className="guess-input">
-            {!gameState ? (
-              <>
-                <div className="input-button-wrapper">
-                  <input
-                    type="text"
-                    placeholder="Enter character name..."
-                    value={input}
-                    onChange={handleInputChange}
-                    onFocus={() => setIsFocused(true)}
-                    onBlur={handleBlur}
-                    ref={inputRef}
-                  />
-                  <button className='guessbtn' onClick={handleGuessSubmit}>Guess</button>
-                </div>
-                {isFocused && (
-                  <div className="dropdown-container" onMouseDown={handleDropdownMouseDown}>
-                    <ul className="autocomplete-dropdown">
-                      {filteredCharacters.map(character => (
-                        <li key={character.id} onClick={() => handleSelect(character.name)}>
-                          <img src={character.photo} alt={character.name} />
-                          {character.name}
-                        </li>
-                      ))}
-                    </ul>
-                    <div className="filter-container">
-                      {Object.keys(filterConfig).map(category => (
-                        <div key={category} className="filter-category">
-                          <div className="filter-category-title">{category.charAt(0).toUpperCase() + category.slice(1)}</div>
-                          <div className="filter-icons">
-                            {filterConfig[category].map(value => (
-                              <button
-                                key={value}
-                                onClick={() => toggleFilter(category, value)}
-                                className={`filter-icon ${filters[category].includes(value) ? 'active' : ''}`}
-                              >
-                                {imageMap[value] ? (
-                                  <img src={imageMap[value]} alt={value} />
-                                ) : (
-                                  <span className='datefilterbtns'>{value}</span> // Display the value as text if no icon exists
-                                )}
-                              </button>
-                            ))}
-                          </div>
-                        </div>
-                      ))}
+              <div className="guess-input">
+                {!gameState ? (
+                  <>
+                    <div className="input-button-wrapper">
+                      <input
+                        type="text"
+                        placeholder="Enter character name..."
+                        value={input}
+                        onChange={handleInputChange}
+                        onFocus={() => setIsFocused(true)}
+                        onBlur={handleBlur}
+                        ref={inputRef}
+                      />
+                      <button className='guessbtn' onClick={handleGuessSubmit}>Guess</button>
                     </div>
+                    {isFocused && (
+                      <div className="dropdown-container" onMouseDown={handleDropdownMouseDown}>
+                        <ul className="autocomplete-dropdown">
+                          {filteredCharacters.map(character => (
+                            <li key={character.id} onClick={() => handleSelect(character.name)}>
+                              <img src={character.photo} alt={character.name} />
+                              {character.name}
+                            </li>
+                          ))}
+                        </ul>
+                        <div className="filter-container">
+                          {Object.keys(filterConfig).map(category => (
+                            <div key={category} className="filter-category">
+                              <div className="filter-category-title">{category.charAt(0).toUpperCase() + category.slice(1)}</div>
+                              <div className="filter-icons">
+                                {filterConfig[category].map(value => (
+                                  <button
+                                    key={value}
+                                    onClick={() => toggleFilter(category, value)}
+                                    className={`filter-icon ${filters[category].includes(value) ? 'active' : ''}`}
+                                  >
+                                    {imageMap[value] ? (
+                                      <img src={imageMap[value]} alt={value} />
+                                    ) : (
+                                      <span className='datefilterbtns'>{value}</span> // Display the value as text if no icon exists
+                                    )}
+                                  </button>
+                                ))}
+                              </div>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    )}
+                  </>
+                ) : (
+                  <div className={guesses[0].guess === solution.name ? 'end-screen-correct' : 'end-screen-incorrect'}>
+                    <div className='end-message-container'>
+                      <img src={guesses[0].guess === solution.name ? '/emoticonAssets/extracted_image_32.png' : '/emoticonAssets/extracted_image_6.png'} alt='emoticon' className="emoji1"/>
+                      <h1 className='end-message-text'>{feedback}</h1>
+                      <img src={guesses[0].guess === solution.name ? '/emoticonAssets/extracted_image_7.png' : '/emoticonAssets/extracted_image_16.png'} alt='emoticon' className="emoji2"/>
+                    </div>
+                    <div className="summary-table">
+                      <table>
+                      <caption>Your Score</caption>
+                        <tbody>
+                          {guesses.map((item, index) => (
+                            <tr key={index}>
+                              <td className={'score-cell'}>
+                              </td>
+                              <td className={item.guess === solution.name ? 'correct-score' : 'incorrect-score'}>
+                              </td>
+                              <td className={item.element === solution.element ? 'correct-score' : 'incorrect-score'}>
+                              </td>
+                              <td className={item.class === solution.class ? 'correct-score' : 'incorrect-score'}>
+                              </td>
+                              <td className={item.zodiac === solution.zodiac ? 'correct-score' : 'incorrect-score'}>
+                              </td>
+                              <td className={item.region === solution.region ? 'correct-score' : 'incorrect-score'}>
+                              </td>
+                              <td className={item.rarity === solution.rarity ? 'correct-score' : 'incorrect-score'}>
+                              </td>
+                              <td className={item.date === solution.date ? 'correct-score' : 'incorrect-score'}>
+                              </td>
+                            </tr>
+                          ))}
+                        </tbody>
+                      </table>
+                    </div>
+                    <button onClick={resetGame} className="play-again-button">Play Again</button>
                   </div>
                 )}
-              </>
-            ) : (
-              <div className={guesses[0].guess === solution.name ? 'end-screen-correct' : 'end-screen-incorrect'}>
-                <div className='end-message-container'>
-                  <img src={guesses[0].guess === solution.name ? '/emoticonAssets/extracted_image_32.png' : '/emoticonAssets/extracted_image_6.png'} alt='emoticon' className="emoji1"/>
-                  <h1 className='end-message-text'>{feedback}</h1>
-                  <img src={guesses[0].guess === solution.name ? '/emoticonAssets/extracted_image_7.png' : '/emoticonAssets/extracted_image_16.png'} alt='emoticon' className="emoji2"/>
-                </div>
-                <div className="summary-table">
-                  <table>
-                  <caption>Your Score</caption>
-                    <tbody>
-                      {guesses.map((item, index) => (
-                        <tr key={index}>
-                          <td className={'score-cell'}>
-                          </td>
-                          <td className={item.guess === solution.name ? 'correct-score' : 'incorrect-score'}>
-                          </td>
-                          <td className={item.element === solution.element ? 'correct-score' : 'incorrect-score'}>
-                          </td>
-                          <td className={item.class === solution.class ? 'correct-score' : 'incorrect-score'}>
-                          </td>
-                          <td className={item.zodiac === solution.zodiac ? 'correct-score' : 'incorrect-score'}>
-                          </td>
-                          <td className={item.region === solution.region ? 'correct-score' : 'incorrect-score'}>
-                          </td>
-                          <td className={item.rarity === solution.rarity ? 'correct-score' : 'incorrect-score'}>
-                          </td>
-                          <td className={item.date === solution.date ? 'correct-score' : 'incorrect-score'}>
-                          </td>
-                        </tr>
-                      ))}
-                    </tbody>
-                  </table>
-                </div>
-                <button onClick={resetGame} className="play-again-button">Play Again</button>
               </div>
-            )}
-          </div>
-        </div>
+            </div>
+          </>
+        )}
       </div>
       
       <div className="guess-table">

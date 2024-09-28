@@ -46,7 +46,7 @@ function SettingsPage({ isOpen, children, onClose, closeSettings,
         <div className='toggle-iconnames-div'>
           <button onClick={() => toggleVisibility('element')}>Element</button>
           <button onClick={() => toggleVisibility('class')}>Class</button>
-          <button onClick={() => toggleVisibility('starsign')}>Star Sign</button>
+          <button onClick={() => toggleVisibility('zodiac')}>Zodiac</button>
           <button onClick={() => toggleVisibility('region')}>Region</button>
           <button onClick={() => toggleVisibility('rarity')}>Rarity</button>
         </div>

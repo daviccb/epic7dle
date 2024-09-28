@@ -2,7 +2,7 @@
   display: flex;
   width: 80%;
   height: 100vh;
-  padding-top: 3%;
+  padding-top: 6.3vh;
   background: rgba(87, 87, 87, 0.699);
   border: 1px solid rgba(61, 61, 61, 0.9);
   background-attachment: fixed;
@@ -10,6 +10,13 @@
 
   /* Hides scrollbar in IE and Edge */
   -ms-overflow-style: none;
+}
+
+@media (max-width: 768px) {
+  .maingame-container {
+    width: 100%; /* Sets width to 100% for devices with a screen width of 768px or less */
+    background: rgba(87, 87, 87, 0.521);
+  }
 }
 
 .maingame-container::-webkit-scrollbar {

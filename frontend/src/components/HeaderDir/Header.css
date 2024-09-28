@@ -7,7 +7,7 @@
    color: white;
    padding: 0 20px;  /* Adjust padding to fit all items properly */
    width: 100%;
-   height: 40px;  /* Define a fixed height for consistency */
+   height: 6.3vh;
    display: flex;
    justify-content: space-between;
    align-items: center;  /* Ensure vertical centering of children */
@@ -19,7 +19,7 @@
 
 
 .settingsbtn {
-  font-size: 26px;
+  height: 100%;
   color: white;
   cursor: pointer;
   background: none;
@@ -31,11 +31,16 @@
   justify-content: center;  /* Center content horizontally */
 }
 
-
 .settingsbtn:hover {
   color: #e4e3e3;     /* Darker color on hover */
 }
 
+.settings-button-icon {
+  height: 90%;
+  width: auto;
+}
+
 h1 {
+  font-size: 28px;
   margin: auto;
 }

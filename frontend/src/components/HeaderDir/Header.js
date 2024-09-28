@@ -6,7 +6,7 @@ function Header({ openSettings }) {
     <header className="header">
       <h1>Epic7dle</h1>
       <button onClick={openSettings} className="settingsbtn" aria-label="Open settings" >
-        &#9881; {/* Unicode gear icon */}
+        <img src={'miscAssets/settings_icon.png'} alt="Settings" className="settings-button-icon" />
       </button>
       <span>Version 0.1</span>
     </header>
