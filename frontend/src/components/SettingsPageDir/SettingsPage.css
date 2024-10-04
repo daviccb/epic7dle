@@ -25,6 +25,31 @@
   text-align: center;
 }
 
+.settings-header {
+  font-size: 20px;
+  margin-top: 25px;
+  margin-bottom: 4px;
+}
+
+.background-select {
+  margin: auto;
+}
+
+.toggle-iconnames-div button {
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  background-color: #ffffff;
+  color: rgb(0, 0, 0);
+}
+
+.toggle-iconnames-div button:hover {
+  background-color: #d4d4d4;
+}
+
+
 
 .close-button {
   position: absolute;

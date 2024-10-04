@@ -42,6 +42,8 @@
   position: absolute;  /* Position the button relative to its nearest positioned ancestor */
   top: 10px;
   left: 10px;
+  width: 15%;
+  max-width: 45px;
   padding: 0;
   border: 1px solid #182046;
   border-radius: 5px;
@@ -158,14 +160,14 @@
 
 .end-message-container {
   display: flex;
-  justify-content: center; /* Aligns items to the start of the flex container */
+  justify-content: center;
   width: fit-content;
   margin: auto;
 }
 
 .end-message-container img {
-  width: 55px;
-  height: auto;
+  width: clamp(55px, 85px);
+  height: clamp(55px, 85px);
   margin-bottom: 2%;
 }
 
@@ -179,11 +181,29 @@
   border-radius: 5px;  
 }
 
-.end-message-text {
-  padding-top: 3px;
+.end-message-text-container {
+  padding-top: 5px;
   padding-bottom: 5px;
+  padding-left: 2px;
+  padding-right: 2px;
+  margin: auto;
   color: white;
-  font-size: 24px;
+}
+
+.end-message-text {
+  font-size: clamp(13px, 1.2vw, 22px);
+}
+
+.end-message-text2 {
+  color: white;
+  font-size: clamp(14px, 1.3vw, 22px);
+}
+
+.end-message-name {
+  padding-top: 2px;
+  color: white;
+  font-size: clamp(14px, 2vw, 22px);
+  font-style: italic;
 }
 
 /* summary table css */

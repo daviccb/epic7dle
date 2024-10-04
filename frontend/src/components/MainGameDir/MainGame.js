@@ -83,6 +83,7 @@ function MainGame({ visibility }) {
   const [guesses, setGuesses] = useState([]);
   const [gameState, setGameState] = useState(false);
   const [feedback, setFeedback] = useState('');
+  const [feedbackSol, setFeedbackSol] = useState('');
   const [characters, setCharacters] = useState([]);
   const [filteredCharacters, setFilteredCharacters] = useState([]);
   const [solution, setSolution] = useState(null);  // State to hold the solution
@@ -371,6 +372,7 @@ function MainGame({ visibility }) {
             }
           }
           setFeedback(isCorrect ? 'Correct! Well done.' : 'Incorrect, try again!');
+          setFeedbackSol('Answer is: ')
 
         } else {
           // Handle case where no valid details are returned
@@ -477,13 +479,17 @@ function MainGame({ visibility }) {
     };
 
     const inputElement = inputRef.current;
-    inputElement.addEventListener('focus', handleFocus);
+    if (inputElement) {
+      inputElement.addEventListener('focus', handleFocus);
+    }
 
     return () => {
       // Cleanup the event listener when the component unmounts
-      inputElement.removeEventListener('focus', handleFocus);
-    };
-  }, [isMobile]);
+      if (inputElement) {
+        inputElement.removeEventListener('focus', handleFocus);
+      }
+    }; // eslint-disable-next-line
+  }, []); 
 
 
   return (
@@ -557,7 +563,11 @@ function MainGame({ visibility }) {
                 <div className={guesses[0].guess === solution.name ? 'end-screen-correct' : 'end-screen-incorrect'}>
                   <div className='end-message-container'>
                     <img src={guesses[0].guess === solution.name ? '/emoticonAssets/extracted_image_32.png' : '/emoticonAssets/extracted_image_6.png'} alt='emoticon' className="emoji1"/>
-                    <h1 className='end-message-text'>{feedback}</h1>
+                    <div className='end-message-text-container'>
+                      <h1 className='end-message-text'>{feedback}</h1>
+                      <h1 className='end-message-text2'>{feedbackSol}</h1>
+                      <h1 className='end-message-name'>{solution.name}</h1>
+                    </div>
                     <img src={guesses[0].guess === solution.name ? '/emoticonAssets/extracted_image_7.png' : '/emoticonAssets/extracted_image_16.png'} alt='emoticon' className="emoji2"/>
                   </div>
                   <div className="summary-table">
@@ -604,8 +614,8 @@ function MainGame({ visibility }) {
               </div>
 
               <div className="guess-input">
-                {!gameState ? (
-                  <>
+                {!gameState ? ( // mobile version
+                  <> 
                     <div className="input-button-wrapper">
                       <input
                         type="text"
@@ -653,11 +663,15 @@ function MainGame({ visibility }) {
                       </div>
                     )}
                   </>
-                ) : (
+                ) : ( // pc version
                   <div className={guesses[0].guess === solution.name ? 'end-screen-correct' : 'end-screen-incorrect'}>
                     <div className='end-message-container'>
                       <img src={guesses[0].guess === solution.name ? '/emoticonAssets/extracted_image_32.png' : '/emoticonAssets/extracted_image_6.png'} alt='emoticon' className="emoji1"/>
-                      <h1 className='end-message-text'>{feedback}</h1>
+                      <div className='end-message-text-container'>
+                        <h1 className='end-message-text'>{feedback}</h1>
+                        <h1 className='end-message-text2'>{feedbackSol}</h1>
+                        <h1 className='end-message-name'>{solution.name}</h1>
+                      </div>
                       <img src={guesses[0].guess === solution.name ? '/emoticonAssets/extracted_image_7.png' : '/emoticonAssets/extracted_image_16.png'} alt='emoticon' className="emoji2"/>
                     </div>
                     <div className="summary-table">
