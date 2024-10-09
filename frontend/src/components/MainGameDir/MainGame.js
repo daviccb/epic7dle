@@ -49,18 +49,16 @@ add more background pictures
   2024.09.02 - bgs + /story/ + dividing lines
 }
 
-ADD FILTERING TO DROPDOWN LIST
-
 post-game guess review in info center (add share button?) (clipboard icon)
 style settings page (iconname toggle buttons + background changing)
 redo rarity stars with awakened ones
-add emojis to result message
+add emojis to result message (more emojis + randomized)
 make cookies (highestscore, solution, guesses)
 animations for guess counter (increment, ! last guess !)
 
 redo json for cleaner hover titles
 
-fix layout + add theme (green buttons from game?) (nice borders) (style the dropdown)
+fix layout + add theme (green buttons from game?) (nice borders)
 make pretty
 animations
 
@@ -90,13 +88,14 @@ function MainGame({ visibility }) {
   const [highestStreak, setHighestStreak] = useState(0);
   const [imageSrc, setImageSrc] = useState(null);
   const [isFocused, setIsFocused] = useState(false);
+  const [isAnimating, setIsAnimating] = useState(false);
   const [filters, setFilters] = useState({
-    element: [],
-    class: [],
-    region: [],
-    zodiac: [],
-    rarity: [],
-    date: [],
+    element: ['ice', 'fire', 'wind', 'dark', 'light'],
+    class: ['warrior', 'knight', 'ranger', 'mage', 'assassin', 'soulweaver'],
+    zodiac: ['aries', 'taurus', 'gemini', 'cancer', 'leo', 'virgo', 'libra', 'scorpio', 'sagittarius', 'capricorn', 'aquarius', 'pisces'],
+    region: ['stars', 'ritania', 'death', 'cidonia', 'eureka', 'natalon', 'erasia', 'foreign', 'moonlight', 'specialty', 'collab', ],
+    rarity: [3, 4, 5],
+    date: ['2018', '2019', '2020', '2021', '2022', '2023', '2024']
   });
 
   const inputRef = useRef(null);
@@ -201,8 +200,8 @@ function MainGame({ visibility }) {
   const filterConfig = {
     element: ['ice', 'fire', 'wind', 'dark', 'light'],
     class: ['warrior', 'knight', 'ranger', 'mage', 'assassin', 'soulweaver'],
-    region: ['stars', 'ritania', 'death', 'cidonia', 'eureka', 'natalon', 'erasia', 'foreign', 'moonlight', 'specialty', 'collab', ],
     zodiac: ['aries', 'taurus', 'gemini', 'cancer', 'leo', 'virgo', 'libra', 'scorpio', 'sagittarius', 'capricorn', 'aquarius', 'pisces'],
+    region: ['stars', 'ritania', 'death', 'cidonia', 'eureka', 'natalon', 'erasia', 'foreign', 'moonlight', 'specialty', 'collab', ],
     rarity: [3, 4, 5],
     date: ['2018', '2019', '2020', '2021', '2022', '2023', '2024']
   };
@@ -260,14 +259,36 @@ function MainGame({ visibility }) {
       });
   }, []);
 
-  const toggleFilter = (category, value) => {
-    setFilters(prevFilters => ({
-      ...prevFilters,
-      [category]: prevFilters[category].includes(value)
-        ? prevFilters[category].filter(item => item !== value)  // Remove filter
-        : [...prevFilters[category], value]                    // Add filter
-    }));
+  const toggleFilter = (category, value = null) => {
+    if (value) {
+      // Toggle individual filter
+      const newFilters = { ...filters };
+      const currentValues = newFilters[category] || [];
+  
+      if (currentValues.includes(value)) {
+        newFilters[category] = currentValues.filter(item => item !== value);
+      } else {
+        newFilters[category] = [...currentValues, value];
+      }
+      
+      setFilters(newFilters);
+    } else {
+      // Toggle all filters in the category
+      const newFilters = { ...filters };
+      const currentValues = newFilters[category] || [];
+  
+      if (currentValues.length === filterConfig[category].length) {
+        // All filters are currently active; deactivate them all
+        newFilters[category] = [];
+      } else {
+        // Activate all filters in the category
+        newFilters[category] = filterConfig[category].map(item => item);
+      }
+  
+      setFilters(newFilters);
+    }
   };
+  
 
   //sort input dropdown
   useEffect(() => {
@@ -361,6 +382,12 @@ function MainGame({ visibility }) {
 
           setGameState(isCorrect ? true : false); // game win
 
+          // Animate the newly created row
+          setIsAnimating(true);
+          setTimeout(() => {
+            setIsAnimating(false);
+          }, 2005); // matches animation duration
+
           if (isCorrect === true) {
             incrementWinStreak();
             updateHighestStreak();
@@ -372,7 +399,7 @@ function MainGame({ visibility }) {
             }
           }
           setFeedback(isCorrect ? 'Correct! Well done.' : 'Incorrect, try again!');
-          setFeedbackSol('Answer is: ')
+          setFeedbackSol('Answer is:')
 
         } else {
           // Handle case where no valid details are returned
@@ -393,6 +420,14 @@ function MainGame({ visibility }) {
     setGuesses([]);
     setGameState(false);
     setFeedback('');
+    setFilters({
+      element: ['ice', 'fire', 'wind', 'dark', 'light'],
+      class: ['warrior', 'knight', 'ranger', 'mage', 'assassin', 'soulweaver'],
+      zodiac: ['aries', 'taurus', 'gemini', 'cancer', 'leo', 'virgo', 'libra', 'scorpio', 'sagittarius', 'capricorn', 'aquarius', 'pisces'],
+      region: ['stars', 'ritania', 'death', 'cidonia', 'eureka', 'natalon', 'erasia', 'foreign', 'moonlight', 'specialty', 'collab', ],
+      rarity: [3, 4, 5],
+      date: ['2018', '2019', '2020', '2021', '2022', '2023', '2024']
+    })
 
     // Fetch a new solution from your character list or backend if neede
     try {
@@ -448,23 +483,6 @@ function MainGame({ visibility }) {
         };
     }, []);
 
-    const characterDisplay = (
-      <div className="character-display">
-        {gameState && solution ? (
-          <div className='solution-container'>
-            <img src={imageSrc} alt="Character" className="character-imagesol" />
-            {solution.hasSkin === "true" && (
-              <button className="skin-button" onClick={toggleImage}>
-                  <img src={'miscAssets/skin.png'} alt="Toggle Skin" className="skin-button-icon" />
-              </button>
-            )}
-          </div>
-        ) : (
-          <img src={'miscAssets/avatar-npc0000.png'} alt="Character" className="character-image-blank" />
-        )}
-      </div>
-    );
-
   // on mobile device, scroll up when opening guess input dropdown
   useEffect(() => {
     // Function to handle scrolling the input into view
@@ -492,10 +510,133 @@ function MainGame({ visibility }) {
   }, []); 
 
 
+  const characterDisplay = (
+    <div className="character-display">
+      {gameState && solution ? (
+        <div className='solution-container'>
+          <img src={imageSrc} alt="Character" className="character-imagesol" />
+          {solution.hasSkin === "true" && (
+            <button className="skin-button" onClick={toggleImage}>
+                <img src={'miscAssets/skin.png'} alt="Toggle Skin" className="skin-button-icon" />
+            </button>
+          )}
+        </div>
+      ) : (
+        <img src={'miscAssets/avatar-npc0000.png'} alt="Character" className="character-image-blank" />
+      )}
+    </div>
+  );
+
+  const guessInput = (
+    <div className="guess-input">
+      {!gameState ? (
+        <>
+          <div className="input-button-wrapper">
+            <input
+              type="text"
+              placeholder="Enter character name..."
+              value={input}
+              onChange={handleInputChange}
+              onFocus={() => setIsFocused(true)}
+              onBlur={handleBlur}
+              ref={inputRef}
+            />
+            <button className='guessbtn' onClick={handleGuessSubmit}>Guess</button>
+          </div>
+          {isFocused && (
+            <div className="dropdown-container" onMouseDown={handleDropdownMouseDown}>
+              <ul className="autocomplete-dropdown">
+                {filteredCharacters.map(character => (
+                  <li key={character.id} onClick={() => handleSelect(character.name)}>
+                    <img src={character.photo} alt={character.name} />
+                    {character.name}
+                  </li>
+                ))}
+              </ul>
+              <div className="filter-container">
+                {Object.keys(filterConfig).map(category => (
+                  <div key={category} className="filter-category">
+                    <div className="filter-category-title" onClick={() => toggleFilter(category)}>
+                      {category.charAt(0).toUpperCase() + category.slice(1)}
+                    </div>
+                    <div className="filter-icons">
+                      {filterConfig[category].map(value => (
+                        <button
+                          key={value}
+                          onClick={(e) => {
+                            e.stopPropagation(); // Prevent triggering the category title's onClick
+                            toggleFilter(category, value);
+                          }}
+                          className={`filter-icon ${filters[category].includes(value) ? 'active' : ''}`}
+                        >
+                          {imageMap[value] ? (
+                            <img src={imageMap[value]} alt={value} />
+                          ) : (
+                            <span className='datefilterbtns'>{value}</span> // Display the value as text if no icon exists
+                          )}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+        </>
+      ) : (
+        <div className={guesses[0].guess === solution.name ? 'end-screen-correct' : 'end-screen-incorrect'}>
+          <div className='end-message-container'>
+            <img src={guesses[0].guess === solution.name ? '/emoticonAssets/extracted_image_32.png' : '/emoticonAssets/extracted_image_6.png'} alt='emoticon' className="emoji1" />
+            <div className='end-message-text-container'>
+              <h1 className='end-message-text'>{feedback}</h1>
+              <h1 className='end-message-text2'>{feedbackSol}</h1>
+              <h1 className='end-message-name'>{solution.name}</h1>
+            </div>
+            <img src={guesses[0].guess === solution.name ? '/emoticonAssets/extracted_image_7.png' : '/emoticonAssets/extracted_image_16.png'} alt='emoticon' className="emoji2" />
+          </div>
+          <div className="summary-table">
+            <table>
+              <caption>Your Score</caption>
+              <tbody>
+                {guesses.map((item, index) => (
+                  <tr key={index}>
+                    <td className={'score-cell'}>
+                    </td>
+                    <td className={item.guess === solution.name ? 'correct-score' : 'incorrect-score'}>
+                    </td>
+                    <td className={item.element === solution.element ? 'correct-score' : 'incorrect-score'}>
+                    </td>
+                    <td className={item.class === solution.class ? 'correct-score' : 'incorrect-score'}>
+                    </td>
+                    <td className={item.zodiac === solution.zodiac ? 'correct-score' : 'incorrect-score'}>
+                    </td>
+                    <td className={item.region === solution.region ? 'correct-score' : 'incorrect-score'}>
+                    </td>
+                    <td className={item.rarity === solution.rarity ? 'correct-score' : 'incorrect-score'}>
+                    </td>
+                    <td className={item.date === solution.date ? 'correct-score' : 'incorrect-score'}>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+          <button onClick={resetGame} className="play-again-button">Play Again</button>
+        </div>
+      )}
+    </div>
+  );
+
+  const cellbackside = (
+    <div className="back">
+      <img src={'miscAssets/extracted_image_2476.png'} alt="cellbackside"/>
+    </div>
+  );
+
   return (
     <div className="main-game">
       <div className="game-container">
-        {isMobile ? (
+        {isMobile ? ( // mobile version
           <div className="game-info">
             <div className='mobile-info-container'>
               {characterDisplay}
@@ -509,100 +650,9 @@ function MainGame({ visibility }) {
               </div>
             </div>
 
-            <div className="guess-input">
-              {!gameState ? (
-                <>
-                  <div className="input-button-wrapper">
-                    <input
-                      type="text"
-                      placeholder="Enter character name..."
-                      value={input}
-                      onChange={handleInputChange}
-                      onFocus={() => setIsFocused(true)}
-                      onBlur={handleBlur}
-                      ref={inputRef}
-                    />
-                    <button className='guessbtn' onClick={handleGuessSubmit}>Guess</button>
-                  </div>
-                  {isFocused && (
-                    <div className="dropdown-container" onMouseDown={handleDropdownMouseDown}>
-                      <ul className="autocomplete-dropdown">
-                        {filteredCharacters.map(character => (
-                          <li key={character.id} onClick={() => handleSelect(character.name)}>
-                            <img src={character.photo} alt={character.name} />
-                            {character.name}
-                          </li>
-                        ))}
-                      </ul>
-                      <div className="filter-container">
-                        {Object.keys(filterConfig).map(category => (
-                          <div key={category} className="filter-category">
-                            <div className="filter-category-title">{category.charAt(0).toUpperCase() + category.slice(1)}</div>
-                            <div className="filter-icons">
-                              {filterConfig[category].map(value => (
-                                <button
-                                  key={value}
-                                  onClick={() => toggleFilter(category, value)}
-                                  className={`filter-icon ${filters[category].includes(value) ? 'active' : ''}`}
-                                >
-                                  {imageMap[value] ? (
-                                    <img src={imageMap[value]} alt={value} />
-                                  ) : (
-                                    <span className='datefilterbtns'>{value}</span> // Display the value as text if no icon exists
-                                  )}
-                                </button>
-                              ))}
-                            </div>
-                          </div>
-                        ))}
-                      </div>
-                    </div>
-                  )}
-                </>
-              ) : (
-                <div className={guesses[0].guess === solution.name ? 'end-screen-correct' : 'end-screen-incorrect'}>
-                  <div className='end-message-container'>
-                    <img src={guesses[0].guess === solution.name ? '/emoticonAssets/extracted_image_32.png' : '/emoticonAssets/extracted_image_6.png'} alt='emoticon' className="emoji1"/>
-                    <div className='end-message-text-container'>
-                      <h1 className='end-message-text'>{feedback}</h1>
-                      <h1 className='end-message-text2'>{feedbackSol}</h1>
-                      <h1 className='end-message-name'>{solution.name}</h1>
-                    </div>
-                    <img src={guesses[0].guess === solution.name ? '/emoticonAssets/extracted_image_7.png' : '/emoticonAssets/extracted_image_16.png'} alt='emoticon' className="emoji2"/>
-                  </div>
-                  <div className="summary-table">
-                    <table>
-                    <caption>Your Score</caption>
-                      <tbody>
-                        {guesses.map((item, index) => (
-                          <tr key={index}>
-                            <td className={'score-cell'}>
-                            </td>
-                            <td className={item.guess === solution.name ? 'correct-score' : 'incorrect-score'}>
-                            </td>
-                            <td className={item.element === solution.element ? 'correct-score' : 'incorrect-score'}>
-                            </td>
-                            <td className={item.class === solution.class ? 'correct-score' : 'incorrect-score'}>
-                            </td>
-                            <td className={item.zodiac === solution.zodiac ? 'correct-score' : 'incorrect-score'}>
-                            </td>
-                            <td className={item.region === solution.region ? 'correct-score' : 'incorrect-score'}>
-                            </td>
-                            <td className={item.rarity === solution.rarity ? 'correct-score' : 'incorrect-score'}>
-                            </td>
-                            <td className={item.date === solution.date ? 'correct-score' : 'incorrect-score'}>
-                            </td>
-                          </tr>
-                        ))}
-                      </tbody>
-                    </table>
-                  </div>
-                  <button onClick={resetGame} className="play-again-button">Play Again</button>
-                </div>
-              )}
-            </div>
+            {guessInput}
           </div>
-        ) : (
+        ) : ( // pc version
           <>
             {characterDisplay}
             <div className="game-info">
@@ -613,98 +663,7 @@ function MainGame({ visibility }) {
                 <p>🔥🔥 Highest score: {highestStreak} 🔥🔥</p>
               </div>
 
-              <div className="guess-input">
-                {!gameState ? ( // mobile version
-                  <> 
-                    <div className="input-button-wrapper">
-                      <input
-                        type="text"
-                        placeholder="Enter character name..."
-                        value={input}
-                        onChange={handleInputChange}
-                        onFocus={() => setIsFocused(true)}
-                        onBlur={handleBlur}
-                        ref={inputRef}
-                      />
-                      <button className='guessbtn' onClick={handleGuessSubmit}>Guess</button>
-                    </div>
-                    {isFocused && (
-                      <div className="dropdown-container" onMouseDown={handleDropdownMouseDown}>
-                        <ul className="autocomplete-dropdown">
-                          {filteredCharacters.map(character => (
-                            <li key={character.id} onClick={() => handleSelect(character.name)}>
-                              <img src={character.photo} alt={character.name} />
-                              {character.name}
-                            </li>
-                          ))}
-                        </ul>
-                        <div className="filter-container">
-                          {Object.keys(filterConfig).map(category => (
-                            <div key={category} className="filter-category">
-                              <div className="filter-category-title">{category.charAt(0).toUpperCase() + category.slice(1)}</div>
-                              <div className="filter-icons">
-                                {filterConfig[category].map(value => (
-                                  <button
-                                    key={value}
-                                    onClick={() => toggleFilter(category, value)}
-                                    className={`filter-icon ${filters[category].includes(value) ? 'active' : ''}`}
-                                  >
-                                    {imageMap[value] ? (
-                                      <img src={imageMap[value]} alt={value} />
-                                    ) : (
-                                      <span className='datefilterbtns'>{value}</span> // Display the value as text if no icon exists
-                                    )}
-                                  </button>
-                                ))}
-                              </div>
-                            </div>
-                          ))}
-                        </div>
-                      </div>
-                    )}
-                  </>
-                ) : ( // pc version
-                  <div className={guesses[0].guess === solution.name ? 'end-screen-correct' : 'end-screen-incorrect'}>
-                    <div className='end-message-container'>
-                      <img src={guesses[0].guess === solution.name ? '/emoticonAssets/extracted_image_32.png' : '/emoticonAssets/extracted_image_6.png'} alt='emoticon' className="emoji1"/>
-                      <div className='end-message-text-container'>
-                        <h1 className='end-message-text'>{feedback}</h1>
-                        <h1 className='end-message-text2'>{feedbackSol}</h1>
-                        <h1 className='end-message-name'>{solution.name}</h1>
-                      </div>
-                      <img src={guesses[0].guess === solution.name ? '/emoticonAssets/extracted_image_7.png' : '/emoticonAssets/extracted_image_16.png'} alt='emoticon' className="emoji2"/>
-                    </div>
-                    <div className="summary-table">
-                      <table>
-                      <caption>Your Score</caption>
-                        <tbody>
-                          {guesses.map((item, index) => (
-                            <tr key={index}>
-                              <td className={'score-cell'}>
-                              </td>
-                              <td className={item.guess === solution.name ? 'correct-score' : 'incorrect-score'}>
-                              </td>
-                              <td className={item.element === solution.element ? 'correct-score' : 'incorrect-score'}>
-                              </td>
-                              <td className={item.class === solution.class ? 'correct-score' : 'incorrect-score'}>
-                              </td>
-                              <td className={item.zodiac === solution.zodiac ? 'correct-score' : 'incorrect-score'}>
-                              </td>
-                              <td className={item.region === solution.region ? 'correct-score' : 'incorrect-score'}>
-                              </td>
-                              <td className={item.rarity === solution.rarity ? 'correct-score' : 'incorrect-score'}>
-                              </td>
-                              <td className={item.date === solution.date ? 'correct-score' : 'incorrect-score'}>
-                              </td>
-                            </tr>
-                          ))}
-                        </tbody>
-                      </table>
-                    </div>
-                    <button onClick={resetGame} className="play-again-button">Play Again</button>
-                  </div>
-                )}
-              </div>
+              {guessInput}
             </div>
           </>
         )}
@@ -726,60 +685,84 @@ function MainGame({ visibility }) {
           </thead>
           <tbody>
             {guesses.map((item, index) => (
-              <tr key={index}>
+              <tr key={index} className={index === 0 && isAnimating ? 'last-row-animated' : ''}>
                 <td className={'photo-cell'}>
-                  <img src={item.photo} alt={item.photo} className="character-imageicon"/>
+                  <div className='celldiv'>
+                    <img src={item.photo} alt={item.photo} className="character-imageicon front" />
+                    {cellbackside}
+                  </div>
                 </td>
                 <td className={item.guess === solution.name ? 'correct-answer' : 'incorrect-answer'}>
-                  {item.guess}
+                  <div className='celldiv'>
+                    <span className='front'>{item.guess}</span>
+                    {cellbackside}
+                  </div>
                 </td>
                 <td className={item.element === solution.element ? 'correct-answer' : 'incorrect-answer'}>
-                  <div className='iconname-container'>
-                    <img src={imageMap[item.element]} alt={item.element} title={item.element}/>
-                    {visibility.element && <p className='iconname'>{nameMap[item.element]}</p>}
+                  <div className='celldiv'>
+                    <div className='iconname-container front'>
+                      <img src={imageMap[item.element]} alt={item.element} title={item.element} />
+                      {visibility.element && <p className='iconname'>{nameMap[item.element]}</p>}
+                    </div>
+                    {cellbackside}
                   </div>
                 </td>
                 <td className={item.class === solution.class ? 'correct-answer' : 'incorrect-answer'}>
-                  <div className='iconname-container'>
-                    <img src={imageMap[item.class]} alt={item.class} title={item.class}/>
-                    {visibility.class && <p className='iconname'>{nameMap[item.class]}</p>}
+                  <div className='celldiv'>
+                    <div className='iconname-container front'>
+                      <img src={imageMap[item.class]} alt={item.class} title={item.class} />
+                      {visibility.class && <p className='iconname'>{nameMap[item.class]}</p>}
+                    </div>
+                    {cellbackside}
                   </div>
                 </td>
                 <td className={item.zodiac === solution.zodiac ? 'correct-answer' : 'incorrect-answer'}>
-                  <div className='iconname-container'>
-                    <img src={imageMap[item.zodiac]} alt={item.zodiac} title={item.zodiac}/>
-                    {visibility.zodiac && <p className='iconname'>{nameMap[item.zodiac]}</p>}
+                  <div className='celldiv'>
+                    <div className='iconname-container front'>
+                      <img src={imageMap[item.zodiac]} alt={item.zodiac} title={item.zodiac} />
+                      {visibility.zodiac && <p className='iconname'>{nameMap[item.zodiac]}</p>}
+                    </div>
+                    {cellbackside}
                   </div>
                 </td>
                 <td className={item.region === solution.region ? 'correct-answer' : 'incorrect-answer'}>
-                  <div className='iconname-container'>
-                    <img src={imageMap[item.region]} alt={item.region} title={item.region} className="character-regionicon"/>
-                    {visibility.region && <p className='iconname'>{nameMap[item.region]}</p>}
+                  <div className='celldiv'>
+                    <div className='iconname-container front'>
+                      <img src={imageMap[item.region]} alt={item.region} title={item.region} className="character-regionicon" />
+                      {visibility.region && <p className='iconname'>{nameMap[item.region]}</p>}
+                    </div>
+                    {cellbackside}
                   </div>
                 </td>
                 <td className={item.rarity === solution.rarity ? 'correct-answer' : 'incorrect-answer'}>
-                  <div className='iconname-container'>
-                    <img src={imageMap[item.rarity]} alt={item.rarity} title={item.rarity}/>
-                    {visibility.rarity && <p className='iconname'>{nameMap[item.rarity]}</p>}
+                  <div className='celldiv'>
+                    <div className='iconname-container front'>
+                      <img src={imageMap[item.rarity]} alt={item.rarity} title={item.rarity} />
+                      {visibility.rarity && <p className='iconname'>{nameMap[item.rarity]}</p>}
+                    </div>
+                    {cellbackside}
                   </div>
                 </td>
                 <td className={item.date === solution.date ? 'correct-answer' : 'incorrect-answer'}>
-                  <div className='date-container'>
-                    {item.date > solution.date &&
-                      <>
-                        {item.date}
-                        <img src={Math.abs(item.date - solution.date) >= 3 ? 'arrowAssets/arrow2_down.png' : 'arrowAssets/arrow1_down.png'} alt='arrow down' /> 
-                      </>
-                    }
-                    {item.date < solution.date &&
-                      <>
-                        <img src={Math.abs(item.date - solution.date) >= 3 ? 'arrowAssets/arrow2_up.png' : 'arrowAssets/arrow1_up.png'} alt='arrow up' />
-                        {item.date}
-                      </>
-                    }
-                    {item.date === solution.date &&
-                      <span>{item.date}</span>
-                    }
+                  <div className='celldiv'>
+                    <div className='date-container front'>
+                      {item.date > solution.date &&
+                        <>
+                          {item.date}
+                          <img src={Math.abs(item.date - solution.date) >= 3 ? 'arrowAssets/arrow2_down.png' : 'arrowAssets/arrow1_down.png'} alt='arrow down' />
+                        </>
+                      }
+                      {item.date < solution.date &&
+                        <>
+                          <img src={Math.abs(item.date - solution.date) >= 3 ? 'arrowAssets/arrow2_up.png' : 'arrowAssets/arrow1_up.png'} alt='arrow up' />
+                          {item.date}
+                        </>
+                      }
+                      {item.date === solution.date &&
+                        <span>{item.date}</span>
+                      }
+                    </div>
+                    {cellbackside}
                   </div>
                 </td>
               </tr>

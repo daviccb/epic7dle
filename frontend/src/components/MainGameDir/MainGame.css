@@ -12,6 +12,7 @@
 .game-container {
   display: flex;
   align-items: center; /* Align items vertically */
+  justify-content: center;
   margin: auto;
   margin-bottom: 2%;
   margin-top: 2%;
@@ -150,11 +151,11 @@
 }
 
 .emoji1 {
-  animation: tilt 2s infinite alternate ease-in-out;
+  animation: tilt 3s infinite alternate ease-in-out;
 }
 
 .emoji2 {
-  animation: tilt2 2s infinite alternate ease-in-out;
+  animation: tilt2 3s infinite alternate ease-in-out;
 }
 
 
@@ -220,6 +221,7 @@
 .summary-table td {
   width: 17px; /* Width of each cell */
   height: 17px; /* Height of each cell, same as width to make it square */
+  padding: 5px;
 }
 
 
@@ -288,13 +290,14 @@
 }
 
 .filter-icon {
-  background: none;
+  background: #947474;
   border: none;
   cursor: pointer;
   padding: 3px;
   margin: 1px;
   color: white;
   border: 1px solid #202020;
+  opacity: .5;
 }
 
 .filter-icon:hover {
@@ -302,7 +305,9 @@
 }
 
 .filter-icon.active {
-  background-color: #4CAF50; /* Active state background */
+  background: none;
+  opacity: 1;
+  /* border: 1px solid #649b5a; */
   border-radius: 4px;
   color: white;
 }
@@ -410,21 +415,24 @@
   border-spacing: 4px 4px;
   background-color: #272626;
 
-  font-family: "roboto", Arial, Helvetica, sans-serif;
+  font-family: roboto, Arial, Helvetica, sans-serif;
   font-weight: 400;
   font-style: normal;
   text-shadow: 1.5px 1px 0 #2b2b2b; /* Creates a simple black outline */
-  letter-spacing: 0.3px;
+  letter-spacing: .3px;
+  border-radius: 3px;
 }
 
-.guess-table th, td {
+.guess-table th, .guess-table td {
   text-align: center;  /* Centers text in table cells */
   padding: 5px;
+  box-sizing: border-box;
+
 }
 
 .guess-table td {
-  color: white;  /* Ensures text color contrasts well with the black outline */
-  font-weight: bold; /* Makes the text thicker */
+  color: #fff;  /* Ensures text color contrasts well with the black outline */
+  font-weight: 700; /* Makes the text thicker */
   font-size: 23px;
 }
 
@@ -435,7 +443,7 @@
 }
 
 .guess-table tr:hover {
-  background-color: #f5f5f5; /* Light gray background on hover */
+  background-color: #f5f5f5;
   transition: background-color 0.3s ease;
 }
 
@@ -444,16 +452,41 @@
   text-align: center;
 }
 
-.guess-table td:nth-child(last-child) { /* Last column for rarity */
-  text-align: center;
+.celldiv {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-sizing: border-box;
+  transform-style: preserve-3d;
+  width: 100%;  
+  height: 80px;
+}
+
+.front, .back {
+  backface-visibility: hidden;
+}
+
+.back {
+  position: absolute;
+  margin: auto;
+  width: 100%;  
+  height: 100%;   
+  transform: rotateY(180deg);
+  background-color: #272626;
+  object-fit: contain;
+  outline: 10px solid #706b6b;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.back img {
+  width: 45px;
+  border: 2px solid rgb(160, 160, 160);
 }
 
 /* table cell's background colors */
-.photo-cell {
-  background-color: #575757;
-  border: 3px solid #706b6b;
-}
-
 .iconname-container {
   display: flex;         /* Establishes a flex container */
   flex-direction: column; /* Stacks the flex items vertically */
@@ -481,6 +514,11 @@
   margin-right: 8px;
 }
 
+.photo-cell {
+  background-color: #575757;
+  border: 4px solid #706b6b;
+}
+
 .correct-answer {
   background-color: #649b5a;
   border: 4px solid #53bd40;
@@ -506,6 +544,28 @@
   border: 3px solid #222222;
 }
 
+@keyframes flipcell {
+  0% {
+    transform: rotateY(180deg);
+  }
+  100% {
+    transform: rotateY(0);
+  }
+}
+
+.last-row-animated .celldiv {
+  animation: flipcell 0.85s ease-in-out both;
+}
+
+.last-row-animated td:nth-child(0) .celldiv { animation-delay: 1.20s; }
+.last-row-animated td:nth-child(1) .celldiv { animation-delay: 1.05s; }
+.last-row-animated td:nth-child(2) .celldiv { animation-delay: 0.90s; }
+.last-row-animated td:nth-child(3) .celldiv { animation-delay: 0.75s; }
+.last-row-animated td:nth-child(4) .celldiv { animation-delay: 0.60s; }
+.last-row-animated td:nth-child(5) .celldiv { animation-delay: 0.45s; }
+.last-row-animated td:nth-child(6) .celldiv { animation-delay: 0.30s; }
+.last-row-animated td:nth-child(7) .celldiv { animation-delay: 0.15s; }
+.last-row-animated td:nth-child(8) .celldiv { animation-delay: 0.00s; }
 
 
 input[type="text"] {
@@ -571,6 +631,10 @@ input::placeholder {
 
 /* mobile device css */
 @media (max-width: 768px) {
+  .main-game {
+    padding: 1%;
+  }
+
   .game-container {
     justify-content: center;
   }
@@ -644,10 +708,11 @@ input::placeholder {
   .guess-table table {
     font-weight: 200;
     font-style: small;
+    border-spacing: 3px 3px;
   }
 
   .guess-table td {
-    font-weight: bold; /* Makes the text thicker */
+    font-weight: 700; /* Makes the text thicker */
     font-size: 12px;
     padding: 0;
   }
@@ -656,6 +721,11 @@ input::placeholder {
     font-weight: bold; /* Makes the text thicker */
     font-size: 8px;
     padding: 0;
+  }
+
+  .photo-cell {
+    background-color: #575757;
+    border: 3px solid #706b6b;
   }
   
   .correct-answer {
@@ -668,6 +738,14 @@ input::placeholder {
     border: 3px solid #ce3232;
   }
 
+  .back {
+    outline: 4px solid #706b6b;
+  }
+
+  .back img {
+    width: 20px;
+  }
+
   img {
     max-width: 100%;
     height: auto;
@@ -676,5 +754,11 @@ input::placeholder {
   .photo-cell img{
     max-width: 100%;
     height: auto;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .emoji1, .emoji2, .last-row-animated .celldiv {
+    animation: none;
   }
 }
