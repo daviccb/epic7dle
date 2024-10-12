@@ -58,9 +58,14 @@ animations for guess counter (increment, ! last guess !)
 
 redo json for cleaner hover titles
 
-fix layout + add theme (green buttons from game?) (nice borders)
 make pretty
-animations
+animations {
+  character solution reveal
+  div expansion?
+  improve guess-table's flip-animation? (fade-in red/green bg)
+  expanding divs (new table entry, opening dropdown menu)
+}
+
 
 sagittarius
 retake characterAssets:
@@ -399,7 +404,7 @@ function MainGame({ visibility }) {
             }
           }
           setFeedback(isCorrect ? 'Correct! Well done.' : 'Incorrect, try again!');
-          setFeedbackSol('Answer is:')
+          setFeedbackSol('Answer is')
 
         } else {
           // Handle case where no valid details are returned
@@ -509,20 +514,41 @@ function MainGame({ visibility }) {
     }; // eslint-disable-next-line
   }, []); 
 
+  const [height, setHeight] = useState(0);
+  const containerRef = useRef(null);
+  const defaultImageRef = useRef(null);
+
+  // Adjust the height based on gameState
+  useEffect(() => {
+    if (gameState && containerRef.current) {
+      setTimeout(() => {
+        const contentHeight = containerRef.current.scrollHeight;
+        setHeight(contentHeight);  // Set to content height when gameState is true
+      }, 100); // Adjust timeout as necessary, 100ms might be a good start
+    } else if (!gameState && defaultImageRef.current) {
+      const imageHeight = defaultImageRef.current.clientHeight;
+      setHeight(imageHeight);  // Set to image height when gameState is false
+    }
+  }, [gameState, imageSrc]);
 
   const characterDisplay = (
-    <div className="character-display">
+    <div className={`character-display ${gameState ? 'transition' : ''}`} style={{ transition: 'height 0.2s ease', height: `${height}px` }}>
       {gameState && solution ? (
-        <div className='solution-container'>
-          <img src={imageSrc} alt="Character" className="character-imagesol" />
-          {solution.hasSkin === "true" && (
-            <button className="skin-button" onClick={toggleImage}>
+        <div ref={containerRef} className='solution-container'>
+          <div className='frontside'>
+            <img src={imageSrc} alt="Character" className="character-imagesol" />
+            {solution.hasSkin === "true" && (
+              <button className="skin-button" onClick={toggleImage}>
                 <img src={'miscAssets/skin.png'} alt="Toggle Skin" className="skin-button-icon" />
-            </button>
-          )}
+              </button>
+            )}
+          </div>
+          <div className='backside'>
+            <img src={'miscAssets/avatar-npc0000.png'} alt="Character" className="character-image-blank" /> 
+          </div>
         </div>
       ) : (
-        <img src={'miscAssets/avatar-npc0000.png'} alt="Character" className="character-image-blank" />
+        <img src={'miscAssets/avatar-npc0000.png'} alt="Character" className="character-image-blank" ref={defaultImageRef}/>
       )}
     </div>
   );

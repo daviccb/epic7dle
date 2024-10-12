@@ -19,6 +19,14 @@
   height: auto;
 }
 
+@keyframes fadeflip {
+  0% {
+    transform: rotateY(0);
+  }
+  100% {
+    transform: rotateY(180deg);
+  }
+}
 
 .character-display {
   justify-content: center;
@@ -26,6 +34,42 @@
   background: url('/public/miscAssets/op_choose_bg.png') no-repeat center/cover;
   box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5);
   border-radius: 7px;
+  perspective: 1000px;
+  overflow: hidden;
+  z-index: 10;
+}
+
+.transition {
+  background: none;
+  box-shadow: none;
+  overflow: visible;
+}
+
+.transition .solution-container {
+  box-shadow: -5px 5px 10px rgba(0, 0, 0, 0.5);
+  animation: fadeflip .8s ease-in-out;
+
+}
+
+.frontside {
+  transform: rotateY(180deg);
+  backface-visibility: hidden;
+}
+
+.backside {
+  position: absolute;
+  margin: auto;
+  left: 0;
+  top: 0;
+  width: 100%;  
+  height: 100%;
+  background: url('/public/miscAssets/op_choose_bg.png') no-repeat center/cover;
+  backface-visibility: hidden;
+  object-fit: contain;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .solution-container {
@@ -36,6 +80,9 @@
     rgba(0, 0, 0, 0.4), 
     rgba(0, 0, 0, 0.0)
   ), url('/public/miscAssets/extracted_image_6328.png') no-repeat center/cover;
+  transform-style: preserve-3d;
+  transition: transform 0.8s;
+  transform: rotateY(180deg);
 }
 
 /* CSS for the skin button {... */
@@ -245,6 +292,15 @@
   font-size: 16px;
 }
 
+@keyframes expand {
+  0% {
+    height: 0%;
+  }
+  100% {
+    height: 1000%;
+  }
+}
+
 .dropdown-container {
   position: absolute;
   top: 105%; /* Position directly below the input field */
@@ -255,6 +311,7 @@
   border-radius: 4px;
   max-height: 400px;
   z-index: 10;
+  animation: expand .2s ease-in-out;
 }
 
 .filter-container {
@@ -427,7 +484,7 @@
   text-align: center;  /* Centers text in table cells */
   padding: 5px;
   box-sizing: border-box;
-
+  transition: width 2s;
 }
 
 .guess-table td {
@@ -640,12 +697,11 @@ input::placeholder {
   }
 
   .character-display {
-    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.274);
     display: flex;
   }
 
   .solution-container {
-    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0);
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0);
   }
 
   .character-image-blank {
@@ -703,6 +759,10 @@ input::placeholder {
     border-left: 1px solid rgba(145, 99, 55, 0);
     padding-left: 0px;
     justify-content: center;
+  }
+
+  .filter-icon:hover {
+    border: none;
   }
 
   .guess-table table {
