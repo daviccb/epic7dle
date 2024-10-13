@@ -47,7 +47,7 @@
 
 .transition .solution-container {
   box-shadow: -5px 5px 10px rgba(0, 0, 0, 0.5);
-  animation: fadeflip .8s ease-in-out;
+  animation: fadeflip .8s ease-in-out .3s backwards;
 
 }
 

@@ -531,6 +531,12 @@ function MainGame({ visibility }) {
     }
   }, [gameState, imageSrc]);
 
+  // Pre-load the solution image
+  useEffect(() => {
+    const img = new Image();
+    img.src = imageSrc;
+  }, [imageSrc]);
+
   const characterDisplay = (
     <div className={`character-display ${gameState ? 'transition' : ''}`} style={{ transition: 'height 0.2s ease', height: `${height}px` }}>
       {gameState && solution ? (
@@ -544,7 +550,7 @@ function MainGame({ visibility }) {
             )}
           </div>
           <div className='backside'>
-            <img src={'miscAssets/avatar-npc0000.png'} alt="Character" className="character-image-blank" /> 
+            <img src={'miscAssets/avatar-npc0000.png'} alt="Character" className="character-image-blank" ref={defaultImageRef}/> 
           </div>
         </div>
       ) : (
