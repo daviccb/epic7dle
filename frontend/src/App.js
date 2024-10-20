@@ -4,6 +4,7 @@ import './App.css';
 import Header from './components/HeaderDir/Header';
 import MainGame from './components/MainGameDir/MainGame';
 import SettingsPage from './components/SettingsPageDir/SettingsPage';
+import InfoPage from './components/InfoPageDir/InfoPage';
 
 function App() {
 // CODE FOR BACKGROUND CHANGING:
@@ -74,9 +75,18 @@ function App() {
   const openSettings = () => setIsSettingsOpen(true);
   const closeSettings = () => setIsSettingsOpen(false);
 
+// CODE FOR INFO PAGE:
+  const [isInfoOpen, setIsInfoOpen] = useState(false);
+
+  const openInfo = () => setIsInfoOpen(true);
+  const closeInfo = () => setIsInfoOpen(false);
+
   return (
     <div className="App" style={backgroundStyle}>
-      <Header openSettings={openSettings} />
+      <Header openSettings={openSettings} openInfo={openInfo}/>
+      <InfoPage isOpen={isInfoOpen} onClose={closeInfo} closeInfo={closeInfo} 
+      
+      />
       <SettingsPage isOpen={isSettingsOpen} onClose={closeSettings} closeSettings={closeSettings} 
         //background settings
         backgroundImage={backgroundImage} 

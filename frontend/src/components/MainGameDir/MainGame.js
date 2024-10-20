@@ -77,6 +77,7 @@ retake characterAssets:
   angelic momo (take without effect)
   aux lots (is blinking)
   maid chloe
+  lqc
 */
 
 
@@ -425,6 +426,8 @@ function MainGame({ visibility }) {
     setGuesses([]);
     setGameState(false);
     setFeedback('');
+    setAnimationReady(false);
+    setIsImageLoaded(false);
     setFilters({
       element: ['ice', 'fire', 'wind', 'dark', 'light'],
       class: ['warrior', 'knight', 'ranger', 'mage', 'assassin', 'soulweaver'],
@@ -517,32 +520,43 @@ function MainGame({ visibility }) {
   const [height, setHeight] = useState(0);
   const containerRef = useRef(null);
   const defaultImageRef = useRef(null);
+  const [isImageLoaded, setIsImageLoaded] = useState(false);
+  const [animationReady, setAnimationReady] = useState(false);
 
   // Adjust the height based on gameState
   useEffect(() => {
-    if (gameState && containerRef.current) {
-      setTimeout(() => {
-        const contentHeight = containerRef.current.scrollHeight;
-        setHeight(contentHeight);  // Set to content height when gameState is true
-      }, 100); // Adjust timeout as necessary, 100ms might be a good start
+    if (gameState && imageSrc) {
+      const img = new Image();
+      img.src = imageSrc;
+      img.onload = () => {
+        if (containerRef.current) {
+          setHeight(containerRef.current.scrollHeight);
+          setIsImageLoaded(true);
+        }
+      };
     } else if (!gameState && defaultImageRef.current) {
-      const imageHeight = defaultImageRef.current.clientHeight;
-      setHeight(imageHeight);  // Set to image height when gameState is false
+      const defaultImg = new Image();
+      defaultImg.src = defaultImageRef.current.src;
+      defaultImg.onload = () => {
+        setHeight(defaultImageRef.current.clientHeight);
+        setIsImageLoaded(true);
+      };
     }
   }, [gameState, imageSrc]);
 
-  // Pre-load the solution image
+  // Start the animation when both height is set and image is loaded
   useEffect(() => {
-    const img = new Image();
-    img.src = imageSrc;
-  }, [imageSrc]);
+    if (isImageLoaded) {
+      setAnimationReady(true);
+    }
+  }, [isImageLoaded]);
 
   const characterDisplay = (
-    <div className={`character-display ${gameState ? 'transition' : ''}`} style={{ transition: 'height 0.2s ease', height: `${height}px` }}>
+    <div className={`character-display ${(gameState && animationReady) ? 'solution-reveal' : ''}`} style={{ transition: 'height 0.2s ease', height: `${height}px` }}>
       {gameState && solution ? (
         <div ref={containerRef} className='solution-container'>
           <div className='frontside'>
-            <img src={imageSrc} alt="Character" className="character-imagesol" />
+            <img src={imageSrc} alt="Character" className="character-imagesol" onLoad={() => setIsImageLoaded(true)}/>
             {solution.hasSkin === "true" && (
               <button className="skin-button" onClick={toggleImage}>
                 <img src={'miscAssets/skin.png'} alt="Toggle Skin" className="skin-button-icon" />
@@ -661,7 +675,7 @@ function MainGame({ visibility }) {
 
   const cellbackside = (
     <div className="back">
-      <img src={'miscAssets/extracted_image_2476.png'} alt="cellbackside"/>
+      <img src={'miscAssets/extracted_image_415.png'} alt="cellbackside"/>
     </div>
   );
 
