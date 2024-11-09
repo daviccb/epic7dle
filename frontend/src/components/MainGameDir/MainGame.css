@@ -446,6 +446,24 @@
   background-color: #fcfcfc;
 } */
 
+.prevdailysolutiontext {
+  z-index: 2;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.prevdailysolutiontext p {
+  color: white;
+  font-weight: bold;
+}
+
+.prevdailysolutiontext img {
+  width: 33px;
+  height: 33px;
+  padding-left: 5px;
+}
+
 
 
 /* table stuff */

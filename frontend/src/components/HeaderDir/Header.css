@@ -17,6 +17,32 @@
    z-index: 20;
 }
 
+/* Style the navigation container */
+.navigation {
+  display: flex;
+  justify-content: center;  /* Center the links horizontally */
+  align-items: center;  /* Align the links vertically */
+  gap: 10px;  /* Space between links */
+}
+
+/* Style the individual links */
+.nav-link {
+  text-decoration: none;  /* Remove underline from links */
+  color: #ffffff;  /* Set the text color to white */
+  font-size: 18px;  /* Increase font size */
+  font-weight: bold;  /* Make text bold */
+  padding: 10px 20px;  /* Add some padding around text for clickable area */
+  border-radius: 8px;  /* Add rounded corners */
+  transition: all 0.3s ease;  /* Smooth transition for hover effect */
+}
+
+/* Add a hover effect to the links */
+.nav-link:hover {
+  background-color: #3f3f3f;  /* Darken background on hover */
+  color: #f0f0f0;  /* Lighten text color on hover */
+  transform: scale(1.05);  /* Slightly enlarge the link when hovered */
+}
+
 .infobtn {
   height: 100%;
   color: white;

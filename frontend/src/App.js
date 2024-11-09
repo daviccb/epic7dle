@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Cookies from 'js-cookie';
 import './App.css';
 import Header from './components/HeaderDir/Header';
@@ -82,24 +83,26 @@ function App() {
   const closeInfo = () => setIsInfoOpen(false);
 
   return (
-    <div className="App" style={backgroundStyle}>
-      <Header openSettings={openSettings} openInfo={openInfo}/>
-      <InfoPage isOpen={isInfoOpen} onClose={closeInfo} closeInfo={closeInfo} 
-      
-      />
-      <SettingsPage isOpen={isSettingsOpen} onClose={closeSettings} closeSettings={closeSettings} 
-        //background settings
-        backgroundImage={backgroundImage} 
-        handleBackgroundChange={handleBackgroundChange}
-
-        //iconname settings
-        visibility={visibility}
-        toggleVisibility={toggleVisibility}
-      />
-      <div className="maingame-container">
-        <MainGame visibility={visibility} />
+    <Router>
+      <div className="App" style={backgroundStyle}>
+        <Header openSettings={openSettings} openInfo={openInfo} />
+        <InfoPage isOpen={isInfoOpen} onClose={closeInfo} closeInfo={closeInfo} />
+        <SettingsPage isOpen={isSettingsOpen} onClose={closeSettings} closeSettings={closeSettings}
+          //background settings
+          backgroundImage={backgroundImage}
+          handleBackgroundChange={handleBackgroundChange}
+          //iconname settings
+          visibility={visibility}
+          toggleVisibility={toggleVisibility}
+        />
+        <div className="maingame-container">
+          <Routes>
+            <Route path="/" element={<MainGame visibility={visibility} mode="daily" />} />
+            <Route path="/endless" element={<MainGame visibility={visibility} mode="endless" />} />
+          </Routes>
+        </div>
       </div>
-    </div>
+    </Router>
   );
 }
 

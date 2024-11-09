@@ -66,6 +66,9 @@ animations {
   expanding divs (new table entry, opening dropdown menu)
 }
 
+dailymode
+  winstreak
+  revert filtering logic
 
 sagittarius
 retake characterAssets:
@@ -82,7 +85,7 @@ retake characterAssets:
 
 
 
-function MainGame({ visibility }) {
+function MainGame({ visibility, mode }) {
   const [input, setInput] = useState('');
   const [guesses, setGuesses] = useState([]);
   const [gameState, setGameState] = useState(false);
@@ -90,8 +93,14 @@ function MainGame({ visibility }) {
   const [feedbackSol, setFeedbackSol] = useState('');
   const [characters, setCharacters] = useState([]);
   const [filteredCharacters, setFilteredCharacters] = useState([]);
-  const [solution, setSolution] = useState(null);  // State to hold the solution
-  const [highestStreak, setHighestStreak] = useState(0);
+  const [dailySolution, setDailySolution] = useState(null);
+  const [prevDailySolution, setPrevDailySolution] = useState(null);
+  const [endlessSolution, setEndlessSolution] = useState(null);
+  const [solution, setSolution] = useState(null);
+  const [highestDailyStreak, setHighestDailyStreak] = useState(parseInt(localStorage.getItem('highestDailyStreak') || '0', 10));
+  const [highestEndlessStreak, setHighestEndlessStreak] = useState(parseInt(localStorage.getItem('highestEndlessStreak') || '0', 10));
+  const [dailyWinStreak, setDailyWinStreak] = useState(parseInt(Cookies.get('dailyWinStreak') || '0', 10));
+  const [endlessWinStreak, setEndlessWinStreak] = useState(parseInt(Cookies.get('endlessWinStreak') || '0', 10));
   const [imageSrc, setImageSrc] = useState(null);
   const [isFocused, setIsFocused] = useState(false);
   const [isAnimating, setIsAnimating] = useState(false);
@@ -99,7 +108,7 @@ function MainGame({ visibility }) {
     element: ['ice', 'fire', 'wind', 'dark', 'light'],
     class: ['warrior', 'knight', 'ranger', 'mage', 'assassin', 'soulweaver'],
     zodiac: ['aries', 'taurus', 'gemini', 'cancer', 'leo', 'virgo', 'libra', 'scorpio', 'sagittarius', 'capricorn', 'aquarius', 'pisces'],
-    region: ['stars', 'ritania', 'death', 'cidonia', 'eureka', 'natalon', 'erasia', 'foreign', 'moonlight', 'specialty', 'collab', ],
+    region: ['stars', 'ritania', 'death', 'cidonia', 'eureka', 'natalon', 'erasia', 'foreign', 'moonlight', 'specialty', 'collab',],
     rarity: [3, 4, 5],
     date: ['2018', '2019', '2020', '2021', '2022', '2023', '2024']
   });
@@ -207,38 +216,71 @@ function MainGame({ visibility }) {
     element: ['ice', 'fire', 'wind', 'dark', 'light'],
     class: ['warrior', 'knight', 'ranger', 'mage', 'assassin', 'soulweaver'],
     zodiac: ['aries', 'taurus', 'gemini', 'cancer', 'leo', 'virgo', 'libra', 'scorpio', 'sagittarius', 'capricorn', 'aquarius', 'pisces'],
-    region: ['stars', 'ritania', 'death', 'cidonia', 'eureka', 'natalon', 'erasia', 'foreign', 'moonlight', 'specialty', 'collab', ],
+    region: ['stars', 'ritania', 'death', 'cidonia', 'eureka', 'natalon', 'erasia', 'foreign', 'moonlight', 'specialty', 'collab',],
     rarity: [3, 4, 5],
     date: ['2018', '2019', '2020', '2021', '2022', '2023', '2024']
   };
 
   // Win Streak Functions
-  const getHighestStreak = () => {
-    return parseInt(localStorage.getItem('highestStreak') || '0', 10);
-  };
-  const updateHighestStreak = (currentStreak) => {
-    const highestStreak = getHighestStreak();
-    if (currentStreak > highestStreak) {
-      localStorage.setItem('highestStreak', currentStreak.toString());
-      setHighestStreak(currentStreak);
+  const getHighestStreak = (mode) => {
+    if (mode === 'daily') {
+      return parseInt(localStorage.getItem('highestDailyStreak') || '0', 10);
+    } else {
+      return parseInt(localStorage.getItem('highestEndlessStreak') || '0', 10);
     }
   };
-  const getWinStreak = () => parseInt(Cookies.get('winStreak') || '0', 10);
-  const incrementWinStreak = () => {
-    const currentStreak = parseInt(Cookies.get('winStreak') || '0', 10) + 1;
-    Cookies.set('winStreak', currentStreak, { expires: 7 });
-    updateHighestStreak(currentStreak);
-  };
-  const resetWinStreak = () => {
-    Cookies.set('winStreak', 0, { expires: 7 });
-  };
-  useEffect(() => {
-    setHighestStreak(getHighestStreak());
-  }, []);
 
-  //get characters from json and create list with their data
+  const updateHighestStreak = (currentStreak, mode) => {
+    if (mode === 'daily') {
+      const highestDailyStreak = getHighestStreak('daily');
+      if (currentStreak > highestDailyStreak) {
+        localStorage.setItem('highestDailyStreak', currentStreak.toString());
+        setHighestDailyStreak(currentStreak);
+      }
+    } else {
+      const highestEndlessStreak = getHighestStreak('endless');
+      if (currentStreak > highestEndlessStreak) {
+        localStorage.setItem('highestEndlessStreak', currentStreak.toString());
+        setHighestEndlessStreak(currentStreak);
+      }
+    }
+  };
+
+  // const getWinStreak = (mode) => {
+  //   if (mode === 'daily') {
+  //     return parseInt(Cookies.get('dailyWinStreak') || '0', 10);
+  //   } else {
+  //     return parseInt(Cookies.get('endlessWinStreak') || '0', 10);
+  //   }
+  // };
+
+  const incrementWinStreak = (mode) => {
+    if (mode === 'daily') {
+      const currentStreak = parseInt(Cookies.get('dailyWinStreak') || '0', 10) + 1;
+      Cookies.set('dailyWinStreak', currentStreak, { expires: 7 });
+      setDailyWinStreak(currentStreak);
+      updateHighestStreak(currentStreak, 'daily');
+    } else {
+      const currentStreak = parseInt(Cookies.get('endlessWinStreak') || '0', 10) + 1;
+      Cookies.set('endlessWinStreak', currentStreak, { expires: 7 });
+      setEndlessWinStreak(currentStreak);
+      updateHighestStreak(currentStreak, 'endless');
+    }
+  };
+
+  const resetWinStreak = (mode) => {
+    if (mode === 'daily') {
+      Cookies.set('dailyWinStreak', 0, { expires: 7 });
+      setDailyWinStreak(0);
+    } else {
+      Cookies.set('endlessWinStreak', 0, { expires: 7 });
+      setEndlessWinStreak(0);
+    }
+  };
+
+  // Fetch character list when the component mounts
   useEffect(() => {
-    fetch('https://epic7dle-server-432df96e6d2b.herokuapp.com/api/characters') //http://127.0.0.1:5000/api/characters
+    fetch('https://epic7dle-server-432df96e6d2b.herokuapp.com/api/characters') // Character API endpoint
       .then(response => response.json())
       .then(data => {
         const characterList = Object.keys(data).map(key => ({
@@ -246,43 +288,156 @@ function MainGame({ visibility }) {
           id: data[key]._id,
           name: key,
           element: data[key].attribute,
-          class: data[key].role, // Assuming role is equivalent to class
+          class: data[key].role,
           zodiac: data[key].zodiac,
           rarity: data[key].rarity,
           region: data[key].region,
           date: data[key].date,
           photo: data[key].assets.icon,
           hasSkin: data[key].assets.skin.has,
-          skin: data[key].assets.skin.image
+          skin: data[key].assets.skin.image,
         }));
+
+        // Store the character list for use in either mode
         setCharacters(characterList);
-        // Set a random solution from the list
+
+        // Generate an initial solution for endless mode
         if (characterList.length > 0) {
-          const randomIndex = Math.floor(Math.random() * characterList.length);
-          setSolution(characterList[randomIndex]); //[1]
-          setImageSrc(characterList[randomIndex].picture);
+          generateNewEndlessSolution(characterList);
         }
-      });
-  }, []);
+      })
+      .catch(err => console.error('Failed to fetch characters:', err));
+      // eslint-disable-next-line
+  }, []); // Empty dependency array to run only once on mount
+
+  // Fetch daily solution separately
+  useEffect(() => {
+    if (mode === 'daily') {
+      fetch('https://epic7dle-server-432df96e6d2b.herokuapp.com/api/daily_solution')
+        .then(response => response.json())
+        .then(data => {
+          const character = {
+            picture: data.assets.image,
+            id: data._id,
+            name: data.name,
+            element: data.attribute,
+            class: data.role,
+            zodiac: data.zodiac,
+            rarity: data.rarity,
+            region: data.region,
+            date: data.date,
+            photo: data.assets.icon,
+            hasSkin: data.assets.skin.has,
+            skin: data.assets.skin.image,
+          };
+
+          setDailySolution(character);
+
+          // If the current mode is 'daily', set solution and imageSrc right away
+          setSolution(character);
+          setImageSrc(character.picture);
+        })
+        .catch(err => console.error('Failed to fetch daily solution:', err));
+    }
+  }, [mode]); // Run only when mode changes, mainly when it is 'daily'
+
+  // Fetch previous daily solution separately
+  useEffect(() => {
+    if (mode === 'daily') {
+      fetch('https://epic7dle-server-432df96e6d2b.herokuapp.com/api/previous_daily_solution')
+        .then(response => response.json())
+        .then(data => {
+          const character = {
+            picture: data.assets.image,
+            id: data._id,
+            name: data.name,
+            element: data.attribute,
+            class: data.role,
+            zodiac: data.zodiac,
+            rarity: data.rarity,
+            region: data.region,
+            date: data.date,
+            photo: data.assets.icon,
+            hasSkin: data.assets.skin.has,
+            skin: data.assets.skin.image,
+          };
+          setPrevDailySolution(character);
+        })
+        .catch(err => console.error('Failed to fetch previous daily solution:', err));
+    }
+  }, [mode]);
+
+  // Sync solution and imageSrc based on the mode
+  useEffect(() => {
+    resetGame();
+    if (mode === 'daily' && dailySolution) {
+      setSolution(dailySolution);
+      setImageSrc(dailySolution.picture);
+    } else if (endlessSolution) {
+      setSolution(endlessSolution);
+      setImageSrc(endlessSolution.picture);
+    }
+  }, [mode, dailySolution, endlessSolution]);
+
+  // Function to generate a new endless solution
+  const generateNewEndlessSolution = (characterList) => {
+    if (!characterList || characterList.length === 0) {
+      console.error('Character list is empty. Cannot generate a new solution.');
+      return;
+    }
+    const randomIndex = Math.floor(Math.random() * characterList.length);
+    const newEndlessSolution = characterList[randomIndex];
+    setEndlessSolution(newEndlessSolution);
+    if (mode === 'endless') {
+      setSolution(newEndlessSolution);
+      setImageSrc(newEndlessSolution.picture);
+    }
+  };
+
+  // Reset game function
+  const resetGame = () => {
+    setInput('');
+    setGuesses([]);
+    setGameState(false);
+    setFeedback('');
+    setAnimationReady(false);
+    setIsImageLoaded(false);
+    setFilters({
+      element: ['ice', 'fire', 'wind', 'dark', 'light'],
+      class: ['warrior', 'knight', 'ranger', 'mage', 'assassin', 'soulweaver'],
+      zodiac: ['aries', 'taurus', 'gemini', 'cancer', 'leo', 'virgo', 'libra', 'scorpio', 'sagittarius', 'capricorn', 'aquarius', 'pisces'],
+      region: ['stars', 'ritania', 'death', 'cidonia', 'eureka', 'natalon', 'erasia', 'foreign', 'moonlight', 'specialty', 'collab'],
+      rarity: [3, 4, 5],
+      date: ['2018', '2019', '2020', '2021', '2022', '2023', '2024']
+    });
+  };
+
+  // Reset game and generate a new solution for endless mode
+  const resetGameAndGenerateNewSolution = () => {
+    resetGame();
+    if (mode === 'endless') {
+      generateNewEndlessSolution(characters);
+    }
+  };
 
   const toggleFilter = (category, value = null) => {
     if (value) {
       // Toggle individual filter
       const newFilters = { ...filters };
       const currentValues = newFilters[category] || [];
-  
+
       if (currentValues.includes(value)) {
         newFilters[category] = currentValues.filter(item => item !== value);
       } else {
         newFilters[category] = [...currentValues, value];
       }
-      
+
       setFilters(newFilters);
     } else {
       // Toggle all filters in the category
       const newFilters = { ...filters };
       const currentValues = newFilters[category] || [];
-  
+
       if (currentValues.length === filterConfig[category].length) {
         // All filters are currently active; deactivate them all
         newFilters[category] = [];
@@ -290,23 +445,23 @@ function MainGame({ visibility }) {
         // Activate all filters in the category
         newFilters[category] = filterConfig[category].map(item => item);
       }
-  
+
       setFilters(newFilters);
     }
   };
-  
+
 
   //sort input dropdown
   useEffect(() => {
     let updatedCharacters = characters;
-  
+
     // Filter by name if there is input
     if (input.trim() !== '') {
       updatedCharacters = updatedCharacters.filter(char =>
         char.name.toLowerCase().includes(input.toLowerCase())
       );
     }
-  
+
     Object.keys(filters).forEach(category => {
       if (filters[category].length > 0) {
         updatedCharacters = updatedCharacters.filter(char =>
@@ -327,10 +482,10 @@ function MainGame({ visibility }) {
         return 0;  // default order
       }
     });
-  
+
     setFilteredCharacters(updatedCharacters);
   }, [input, characters, filters]);  // Update dependency to activeFilters
-  
+
   const handleBlur = () => {
     // Delay the onBlur to allow for interaction with the list
     setTimeout(() => {
@@ -341,11 +496,11 @@ function MainGame({ visibility }) {
   };
 
   const handleSelect = (name) => {
-      setIsFocused(true);
-      setInput(name)
-      if (inputRef.current && !document.activeElement.isEqualNode(inputRef.current)) {
-        inputRef.current.focus();
-      }
+    setIsFocused(true);
+    setInput(name)
+    if (inputRef.current && !document.activeElement.isEqualNode(inputRef.current)) {
+      inputRef.current.focus();
+    }
   };
 
   const handleDropdownMouseDown = (event) => {
@@ -394,15 +549,12 @@ function MainGame({ visibility }) {
             setIsAnimating(false);
           }, 2005); // matches animation duration
 
-          if (isCorrect === true) {
-            incrementWinStreak();
-            updateHighestStreak();
-          }
-          else {
-            if (guesses.length + 1 >= MAX_GUESSES) {
-              setGameState(true); // game loss
-              resetWinStreak();
-            }
+          if (isCorrect) {
+            incrementWinStreak(mode); // Increment streak based on mode
+            setGameState(true); // End game successfully
+          } else if (guesses.length + 1 >= MAX_GUESSES) {
+            resetWinStreak(mode); // Reset streak based on mode
+            setGameState(true); // End game as a loss
           }
           setFeedback(isCorrect ? 'Correct! Well done.' : 'Incorrect, try again!');
           setFeedbackSol('Answer is')
@@ -420,84 +572,37 @@ function MainGame({ visibility }) {
     }
   };
 
-  const resetGame = async () => {
-    // Reset game state
-    setInput('');
-    setGuesses([]);
-    setGameState(false);
-    setFeedback('');
-    setAnimationReady(false);
-    setIsImageLoaded(false);
-    setFilters({
-      element: ['ice', 'fire', 'wind', 'dark', 'light'],
-      class: ['warrior', 'knight', 'ranger', 'mage', 'assassin', 'soulweaver'],
-      zodiac: ['aries', 'taurus', 'gemini', 'cancer', 'leo', 'virgo', 'libra', 'scorpio', 'sagittarius', 'capricorn', 'aquarius', 'pisces'],
-      region: ['stars', 'ritania', 'death', 'cidonia', 'eureka', 'natalon', 'erasia', 'foreign', 'moonlight', 'specialty', 'collab', ],
-      rarity: [3, 4, 5],
-      date: ['2018', '2019', '2020', '2021', '2022', '2023', '2024']
-    })
-
-    // Fetch a new solution from your character list or backend if neede
-    try {
-      const response = await fetch('https://epic7dle-server-432df96e6d2b.herokuapp.com/api/characters');
-      const data = await response.json();
-      const characterList = Object.keys(data).map(key => ({
-        picture: data[key].assets.image,
-        id: data[key]._id,
-        name: key,
-        element: data[key].attribute,
-        class: data[key].role,
-        zodiac: data[key].zodiac,
-        region: data[key].region,
-        rarity: data[key].rarity,
-        date: data[key].date,
-        photo: data[key].assets.icon,
-        hasSkin: data[key].assets.skin.has,
-        skin: data[key].assets.skin.image
-      }));
-      setCharacters(characterList);
-      if (characterList.length > 0) {
-        const randomIndex = Math.floor(Math.random() * characterList.length);
-        setSolution(characterList[randomIndex]);
-        setImageSrc(characterList[randomIndex].picture);
-      }
-    } catch (error) {
-      console.error('Failed to fetch new characters:', error);
-      setFeedback('Failed to load new game data.');
+  // Toggle handler to change the image source
+  const toggleImage = () => {
+    // Check if the current image is the default picture
+    if (imageSrc === solution.picture) {
+      setImageSrc(solution.skin);  // Change to skin image
+    } else {
+      setImageSrc(solution.picture);  // Change back to default image
     }
-  };  
+  };
 
-    // Toggle handler to change the image source
-    const toggleImage = () => {
-        // Check if the current image is the default picture
-        if (imageSrc === solution.picture) {
-            setImageSrc(solution.skin);  // Change to skin image
-        } else {
-            setImageSrc(solution.picture);  // Change back to default image
-        }
+  // if on a mobile device, change html structure
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
+
+  const handleResize = () => {
+    setIsMobile(window.innerWidth <= 768);
+  };
+
+  useEffect(() => {
+    window.addEventListener('resize', handleResize);
+    return () => {
+      window.removeEventListener('resize', handleResize);
     };
-
-    // if on a mobile device, change html structure
-    const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
-
-    const handleResize = () => {
-        setIsMobile(window.innerWidth <= 768);
-    };
-
-    useEffect(() => {
-        window.addEventListener('resize', handleResize);
-        return () => {
-            window.removeEventListener('resize', handleResize);
-        };
-    }, []);
+  }, []);
 
   // on mobile device, scroll up when opening guess input dropdown
   useEffect(() => {
     // Function to handle scrolling the input into view
     const handleFocus = () => {
-      if (isMobile === true){
+      if (isMobile === true) {
         setTimeout(() => {
-          if(inputRef.current) {
+          if (inputRef.current) {
             inputRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
           }
         }, 300); // Delay to account for the mobile keyboard opening
@@ -515,7 +620,7 @@ function MainGame({ visibility }) {
         inputElement.removeEventListener('focus', handleFocus);
       }
     }; // eslint-disable-next-line
-  }, []); 
+  }, []);
 
   const [height, setHeight] = useState(0);
   const containerRef = useRef(null);
@@ -556,7 +661,7 @@ function MainGame({ visibility }) {
       {gameState && solution ? (
         <div ref={containerRef} className='solution-container'>
           <div className='frontside'>
-            <img src={imageSrc} alt="Character" className="character-imagesol" onLoad={() => setIsImageLoaded(true)}/>
+            <img src={imageSrc} alt="Character" className="character-imagesol" onLoad={() => setIsImageLoaded(true)} />
             {solution.hasSkin === "true" && (
               <button className="skin-button" onClick={toggleImage}>
                 <img src={'miscAssets/skin.png'} alt="Toggle Skin" className="skin-button-icon" />
@@ -564,11 +669,11 @@ function MainGame({ visibility }) {
             )}
           </div>
           <div className='backside'>
-            <img src={'miscAssets/avatar-npc0000.png'} alt="Character" className="character-image-blank" ref={defaultImageRef}/> 
+            <img src={'miscAssets/avatar-npc0000.png'} alt="Character" className="character-image-blank" ref={defaultImageRef} />
           </div>
         </div>
       ) : (
-        <img src={'miscAssets/avatar-npc0000.png'} alt="Character" className="character-image-blank" ref={defaultImageRef}/>
+        <img src={'miscAssets/avatar-npc0000.png'} alt="Character" className="character-image-blank" ref={defaultImageRef} />
       )}
     </div>
   );
@@ -667,15 +772,22 @@ function MainGame({ visibility }) {
               </tbody>
             </table>
           </div>
-          <button onClick={resetGame} className="play-again-button">Play Again</button>
+          {mode === 'daily'
+            ? 'Time till next puzzle:'
+            : <button onClick={resetGameAndGenerateNewSolution} className="play-again-button">Play Again</button>}
         </div>
       )}
+      {prevDailySolution && mode === 'daily' &&
+        <div className='prevdailysolutiontext'>
+          <p>Yesterday's Solution: {prevDailySolution.name}</p>
+          <img src={prevDailySolution.photo} alt='prevdailysol-icon'/>
+        </div>}
     </div>
   );
 
   const cellbackside = (
     <div className="back">
-      <img src={'miscAssets/extracted_image_415.png'} alt="cellbackside"/>
+      <img src={'miscAssets/extracted_image_415.png'} alt="cellbackside" />
     </div>
   );
 
@@ -687,11 +799,22 @@ function MainGame({ visibility }) {
             <div className='mobile-info-container'>
               {characterDisplay}
               <div className='mobile-info'>
-                <h1 className='gamemodetitle-text'>Endless Mode</h1>
+                <h1 className='gamemodetitle-text'>
+                  {mode === 'daily' ? 'Daily Puzzle' : 'Endless Mode'}
+                </h1>
                 <h3 className='tries-text' >Tries {guesses.length}/{MAX_GUESSES}</h3>
                 <div className="streak-info">
-                  <p>🔥🔥 Streak: {getWinStreak()} 🔥🔥</p>
-                  <p>🔥 Highest score: {highestStreak} 🔥</p>
+                  {mode === 'daily' ? (
+                    <>
+                      <p>🔥 Daily Streak: {dailyWinStreak} 🔥</p>
+                      <p>🔥 Highest Daily Streak: {highestDailyStreak} 🔥</p>
+                    </>
+                  ) : (
+                    <>
+                      <p>🔥 Streak: {endlessWinStreak} 🔥</p>
+                      <p>🔥 Highest Score: {highestEndlessStreak} 🔥</p>
+                    </>
+                  )}
                 </div>
               </div>
             </div>
@@ -702,11 +825,22 @@ function MainGame({ visibility }) {
           <>
             {characterDisplay}
             <div className="game-info">
-              <h1 className='gamemodetitle-text'>Endless Mode</h1>
+              <h1 className='gamemodetitle-text'>
+                {mode === 'daily' ? 'Daily Puzzle' : 'Endless Mode'}
+              </h1>
               <h3 className='tries-text' >Tries {guesses.length}/{MAX_GUESSES}</h3>
               <div className="streak-info">
-                <p>🔥   Streak: {getWinStreak()}   🔥</p>
-                <p>🔥🔥 Highest score: {highestStreak} 🔥🔥</p>
+                {mode === 'daily' ? (
+                  <>
+                    <p>🔥 Daily Streak: {dailyWinStreak} 🔥</p>
+                    <p>🔥 Highest Daily Streak: {highestDailyStreak} 🔥</p>
+                  </>
+                ) : (
+                  <>
+                    <p>🔥 Streak: {endlessWinStreak} 🔥</p>
+                    <p>🔥 Highest Score: {highestEndlessStreak} 🔥</p>
+                  </>
+                )}
               </div>
 
               {guessInput}
@@ -714,7 +848,7 @@ function MainGame({ visibility }) {
           </>
         )}
       </div>
-      
+
       <div className="guess-table">
         <table>
           <thead>
