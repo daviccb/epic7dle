@@ -783,6 +783,17 @@ input::placeholder {
     border: none;
   }
 
+  .prevdailysolutiontext p {
+    color: white;
+    font-size: 12px;
+  }
+  
+  .prevdailysolutiontext img {
+    width: 23px;
+    height: 23px;
+    padding-left: 5px;
+  }
+
   .guess-table table {
     font-weight: 200;
     font-style: small;
