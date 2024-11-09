@@ -105,12 +105,12 @@ function MainGame({ visibility, mode }) {
   const [isFocused, setIsFocused] = useState(false);
   const [isAnimating, setIsAnimating] = useState(false);
   const [filters, setFilters] = useState({
-    element: ['ice', 'fire', 'wind', 'dark', 'light'],
-    class: ['warrior', 'knight', 'ranger', 'mage', 'assassin', 'soulweaver'],
-    zodiac: ['aries', 'taurus', 'gemini', 'cancer', 'leo', 'virgo', 'libra', 'scorpio', 'sagittarius', 'capricorn', 'aquarius', 'pisces'],
-    region: ['stars', 'ritania', 'death', 'cidonia', 'eureka', 'natalon', 'erasia', 'foreign', 'moonlight', 'specialty', 'collab',],
-    rarity: [3, 4, 5],
-    date: ['2018', '2019', '2020', '2021', '2022', '2023', '2024']
+    element: [],
+    class: [],
+    zodiac: [],
+    region: [],
+    rarity: [],
+    date: []
   });
 
   const inputRef = useRef(null);
@@ -403,12 +403,12 @@ function MainGame({ visibility, mode }) {
     setAnimationReady(false);
     setIsImageLoaded(false);
     setFilters({
-      element: ['ice', 'fire', 'wind', 'dark', 'light'],
-      class: ['warrior', 'knight', 'ranger', 'mage', 'assassin', 'soulweaver'],
-      zodiac: ['aries', 'taurus', 'gemini', 'cancer', 'leo', 'virgo', 'libra', 'scorpio', 'sagittarius', 'capricorn', 'aquarius', 'pisces'],
-      region: ['stars', 'ritania', 'death', 'cidonia', 'eureka', 'natalon', 'erasia', 'foreign', 'moonlight', 'specialty', 'collab'],
-      rarity: [3, 4, 5],
-      date: ['2018', '2019', '2020', '2021', '2022', '2023', '2024']
+      element: [],
+      class: [],
+      zodiac: [],
+      region: [],
+      rarity: [],
+      date: []
     });
   };
 
