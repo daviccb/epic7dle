@@ -47,11 +47,11 @@ function SettingsPage({ isOpen, children, onClose, closeSettings,
 
         <h2 className='settings-header'>Toggle Icon Names</h2>
         <div className='toggle-iconnames-div'>
-          <button onClick={() => toggleVisibility('element')}>Element</button>
-          <button onClick={() => toggleVisibility('class')}>Class</button>
-          <button onClick={() => toggleVisibility('zodiac')}>Zodiac</button>
-          <button onClick={() => toggleVisibility('region')}>Region</button>
-          <button onClick={() => toggleVisibility('rarity')}>Rarity</button>
+          <button onClick={() => toggleVisibility('inElement')}>Element</button>
+          <button onClick={() => toggleVisibility('inClass')}>Class</button>
+          <button onClick={() => toggleVisibility('inZodiac')}>Zodiac</button>
+          <button onClick={() => toggleVisibility('inRegion')}>Region</button>
+          <button onClick={() => toggleVisibility('inRarity')}>Rarity</button>
         </div>
 
         <button className="close-button" onClick={onClose}>x</button>

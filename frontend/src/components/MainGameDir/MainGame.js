@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import Cookies from 'js-cookie';
+import CountdownTimer from '../CountdownDir/Countdown';
 import './MainGame.css';
 
 /*
@@ -53,11 +54,11 @@ post-game guess review in info center (add share button?) (clipboard icon)
 style settings page (iconname toggle buttons + background changing)
 redo rarity stars with awakened ones
 add emojis to result message (more emojis + randomized)
-make cookies (highestscore, solution, guesses)
 animations for guess counter (increment, ! last guess !)
 
 redo json for cleaner hover titles
 
+download images taken from web
 make pretty
 animations {
   character solution reveal
@@ -67,8 +68,8 @@ animations {
 }
 
 dailymode
-  winstreak
-  revert filtering logic
+  styling
+  reset daily cookies when new dailysolution
 
 sagittarius
 retake characterAssets:
@@ -81,6 +82,8 @@ retake characterAssets:
   aux lots (is blinking)
   maid chloe
   lqc
+
+new moon luna - class (knight to mage)
 */
 
 
@@ -88,7 +91,11 @@ retake characterAssets:
 function MainGame({ visibility, mode }) {
   const [input, setInput] = useState('');
   const [guesses, setGuesses] = useState([]);
+  const [dailyGuesses, setDailyGuesses] = useState([]);
+  const [endlessGuesses, setEndlessGuesses] = useState([]);
   const [gameState, setGameState] = useState(false);
+  const [dailyGameState, setDailyGameState] = useState(false);
+  const [endlessGameState, setEndlessGameState] = useState(false);
   const [feedback, setFeedback] = useState('');
   const [feedbackSol, setFeedbackSol] = useState('');
   const [characters, setCharacters] = useState([]);
@@ -104,6 +111,7 @@ function MainGame({ visibility, mode }) {
   const [imageSrc, setImageSrc] = useState(null);
   const [isFocused, setIsFocused] = useState(false);
   const [isAnimating, setIsAnimating] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [filters, setFilters] = useState({
     element: [],
     class: [],
@@ -278,8 +286,44 @@ function MainGame({ visibility, mode }) {
     }
   };
 
+  // // Loading initial guesses and game state from cookies when the component mounts
+  // useEffect(() => {
+  //   const savedGuesses = Cookies.get(`${mode}Guesses`);
+  //   const savedGameState = Cookies.get(`${mode}GameState`);
+
+  //   if (savedGuesses) {
+  //     setGuesses(JSON.parse(savedGuesses));
+  //   }
+  //   if (savedGameState) {
+  //     setGameState(savedGameState === 'true');
+  //   }
+  // }, [mode]);
+
+  // // Updating guesses in cookies when the state changes
+  // useEffect(() => {
+  //   if (guesses.length > 0) {
+  //     Cookies.set(`${mode}Guesses`, JSON.stringify(guesses), { expires: 7 });
+  //   }
+  // }, [guesses, mode]);
+
+  // // Updating game state in cookies when the state changes
+  // useEffect(() => {
+  //   Cookies.set(`${mode}GameState`, gameState ? 'true' : 'false', { expires: 7 });
+  // }, [gameState, mode]);
+
+  // Store solution in cookies
+  useEffect(() => {
+    if (solution && mode !== 'daily') {
+      Cookies.set('solution', JSON.stringify(solution), { expires: 7 });
+    } // eslint-disable-next-line
+  }, [solution]);
+
+
+
+
   // Fetch character list when the component mounts
   useEffect(() => {
+    setLoading(true);
     fetch('https://epic7dle-server-432df96e6d2b.herokuapp.com/api/characters') // Character API endpoint
       .then(response => response.json())
       .then(data => {
@@ -304,11 +348,15 @@ function MainGame({ visibility, mode }) {
         // Generate an initial solution for endless mode
         if (characterList.length > 0) {
           generateNewEndlessSolution(characterList);
+          setLoading(false);
         }
       })
-      .catch(err => console.error('Failed to fetch characters:', err));
-      // eslint-disable-next-line
-  }, []); // Empty dependency array to run only once on mount
+      .catch(err => {
+        console.error('Failed to fetch characters:', err)
+        setLoading(false);
+      });
+    // eslint-disable-next-line
+  }, [mode]);
 
   // Fetch daily solution separately
   useEffect(() => {
@@ -367,9 +415,77 @@ function MainGame({ visibility, mode }) {
     }
   }, [mode]);
 
+  // Load initial data based on mode
+  useEffect(() => {
+    if (mode === 'daily') {
+      const savedGuesses = Cookies.get('dailyGuesses');
+      const savedGameState = Cookies.get('dailyGameState');
+      if (savedGuesses) {
+        setDailyGuesses(JSON.parse(savedGuesses));
+        setGuesses(JSON.parse(savedGuesses));
+      }
+      if (savedGameState && savedGameState === 'true') {
+        setDailyGameState(true);
+        setGameState(true);
+      }
+    } else if (mode === 'endless') {
+      const savedGuesses = Cookies.get('endlessGuesses');
+      const savedGameState = Cookies.get('endlessGameState');
+      if (savedGuesses) {
+        setEndlessGuesses(JSON.parse(savedGuesses));
+        setGuesses(JSON.parse(savedGuesses));
+      }
+      if (savedGameState && savedGameState === 'true') {
+        setEndlessGameState(true);
+        setGameState(true);
+      }
+    }
+    // reset filters
+    setFilters({
+      element: [],
+      class: [],
+      zodiac: [],
+      region: [],
+      rarity: [],
+      date: []
+    });
+  }, [mode]);
+
+  // Sync guesses with the appropriate mode when it changes
+  useEffect(() => {
+    if (mode === 'daily') {
+      setGuesses(dailyGuesses);
+      setGameState(dailyGameState);
+    } else if (mode === 'endless') {
+      setGuesses(endlessGuesses);
+      setGameState(endlessGameState);
+    }
+  }, [mode, dailyGuesses, endlessGuesses, dailyGameState, endlessGameState]);
+
+  // Save guesses to cookies only if they are not empty
+  useEffect(() => {
+    if (guesses.length > 0) {
+      if (mode === 'daily') {
+        Cookies.set('dailyGuesses', JSON.stringify(guesses), { expires: 7 });
+      } else if (mode === 'endless') {
+        Cookies.set('endlessGuesses', JSON.stringify(guesses), { expires: 7 });
+      }
+    } // eslint-disable-next-line
+  }, [guesses]);
+
+  // Save game state to cookies only if it is `true`
+  useEffect(() => {
+    if (gameState) {
+      if (mode === 'daily') {
+        Cookies.set('dailyGameState', 'true', { expires: 7 });
+      } else if (mode === 'endless') {
+        Cookies.set('endlessGameState', 'true', { expires: 7 });
+      }
+    } // eslint-disable-next-line
+  }, [gameState]);
+
   // Sync solution and imageSrc based on the mode
   useEffect(() => {
-    resetGame();
     if (mode === 'daily' && dailySolution) {
       setSolution(dailySolution);
       setImageSrc(dailySolution.picture);
@@ -381,24 +497,53 @@ function MainGame({ visibility, mode }) {
 
   // Function to generate a new endless solution
   const generateNewEndlessSolution = (characterList) => {
-    if (!characterList || characterList.length === 0) {
-      console.error('Character list is empty. Cannot generate a new solution.');
-      return;
-    }
-    const randomIndex = Math.floor(Math.random() * characterList.length);
-    const newEndlessSolution = characterList[randomIndex];
-    setEndlessSolution(newEndlessSolution);
     if (mode === 'endless') {
-      setSolution(newEndlessSolution);
-      setImageSrc(newEndlessSolution.picture);
+      const savedSolution = Cookies.get('solution');
+      if (savedSolution) {
+        setSolution(JSON.parse(savedSolution));
+        setImageSrc(JSON.parse(savedSolution).picture);
+        console.log(JSON.parse(savedSolution));
+      } else {
+        if (!characterList || characterList.length === 0) {
+          console.error('Character list is empty. Cannot generate a new solution.');
+          return;
+        }
+        const randomIndex = Math.floor(Math.random() * characterList.length);
+        const newEndlessSolution = characterList[randomIndex];
+        setEndlessSolution(newEndlessSolution);
+        setSolution(newEndlessSolution);
+        setImageSrc(newEndlessSolution.picture);
+      }
     }
-  };
+  }
+
+  const setGamesState = (state) => {
+    if (mode === 'daily') {
+      Cookies.set('dailyGameState', JSON.stringify(state), { expires: 7 });
+      setDailyGameState(state)
+      setGameState(state)
+    } else if (mode === 'endless') {
+      Cookies.set('endlessGameState', JSON.stringify(state), { expires: 7 });
+      setEndlessGameState(state)
+      setGameState(state)
+    }
+  }
+
+  const setGamesGuesses = (guesses) => {
+    if (mode === 'daily') {
+      setDailyGuesses(guesses);
+      setGuesses(guesses);
+    } else if (mode === 'endless') {
+      setEndlessGuesses(guesses);
+      setGuesses(guesses);
+    }
+  }
 
   // Reset game function
   const resetGame = () => {
     setInput('');
-    setGuesses([]);
-    setGameState(false);
+    setGamesGuesses([]);
+    setGamesState(false);
     setFeedback('');
     setAnimationReady(false);
     setIsImageLoaded(false);
@@ -410,14 +555,16 @@ function MainGame({ visibility, mode }) {
       rarity: [],
       date: []
     });
+
+    Cookies.set('endlessGuesses', [], { expires: 7 });
+    Cookies.set('endlessGameState', false, { expires: 7 });
+    Cookies.remove('solution');
   };
 
   // Reset game and generate a new solution for endless mode
   const resetGameAndGenerateNewSolution = () => {
     resetGame();
-    if (mode === 'endless') {
-      generateNewEndlessSolution(characters);
-    }
+    generateNewEndlessSolution(characters);
   };
 
   const toggleFilter = (category, value = null) => {
@@ -538,10 +685,10 @@ function MainGame({ visibility, mode }) {
           };
 
           // Set all states at once after the fetch is completed and data is processed
-          setGuesses(prevGuesses => [newGuess, ...prevGuesses]); // Ensures immutability
+          setGamesGuesses(prevGuesses => [newGuess, ...prevGuesses]); // Ensures immutability
           setInput(''); // Clear input
 
-          setGameState(isCorrect ? true : false); // game win
+          setGamesState(isCorrect ? true : false); // game win
 
           // Animate the newly created row
           setIsAnimating(true);
@@ -551,10 +698,10 @@ function MainGame({ visibility, mode }) {
 
           if (isCorrect) {
             incrementWinStreak(mode); // Increment streak based on mode
-            setGameState(true); // End game successfully
+            setGamesState(true); // End game successfully
           } else if (guesses.length + 1 >= MAX_GUESSES) {
             resetWinStreak(mode); // Reset streak based on mode
-            setGameState(true); // End game as a loss
+            setGamesState(true); // End game as a loss
           }
           setFeedback(isCorrect ? 'Correct! Well done.' : 'Incorrect, try again!');
           setFeedbackSol('Answer is')
@@ -622,7 +769,7 @@ function MainGame({ visibility, mode }) {
     }; // eslint-disable-next-line
   }, []);
 
-  const [height, setHeight] = useState(0);
+  const [height, setHeight] = useState(3);
   const containerRef = useRef(null);
   const defaultImageRef = useRef(null);
   const [isImageLoaded, setIsImageLoaded] = useState(false);
@@ -630,7 +777,7 @@ function MainGame({ visibility, mode }) {
 
   // Adjust the height based on gameState
   useEffect(() => {
-    if (gameState && imageSrc) {
+    if (!loading && gameState && imageSrc) {
       const img = new Image();
       img.src = imageSrc;
       img.onload = () => {
@@ -647,7 +794,7 @@ function MainGame({ visibility, mode }) {
         setIsImageLoaded(true);
       };
     }
-  }, [gameState, imageSrc]);
+  }, [gameState, imageSrc, loading]);
 
   // Start the animation when both height is set and image is loaded
   useEffect(() => {
@@ -679,110 +826,114 @@ function MainGame({ visibility, mode }) {
   );
 
   const guessInput = (
-    <div className="guess-input">
-      {!gameState ? (
-        <>
-          <div className="input-button-wrapper">
-            <input
-              type="text"
-              placeholder="Enter character name..."
-              value={input}
-              onChange={handleInputChange}
-              onFocus={() => setIsFocused(true)}
-              onBlur={handleBlur}
-              ref={inputRef}
-            />
-            <button className='guessbtn' onClick={handleGuessSubmit}>Guess</button>
-          </div>
-          {isFocused && (
-            <div className="dropdown-container" onMouseDown={handleDropdownMouseDown}>
-              <ul className="autocomplete-dropdown">
-                {filteredCharacters.map(character => (
-                  <li key={character.id} onClick={() => handleSelect(character.name)}>
-                    <img src={character.photo} alt={character.name} />
-                    {character.name}
-                  </li>
-                ))}
-              </ul>
-              <div className="filter-container">
-                {Object.keys(filterConfig).map(category => (
-                  <div key={category} className="filter-category">
-                    <div className="filter-category-title" onClick={() => toggleFilter(category)}>
-                      {category.charAt(0).toUpperCase() + category.slice(1)}
-                    </div>
-                    <div className="filter-icons">
-                      {filterConfig[category].map(value => (
-                        <button
-                          key={value}
-                          onClick={(e) => {
-                            e.stopPropagation(); // Prevent triggering the category title's onClick
-                            toggleFilter(category, value);
-                          }}
-                          className={`filter-icon ${filters[category].includes(value) ? 'active' : ''}`}
-                        >
-                          {imageMap[value] ? (
-                            <img src={imageMap[value]} alt={value} />
-                          ) : (
-                            <span className='datefilterbtns'>{value}</span> // Display the value as text if no icon exists
-                          )}
-                        </button>
-                      ))}
-                    </div>
+    <>
+      <div className="guess-input">
+        {!gameState ? (
+          <>
+            <div className="input-button-wrapper">
+              <input
+                type="text"
+                placeholder="Enter character name..."
+                value={input}
+                onChange={handleInputChange}
+                onFocus={() => setIsFocused(true)}
+                onBlur={handleBlur}
+                ref={inputRef}
+              />
+              <button className='guessbtn' onClick={handleGuessSubmit}>Guess</button>
+            </div>
+            {isFocused && (
+              <div className="dropdown-container" onMouseDown={handleDropdownMouseDown}>
+                <ul className="autocomplete-dropdown" style={mode === 'daily' ? { width: '100%' } : { width: '90%' }}>
+                  {filteredCharacters.map(character => (
+                    <li key={character.id} onClick={() => handleSelect(character.name)}>
+                      <img src={character.photo} alt={character.name} />
+                      {character.name}
+                    </li>
+                  ))}
+                </ul>
+                {mode !== 'daily' &&
+                  <div className="filter-container">
+                    {Object.keys(filterConfig).map(category => (
+                      <div key={category} className="filter-category">
+                        <div className="filter-category-title" onClick={() => toggleFilter(category)}>
+                          {category.charAt(0).toUpperCase() + category.slice(1)}
+                        </div>
+                        <div className="filter-icons">
+                          {filterConfig[category].map(value => (
+                            <button
+                              key={value}
+                              onClick={(e) => {
+                                e.stopPropagation(); // Prevent triggering the category title's onClick
+                                toggleFilter(category, value);
+                              }}
+                              className={`filter-icon ${filters[category].includes(value) ? 'active' : ''}`}
+                            >
+                              {imageMap[value] ? (
+                                <img src={imageMap[value]} alt={value} />
+                              ) : (
+                                <span className='datefilterbtns'>{value}</span> // Display the value as text if no icon exists
+                              )}
+                            </button>
+                          ))}
+                        </div>
+                      </div>
+                    ))}
                   </div>
-                ))}
+                }
               </div>
+            )}
+          </>
+        ) : (
+          <div className={solution && guesses[0].guess === solution.name ? 'end-screen-correct' : 'end-screen-incorrect'}>
+            <div className='end-message-container'>
+              <img src={solution && guesses[0].guess === solution.name ? '/emoticonAssets/extracted_image_32.png' : '/emoticonAssets/extracted_image_6.png'} alt='emoticon' className="emoji1" />
+              <div className='end-message-text-container'>
+                <h1 className='end-message-text'>{feedback}</h1>
+                <h1 className='end-message-text2'>{feedbackSol}</h1>
+                <h1 className='end-message-name'>{solution && solution.name}</h1>
+              </div>
+              <img src={solution && guesses[0].guess === solution.name ? '/emoticonAssets/extracted_image_7.png' : '/emoticonAssets/extracted_image_16.png'} alt='emoticon' className="emoji2" />
             </div>
-          )}
-        </>
-      ) : (
-        <div className={guesses[0].guess === solution.name ? 'end-screen-correct' : 'end-screen-incorrect'}>
-          <div className='end-message-container'>
-            <img src={guesses[0].guess === solution.name ? '/emoticonAssets/extracted_image_32.png' : '/emoticonAssets/extracted_image_6.png'} alt='emoticon' className="emoji1" />
-            <div className='end-message-text-container'>
-              <h1 className='end-message-text'>{feedback}</h1>
-              <h1 className='end-message-text2'>{feedbackSol}</h1>
-              <h1 className='end-message-name'>{solution.name}</h1>
+            <div className="summary-table">
+              <table>
+                <caption>Your Score</caption>
+                <tbody>
+                  {guesses.map((item, index) => (
+                    <tr key={index}>
+                      <td className={'score-cell'}>
+                      </td>
+                      <td className={solution && item.guess === solution.name ? 'correct-score' : 'incorrect-score'}>
+                      </td>
+                      <td className={solution && item.element === solution.element ? 'correct-score' : 'incorrect-score'}>
+                      </td>
+                      <td className={solution && item.class === solution.class ? 'correct-score' : 'incorrect-score'}>
+                      </td>
+                      <td className={solution && item.zodiac === solution.zodiac ? 'correct-score' : 'incorrect-score'}>
+                      </td>
+                      <td className={solution && item.region === solution.region ? 'correct-score' : 'incorrect-score'}>
+                      </td>
+                      <td className={solution && item.rarity === solution.rarity ? 'correct-score' : 'incorrect-score'}>
+                      </td>
+                      <td className={solution && item.date === solution.date ? 'correct-score' : 'incorrect-score'}>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
             </div>
-            <img src={guesses[0].guess === solution.name ? '/emoticonAssets/extracted_image_7.png' : '/emoticonAssets/extracted_image_16.png'} alt='emoticon' className="emoji2" />
+            {mode === 'daily'
+              ? <CountdownTimer />
+              : <button onClick={resetGameAndGenerateNewSolution} className="play-again-button">Play Again</button>}
           </div>
-          <div className="summary-table">
-            <table>
-              <caption>Your Score</caption>
-              <tbody>
-                {guesses.map((item, index) => (
-                  <tr key={index}>
-                    <td className={'score-cell'}>
-                    </td>
-                    <td className={item.guess === solution.name ? 'correct-score' : 'incorrect-score'}>
-                    </td>
-                    <td className={item.element === solution.element ? 'correct-score' : 'incorrect-score'}>
-                    </td>
-                    <td className={item.class === solution.class ? 'correct-score' : 'incorrect-score'}>
-                    </td>
-                    <td className={item.zodiac === solution.zodiac ? 'correct-score' : 'incorrect-score'}>
-                    </td>
-                    <td className={item.region === solution.region ? 'correct-score' : 'incorrect-score'}>
-                    </td>
-                    <td className={item.rarity === solution.rarity ? 'correct-score' : 'incorrect-score'}>
-                    </td>
-                    <td className={item.date === solution.date ? 'correct-score' : 'incorrect-score'}>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-          {mode === 'daily'
-            ? 'Time till next puzzle:'
-            : <button onClick={resetGameAndGenerateNewSolution} className="play-again-button">Play Again</button>}
-        </div>
-      )}
+        )}
+      </div>
       {prevDailySolution && mode === 'daily' &&
         <div className='prevdailysolutiontext'>
           <p>Yesterday's Solution: {prevDailySolution.name}</p>
-          <img src={prevDailySolution.photo} alt='prevdailysol-icon'/>
+          <img src={prevDailySolution.photo} alt='prevdailysol-icon' />
         </div>}
-    </div>
+    </>
   );
 
   const cellbackside = (
@@ -793,166 +944,175 @@ function MainGame({ visibility, mode }) {
 
   return (
     <div className="main-game">
-      <div className="game-container">
-        {isMobile ? ( // mobile version
-          <div className="game-info">
-            <div className='mobile-info-container'>
-              {characterDisplay}
-              <div className='mobile-info'>
-                <h1 className='gamemodetitle-text'>
-                  {mode === 'daily' ? 'Daily Puzzle' : 'Endless Mode'}
-                </h1>
-                <h3 className='tries-text' >Tries {guesses.length}/{MAX_GUESSES}</h3>
-                <div className="streak-info">
-                  {mode === 'daily' ? (
-                    <>
-                      <p>🔥 Daily Streak: {dailyWinStreak} 🔥</p>
-                      <p>🔥 Highest Daily Streak: {highestDailyStreak} 🔥</p>
-                    </>
-                  ) : (
-                    <>
-                      <p>🔥 Streak: {endlessWinStreak} 🔥</p>
-                      <p>🔥 Highest Score: {highestEndlessStreak} 🔥</p>
-                    </>
-                  )}
+      {loading ? (
+        <div className="loading-screen">
+          <img src={'miscAssets/extracted_image_4250.png'} alt="runningras1" className="loading-image image-1" />
+          <img src={'miscAssets/extracted_image_4251.png'} alt="runningras2" className="loading-image image-2" />
+      </div>
+      ) : (
+        <>
+          <div className="game-container">
+            {isMobile ? ( // mobile version
+              <div className="game-info">
+                <div className='mobile-info-container'>
+                  {characterDisplay}
+                  <div className='mobile-info'>
+                    <h1 className='gamemodetitle-text'>
+                      {mode === 'daily' ? 'Daily Puzzle' : 'Endless Mode'}
+                    </h1>
+                    <h3 className='tries-text' >Tries {guesses.length}/{MAX_GUESSES}</h3>
+                    <div className="streak-info">
+                      {mode === 'daily' ? (
+                        <>
+                          <p>🔥 Daily Streak: {dailyWinStreak} 🔥</p>
+                          <p>🔥 Highest Streak: {highestDailyStreak} 🔥</p>
+                        </>
+                      ) : (
+                        <>
+                          <p>🔥 Streak: {endlessWinStreak} 🔥</p>
+                          <p>🔥 Highest Score: {highestEndlessStreak} 🔥</p>
+                        </>
+                      )}
+                    </div>
+                  </div>
                 </div>
-              </div>
-            </div>
 
-            {guessInput}
+                {guessInput}
+              </div>
+            ) : ( // pc version
+              <>
+                {characterDisplay}
+                <div className="game-info">
+                  <h1 className='gamemodetitle-text'>
+                    {mode === 'daily' ? 'Daily Puzzle' : 'Endless Mode'}
+                  </h1>
+                  <h3 className='tries-text' >Tries {guesses.length}/{MAX_GUESSES}</h3>
+                  <div className="streak-info">
+                    {mode === 'daily' ? (
+                      <>
+                        <p>🔥 Daily Streak: {dailyWinStreak} 🔥</p>
+                        <p>🔥 Highest Daily Streak: {highestDailyStreak} 🔥</p>
+                      </>
+                    ) : (
+                      <>
+                        <p>🔥 Streak: {endlessWinStreak} 🔥</p>
+                        <p>🔥 Highest Score: {highestEndlessStreak} 🔥</p>
+                      </>
+                    )}
+                  </div>
+
+                  {guessInput}
+                </div>
+              </>
+            )}
           </div>
-        ) : ( // pc version
-          <>
-            {characterDisplay}
-            <div className="game-info">
-              <h1 className='gamemodetitle-text'>
-                {mode === 'daily' ? 'Daily Puzzle' : 'Endless Mode'}
-              </h1>
-              <h3 className='tries-text' >Tries {guesses.length}/{MAX_GUESSES}</h3>
-              <div className="streak-info">
-                {mode === 'daily' ? (
-                  <>
-                    <p>🔥 Daily Streak: {dailyWinStreak} 🔥</p>
-                    <p>🔥 Highest Daily Streak: {highestDailyStreak} 🔥</p>
-                  </>
-                ) : (
-                  <>
-                    <p>🔥 Streak: {endlessWinStreak} 🔥</p>
-                    <p>🔥 Highest Score: {highestEndlessStreak} 🔥</p>
-                  </>
-                )}
-              </div>
 
-              {guessInput}
-            </div>
-          </>
-        )}
-      </div>
-
-      <div className="guess-table">
-        <table>
-          <thead>
-            <tr>
-              <th>Photo</th>
-              <th>Name</th>
-              <th>Element</th>
-              <th>Class</th>
-              <th>Star Sign</th>
-              <th>Region</th>
-              <th>Rarity</th>
-              <th>Release Year</th>
-            </tr>
-          </thead>
-          <tbody>
-            {guesses.map((item, index) => (
-              <tr key={index} className={index === 0 && isAnimating ? 'last-row-animated' : ''}>
-                <td className={'photo-cell'}>
-                  <div className='celldiv'>
-                    <img src={item.photo} alt={item.photo} className="character-imageicon front" />
-                    {cellbackside}
-                  </div>
-                </td>
-                <td className={item.guess === solution.name ? 'correct-answer' : 'incorrect-answer'}>
-                  <div className='celldiv'>
-                    <span className='front'>{item.guess}</span>
-                    {cellbackside}
-                  </div>
-                </td>
-                <td className={item.element === solution.element ? 'correct-answer' : 'incorrect-answer'}>
-                  <div className='celldiv'>
-                    <div className='iconname-container front'>
-                      <img src={imageMap[item.element]} alt={item.element} title={item.element} />
-                      {visibility.element && <p className='iconname'>{nameMap[item.element]}</p>}
-                    </div>
-                    {cellbackside}
-                  </div>
-                </td>
-                <td className={item.class === solution.class ? 'correct-answer' : 'incorrect-answer'}>
-                  <div className='celldiv'>
-                    <div className='iconname-container front'>
-                      <img src={imageMap[item.class]} alt={item.class} title={item.class} />
-                      {visibility.class && <p className='iconname'>{nameMap[item.class]}</p>}
-                    </div>
-                    {cellbackside}
-                  </div>
-                </td>
-                <td className={item.zodiac === solution.zodiac ? 'correct-answer' : 'incorrect-answer'}>
-                  <div className='celldiv'>
-                    <div className='iconname-container front'>
-                      <img src={imageMap[item.zodiac]} alt={item.zodiac} title={item.zodiac} />
-                      {visibility.zodiac && <p className='iconname'>{nameMap[item.zodiac]}</p>}
-                    </div>
-                    {cellbackside}
-                  </div>
-                </td>
-                <td className={item.region === solution.region ? 'correct-answer' : 'incorrect-answer'}>
-                  <div className='celldiv'>
-                    <div className='iconname-container front'>
-                      <img src={imageMap[item.region]} alt={item.region} title={item.region} className="character-regionicon" />
-                      {visibility.region && <p className='iconname'>{nameMap[item.region]}</p>}
-                    </div>
-                    {cellbackside}
-                  </div>
-                </td>
-                <td className={item.rarity === solution.rarity ? 'correct-answer' : 'incorrect-answer'}>
-                  <div className='celldiv'>
-                    <div className='iconname-container front'>
-                      <img src={imageMap[item.rarity]} alt={item.rarity} title={item.rarity} />
-                      {visibility.rarity && <p className='iconname'>{nameMap[item.rarity]}</p>}
-                    </div>
-                    {cellbackside}
-                  </div>
-                </td>
-                <td className={item.date === solution.date ? 'correct-answer' : 'incorrect-answer'}>
-                  <div className='celldiv'>
-                    <div className='date-container front'>
-                      {item.date > solution.date &&
-                        <>
-                          {item.date}
-                          <img src={Math.abs(item.date - solution.date) >= 3 ? 'arrowAssets/arrow2_down.png' : 'arrowAssets/arrow1_down.png'} alt='arrow down' />
-                        </>
-                      }
-                      {item.date < solution.date &&
-                        <>
-                          <img src={Math.abs(item.date - solution.date) >= 3 ? 'arrowAssets/arrow2_up.png' : 'arrowAssets/arrow1_up.png'} alt='arrow up' />
-                          {item.date}
-                        </>
-                      }
-                      {item.date === solution.date &&
-                        <span>{item.date}</span>
-                      }
-                    </div>
-                    {cellbackside}
-                  </div>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-      <div className="debug-container">
-        {solution && <div className="debug-info">Debug: Solution is {solution.name}</div>}
-      </div>
+          <div className="guess-table">
+            <table>
+              <thead>
+                <tr>
+                  <th>Photo</th>
+                  <th>Name</th>
+                  <th>Element</th>
+                  <th>Class</th>
+                  <th>Star Sign</th>
+                  <th>Region</th>
+                  <th>Rarity</th>
+                  <th>Release Year</th>
+                </tr>
+              </thead>
+              <tbody>
+                {guesses.map((item, index) => (
+                  <tr key={index} className={index === 0 && isAnimating ? 'last-row-animated' : ''}>
+                    <td className={'photo-cell'}>
+                      <div className='celldiv'>
+                        <img src={item.photo} alt={item.photo} className="character-imageicon front" />
+                        {cellbackside}
+                      </div>
+                    </td>
+                    <td className={solution && item.guess === solution.name ? 'correct-answer' : 'incorrect-answer'}>
+                      <div className='celldiv'>
+                        <span className='front'>{item.guess}</span>
+                        {cellbackside}
+                      </div>
+                    </td>
+                    <td className={solution && item.element === solution.element ? 'correct-answer' : 'incorrect-answer'}>
+                      <div className='celldiv'>
+                        <div className='iconname-container front'>
+                          <img src={imageMap[item.element]} alt={item.element} title={item.element} />
+                          {visibility.element && <p className='iconname'>{nameMap[item.element]}</p>}
+                        </div>
+                        {cellbackside}
+                      </div>
+                    </td>
+                    <td className={solution && item.class === solution.class ? 'correct-answer' : 'incorrect-answer'}>
+                      <div className='celldiv'>
+                        <div className='iconname-container front'>
+                          <img src={imageMap[item.class]} alt={item.class} title={item.class} />
+                          {visibility.class && <p className='iconname'>{nameMap[item.class]}</p>}
+                        </div>
+                        {cellbackside}
+                      </div>
+                    </td>
+                    <td className={solution && item.zodiac === solution.zodiac ? 'correct-answer' : 'incorrect-answer'}>
+                      <div className='celldiv'>
+                        <div className='iconname-container front'>
+                          <img src={imageMap[item.zodiac]} alt={item.zodiac} title={item.zodiac} />
+                          {visibility.zodiac && <p className='iconname'>{nameMap[item.zodiac]}</p>}
+                        </div>
+                        {cellbackside}
+                      </div>
+                    </td>
+                    <td className={solution && item.region === solution.region ? 'correct-answer' : 'incorrect-answer'}>
+                      <div className='celldiv'>
+                        <div className='iconname-container front'>
+                          <img src={imageMap[item.region]} alt={item.region} title={item.region} className="character-regionicon" />
+                          {visibility.region && <p className='iconname'>{nameMap[item.region]}</p>}
+                        </div>
+                        {cellbackside}
+                      </div>
+                    </td>
+                    <td className={solution && item.rarity === solution.rarity ? 'correct-answer' : 'incorrect-answer'}>
+                      <div className='celldiv'>
+                        <div className='iconname-container front'>
+                          <img src={imageMap[item.rarity]} alt={item.rarity} title={item.rarity} />
+                          {visibility.rarity && <p className='iconname'>{nameMap[item.rarity]}</p>}
+                        </div>
+                        {cellbackside}
+                      </div>
+                    </td>
+                    <td className={solution && item.date === solution.date ? 'correct-answer' : 'incorrect-answer'}>
+                      <div className='celldiv'>
+                        <div className='date-container front'>
+                          {solution && item.date > solution.date &&
+                            <>
+                              {item.date}
+                              <img src={Math.abs(item.date - solution.date) >= 3 ? 'arrowAssets/arrow2_down.png' : 'arrowAssets/arrow1_down.png'} alt='arrow down' />
+                            </>
+                          }
+                          {solution && item.date < solution.date &&
+                            <>
+                              <img src={Math.abs(item.date - solution.date) >= 3 ? 'arrowAssets/arrow2_up.png' : 'arrowAssets/arrow1_up.png'} alt='arrow up' />
+                              {item.date}
+                            </>
+                          }
+                          {solution && item.date === solution.date &&
+                            <span>{item.date}</span>
+                          }
+                        </div>
+                        {cellbackside}
+                      </div>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+          <div className="debug-container">
+            {solution && <div className="debug-info">Debug: Solution is {solution.name}</div>}
+          </div>
+        </>
+      )}
     </div>
   );
 

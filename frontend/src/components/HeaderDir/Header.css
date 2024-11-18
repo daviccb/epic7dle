@@ -22,7 +22,7 @@
   display: flex;
   justify-content: center;  /* Center the links horizontally */
   align-items: center;  /* Align the links vertically */
-  gap: 10px;  /* Space between links */
+  gap: 3px;  /* Space between links */
 }
 
 /* Style the individual links */
@@ -31,7 +31,7 @@
   color: #ffffff;  /* Set the text color to white */
   font-size: 18px;  /* Increase font size */
   font-weight: bold;  /* Make text bold */
-  padding: 10px 20px;  /* Add some padding around text for clickable area */
+  padding: 10px 10px;  /* Add some padding around text for clickable area */
   border-radius: 8px;  /* Add rounded corners */
   transition: all 0.3s ease;  /* Smooth transition for hover effect */
 }
