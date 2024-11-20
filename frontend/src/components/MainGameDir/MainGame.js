@@ -112,6 +112,9 @@ function MainGame({ visibility, mode }) {
   const [isFocused, setIsFocused] = useState(false);
   const [isAnimating, setIsAnimating] = useState(false);
   const [loading, setLoading] = useState(true);
+  const [dailyReload, setDailyReload] = useState(false);
+  // eslint-disable-next-line
+  const [dailyWon, setDailyWon] = useState(Cookies.get('dailyWon') === 'true');
   const [filters, setFilters] = useState({
     element: [],
     class: [],
@@ -286,30 +289,34 @@ function MainGame({ visibility, mode }) {
     }
   };
 
-  // // Loading initial guesses and game state from cookies when the component mounts
-  // useEffect(() => {
-  //   const savedGuesses = Cookies.get(`${mode}Guesses`);
-  //   const savedGameState = Cookies.get(`${mode}GameState`);
+   // Function to reset the daily streak if the previous solution wasn't solved
+   const resetDailyStreakIfPreviousNotSolved = () => {
+    const previousSolved = Cookies.get('previousDailySolved');
 
-  //   if (savedGuesses) {
-  //     setGuesses(JSON.parse(savedGuesses));
-  //   }
-  //   if (savedGameState) {
-  //     setGameState(savedGameState === 'true');
-  //   }
-  // }, [mode]);
+    // If the previous daily solution wasn't solved, reset the streak
+    if (previousSolved !== 'true') {
+      Cookies.set('dailyWinStreak', '0', { expires: 7 });
+      setDailyWinStreak(0);
+      console.log('Daily streak reset because previous daily solution was not solved.');
+    }
+  };
 
-  // // Updating guesses in cookies when the state changes
-  // useEffect(() => {
-  //   if (guesses.length > 0) {
-  //     Cookies.set(`${mode}Guesses`, JSON.stringify(guesses), { expires: 7 });
-  //   }
-  // }, [guesses, mode]);
-
-  // // Updating game state in cookies when the state changes
-  // useEffect(() => {
-  //   Cookies.set(`${mode}GameState`, gameState ? 'true' : 'false', { expires: 7 });
-  // }, [gameState, mode]);
+  // Function to set whether the current daily puzzle is solved
+  const setDailySolvedStatus = (solved) => {
+    if (mode === 'daily') {
+      setDailyWon(solved);
+      Cookies.set('dailyWon', solved ? 'true' : 'false', { expires: 7 });
+      if (solved) {
+        // If the daily puzzle is solved, mark it as solved and increment the streak
+        Cookies.set('previousDailySolved', 'true', { expires: 7 });
+        const newDailyWinStreak = dailyWinStreak + 1;
+        setDailyWinStreak(newDailyWinStreak);
+        Cookies.set('dailyWinStreak', newDailyWinStreak.toString(), { expires: 7 });
+      } else {
+        Cookies.set('previousDailySolved', 'false', { expires: 7 });
+      }
+    }
+  };
 
   // Store solution in cookies
   useEffect(() => {
@@ -317,8 +324,6 @@ function MainGame({ visibility, mode }) {
       Cookies.set('solution', JSON.stringify(solution), { expires: 7 });
     } // eslint-disable-next-line
   }, [solution]);
-
-
 
 
   // Fetch character list when the component mounts
@@ -387,7 +392,7 @@ function MainGame({ visibility, mode }) {
         })
         .catch(err => console.error('Failed to fetch daily solution:', err));
     }
-  }, [mode]); // Run only when mode changes, mainly when it is 'daily'
+  }, [mode, dailyReload]); // Run only when mode changes, mainly when it is 'daily'
 
   // Fetch previous daily solution separately
   useEffect(() => {
@@ -410,10 +415,11 @@ function MainGame({ visibility, mode }) {
             skin: data.assets.skin.image,
           };
           setPrevDailySolution(character);
+          resetDailyStreakIfPreviousNotSolved();
         })
         .catch(err => console.error('Failed to fetch previous daily solution:', err));
     }
-  }, [mode]);
+  }, [mode, dailyReload]);
 
   // Load initial data based on mode
   useEffect(() => {
@@ -538,6 +544,47 @@ function MainGame({ visibility, mode }) {
       setGuesses(guesses);
     }
   }
+
+  const setDailyResetDateCookie = () => {
+    const currentDate = new Date().toISOString().split('T')[0]; // Format "YYYY-MM-DD"
+    Cookies.set('lastDailyReset', currentDate, { expires: 7 });
+  };
+
+  const resetDailyCookies = () => {
+    Cookies.remove('dailyGuesses');
+    Cookies.remove('dailyGameState');
+    setDailyGameState(false);
+    setDailyGuesses([]);
+    console.log('Daily cookies reset for the new puzzle!');
+  };
+
+  const checkDailyResetCookie = () => {
+    const lastResetDate = Cookies.get('lastDailyReset');
+    const currentDate = new Date().toISOString().split('T')[0];
+  
+    if (lastResetDate !== currentDate) {
+      // Reset daily cookies and update the date cookie
+      resetDailyCookies();
+      setDailyResetDateCookie();
+      setDailyReload(true);
+    } else {
+      setDailyReload(false);
+    }
+  };
+
+  useEffect(() => {
+    checkDailyResetCookie(); // Run this check whenever the component mounts
+    // eslint-disable-next-line
+  }, []);
+
+  useEffect(() => {
+    const checkInterval = setInterval(() => {
+      checkDailyResetCookie();
+    }, 60000); // Check every minute
+  
+    return () => clearInterval(checkInterval); // Clean up interval on component unmount
+    // eslint-disable-next-line
+  }, []);
 
   // Reset game function
   const resetGame = () => {
@@ -699,9 +746,11 @@ function MainGame({ visibility, mode }) {
           if (isCorrect) {
             incrementWinStreak(mode); // Increment streak based on mode
             setGamesState(true); // End game successfully
+            setDailySolvedStatus(true);
           } else if (guesses.length + 1 >= MAX_GUESSES) {
             resetWinStreak(mode); // Reset streak based on mode
             setGamesState(true); // End game as a loss
+            setDailySolvedStatus(false);
           }
           setFeedback(isCorrect ? 'Correct! Well done.' : 'Incorrect, try again!');
           setFeedbackSol('Answer is')
