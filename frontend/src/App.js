@@ -49,11 +49,11 @@ function App() {
 
 // CODE FOR ICONNAMES
   const [visibility, setVisibility] = useState({
-    inElement: Cookies.get('inElement') === 'true',
-    inClass: Cookies.get('inClass') === 'true',
-    inZodiac: Cookies.get('inZodiac') ? Cookies.get('inZodiac') === 'true' : true,
-    inRegion: Cookies.get('inRegion') ? Cookies.get('inRegion') === 'true' : true,
-    inRarity: Cookies.get('inRarity') === 'true'
+    element: Cookies.get('element') === 'true',
+    class: Cookies.get('class') === 'true',
+    zodiac: Cookies.get('zodiac') ? Cookies.get('zodiac') === 'true' : true,
+    region: Cookies.get('region') ? Cookies.get('region') === 'true' : true,
+    rarity: Cookies.get('rarity') === 'true'
   });
 
   const toggleVisibility = (key) => {

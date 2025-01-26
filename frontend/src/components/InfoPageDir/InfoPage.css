@@ -11,44 +11,24 @@
     z-index: 1000; /* Ensure it is above other content */
   }
   
-  .modal-content {
-    background: white;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  .modal-content-info {
+    border: 40px solid transparent; /* Adjust for the size of the border area in the image */
+    border-image: url('/public/miscAssets/popupbg.png') 40 round;
+    border-radius: 18px;
     position: relative;
     width: 80%; /* Or any specific width */
     max-width: 500px; /* Optional, for wider screens */
+    color: rgb(253, 250, 243);
   }
-  
-  .title {
+
+  .info-title {
     text-align: center;
   }
-  
-  .settings-header {
-    font-size: 20px;
-    margin-top: 25px;
-    margin-bottom: 4px;
+
+  .info-text {
+    margin: 0;
+    margin-top: 7px;
   }
-  
-  .background-select {
-    margin: auto;
-  }
-  
-  .toggle-iconnames-div button {
-    padding: 10px;
-    border-radius: 5px;
-    border: 1px solid #ccc;
-    margin-top: 5px;
-    margin-bottom: 5px;
-    background-color: #ffffff;
-    color: rgb(0, 0, 0);
-  }
-  
-  .toggle-iconnames-div button:hover {
-    background-color: #d4d4d4;
-  }
-  
   
   
   .close-button {

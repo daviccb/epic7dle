@@ -66,6 +66,7 @@
 .character-display {
   justify-content: center;
   align-items: center;
+  border-image:  url('/public/miscAssets/extracted_image_291.png');
   background: url('/public/miscAssets/op_choose_bg.png') no-repeat center/cover;
   box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5);
   border-radius: 7px;

@@ -48,9 +48,15 @@ add more background pictures
   2024.07.18 - /story/bg/img_e7wc_2024_collab.webp
   2024.08.01 - rythm game images + /story/
   2024.09.02 - bgs + /story/ + dividing lines
+  2024.09.12 - two bgs
+  2024.09.26 - rta street bg
+  2024.10.10 - pretty space bg and different element icons
+  2024.10.24 - menu background and stuffs
+  2024.11.07 - ml lua menu items
+  2024.11.21 - story bg
 }
 
-post-game guess review in info center (add share button?) (clipboard icon)
+post-game guess review in info center (add share button?) (clipboard icon) (SSS+ HoT scoring)
 style settings page (iconname toggle buttons + background changing)
 redo rarity stars with awakened ones
 add emojis to result message (more emojis + randomized)
@@ -58,6 +64,8 @@ animations for guess counter (increment, ! last guess !)
 
 redo json for cleaner hover titles
 
+solution images -> solution GIFs
+change solution backgrounds
 download images taken from web
 make pretty
 animations {
@@ -68,11 +76,10 @@ animations {
 }
 
 dailymode
-  styling
   reset daily cookies when new dailysolution
 
 sagittarius
-retake characterAssets:
+messed up characterAssets:
   bmhaste (top of scythe is cut off)
   chaos sect axe ?
   taranor guard ?
@@ -289,8 +296,8 @@ function MainGame({ visibility, mode }) {
     }
   };
 
-   // Function to reset the daily streak if the previous solution wasn't solved
-   const resetDailyStreakIfPreviousNotSolved = () => {
+  // Function to reset the daily streak if the previous solution wasn't solved
+  const resetDailyStreakIfPreviousNotSolved = () => {
     const previousSolved = Cookies.get('previousDailySolved');
 
     // If the previous daily solution wasn't solved, reset the streak
@@ -546,8 +553,10 @@ function MainGame({ visibility, mode }) {
   }
 
   const setDailyResetDateCookie = () => {
-    const currentDate = new Date().toISOString().split('T')[0]; // Format "YYYY-MM-DD"
-    Cookies.set('lastDailyReset', currentDate, { expires: 7 });
+    if (mode === 'daily') {
+      const currentDate = new Date().toISOString().split('T')[0]; // Format "YYYY-MM-DD"
+      Cookies.set('lastDailyReset', currentDate, { expires: 7 });
+    }
   };
 
   const resetDailyCookies = () => {
@@ -559,13 +568,27 @@ function MainGame({ visibility, mode }) {
   };
 
   const checkDailyResetCookie = () => {
-    const lastResetDate = Cookies.get('lastDailyReset');
-    const currentDate = new Date().toISOString().split('T')[0];
-  
-    if (lastResetDate !== currentDate) {
-      // Reset daily cookies and update the date cookie
+    const lastResetDateString = Cookies.get('lastDailyReset');
+
+    if (!lastResetDateString) {
+      // If no previous reset date exists, we treat it as if a reset is required
       resetDailyCookies();
-      setDailyResetDateCookie();
+      setDailyReload(true);
+      return;
+    }
+
+    const lastResetDate = new Date(lastResetDateString);
+    const currentDate = new Date();
+
+    // Calculate the difference in time and convert it to days
+    const differenceInTime = currentDate - lastResetDate; // Difference in milliseconds
+    const differenceInDays = differenceInTime / (1000 * 60 * 60 * 24); // Convert to days
+
+    if (differenceInDays >= 1) {
+      // More than one day has passed, so reset cookies
+      resetDailyCookies();
+      if (differenceInDays > 1)
+        setDailyWinStreak(0);
       setDailyReload(true);
     } else {
       setDailyReload(false);
@@ -581,7 +604,7 @@ function MainGame({ visibility, mode }) {
     const checkInterval = setInterval(() => {
       checkDailyResetCookie();
     }, 60000); // Check every minute
-  
+
     return () => clearInterval(checkInterval); // Clean up interval on component unmount
     // eslint-disable-next-line
   }, []);
@@ -747,9 +770,11 @@ function MainGame({ visibility, mode }) {
             incrementWinStreak(mode); // Increment streak based on mode
             setGamesState(true); // End game successfully
             setDailySolvedStatus(true);
+            setDailyResetDateCookie();
           } else if (guesses.length + 1 >= MAX_GUESSES) {
             resetWinStreak(mode); // Reset streak based on mode
             setGamesState(true); // End game as a loss
+            setDailyResetDateCookie();
             setDailySolvedStatus(false);
           }
           setFeedback(isCorrect ? 'Correct! Well done.' : 'Incorrect, try again!');
@@ -824,25 +849,41 @@ function MainGame({ visibility, mode }) {
   const [isImageLoaded, setIsImageLoaded] = useState(false);
   const [animationReady, setAnimationReady] = useState(false);
 
-  // Adjust the height based on gameState
   useEffect(() => {
-    if (!loading && gameState && imageSrc) {
-      const img = new Image();
-      img.src = imageSrc;
-      img.onload = () => {
-        if (containerRef.current) {
-          setHeight(containerRef.current.scrollHeight);
-          setIsImageLoaded(true);
-        }
-      };
-    } else if (!gameState && defaultImageRef.current) {
-      const defaultImg = new Image();
-      defaultImg.src = defaultImageRef.current.src;
-      defaultImg.onload = () => {
-        setHeight(defaultImageRef.current.clientHeight);
-        setIsImageLoaded(true);
-      };
-    }
+    const recalculateHeight = () => {
+      if (!loading && gameState && imageSrc) {
+        const img = new Image();
+        img.src = imageSrc;
+
+        img.onload = () => {
+          if (containerRef.current) {
+            const newHeight = containerRef.current.scrollHeight;
+            if (newHeight > 0) {
+              setHeight(newHeight);
+              setIsImageLoaded(true);
+            }
+          }
+        };
+      } else if (!gameState && defaultImageRef.current) {
+        const defaultImg = new Image();
+        defaultImg.src = defaultImageRef.current.src;
+        defaultImg.onload = () => {
+          if (defaultImageRef.current) {
+            const newHeight = defaultImageRef.current.clientHeight;
+            setHeight(newHeight);
+            setIsImageLoaded(true);
+          }
+        };
+      }
+    };
+
+    recalculateHeight();
+
+    window.addEventListener('resize', recalculateHeight);
+
+    return () => {
+      window.removeEventListener('resize', recalculateHeight);
+    };
   }, [gameState, imageSrc, loading]);
 
   // Start the animation when both height is set and image is loaded
@@ -997,7 +1038,7 @@ function MainGame({ visibility, mode }) {
         <div className="loading-screen">
           <img src={'miscAssets/extracted_image_4250.png'} alt="runningras1" className="loading-image image-1" />
           <img src={'miscAssets/extracted_image_4251.png'} alt="runningras2" className="loading-image image-2" />
-      </div>
+        </div>
       ) : (
         <>
           <div className="game-container">

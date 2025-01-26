@@ -1,6 +1,9 @@
 backend/data.pack
+backend/dataold.pack
 backend/extracted_image.png
 backend/output_result
+backend/output_result1
+backend/new_images/
 backend/png_file_list.txt
 backend/filter_data.py
 backend/emojis
