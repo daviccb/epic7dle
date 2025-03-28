@@ -57,11 +57,10 @@ add more background pictures
 } 
 
 Last unit added: Empyrean Ilynav
-update info pop up 
-add health for guesses
-add HoT scoring to summary
+update info pop up + known issues pop up?
+better seo
+flip table column/rows for mobile users?
 
-add emojis to result message (more emojis + randomized)
 add more backgrounds to settings page (also a featured background)
 cry cuz e7vault is dead and you dont remember the dudes name to contact them
 
