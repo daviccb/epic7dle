@@ -180,7 +180,10 @@ function SettingsPage({ isOpen, children, onClose, closeSettings,
             ))}
           </div>
 
-          <button className="close-button" onClick={onClose}>x</button>
+          <button className="close-button" onClick={onClose}>
+            <img className='x-icon' src='miscAssets/extracted_image_11116.png' alt='close'/>
+          </button>
+          
           {children}
         </div>
       </div>

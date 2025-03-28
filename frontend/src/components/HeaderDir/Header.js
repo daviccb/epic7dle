@@ -18,7 +18,7 @@ function Header({ openSettings, openInfo }) {
       <button onClick={openSettings} className="settingsbtn" aria-label="Open Settings" >
         <img src={'miscAssets/settings_icon.png'} alt="Settings" className="settings-button-icon" />
       </button>
-      <span>v0.1</span>
+      <span className='versiontext'>v0.1</span>
     </header>
   );
 }

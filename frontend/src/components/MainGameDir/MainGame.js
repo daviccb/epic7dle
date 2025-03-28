@@ -54,12 +54,19 @@ add more background pictures
   2024.10.24 - menu background and stuffs
   2024.11.07 - ml lua menu items
   2024.11.21 - story bg
-}
+} 
+
+Last unit added: Empyrean Ilynav
+update info pop up 
+add health for guesses
+add HoT scoring to summary
+
+add emojis to result message (more emojis + randomized)
+add more backgrounds to settings page (also a featured background)
+cry cuz e7vault is dead and you dont remember the dudes name to contact them
 
 post-game guess review in info center (add share button?) (clipboard icon) (SSS+ HoT scoring)
-style settings page (iconname toggle buttons + background changing)
-redo rarity stars with awakened ones
-add emojis to result message (more emojis + randomized)
+redo rarity stars with awakened ones (?)
 animations for guess counter (increment, ! last guess !)
 
 redo json for cleaner hover titles
@@ -75,11 +82,12 @@ animations {
   expanding divs (new table entry, opening dropdown menu)
 }
 
-dailymode
+dailymode {
   reset daily cookies when new dailysolution
+}
 
 sagittarius
-messed up characterAssets:
+messed up characterAssets{
   bmhaste (top of scythe is cut off)
   chaos sect axe ?
   taranor guard ?
@@ -89,6 +97,7 @@ messed up characterAssets:
   aux lots (is blinking)
   maid chloe
   lqc
+}
 
 new moon luna - class (knight to mage)
 */
@@ -98,6 +107,7 @@ new moon luna - class (knight to mage)
 function MainGame({ visibility, mode }) {
   const [input, setInput] = useState('');
   const [guesses, setGuesses] = useState([]);
+  const [incorrectGuesses, setIncorrectGuesses] = useState(0);
   const [dailyGuesses, setDailyGuesses] = useState([]);
   const [endlessGuesses, setEndlessGuesses] = useState([]);
   const [gameState, setGameState] = useState(false);
@@ -122,6 +132,9 @@ function MainGame({ visibility, mode }) {
   const [dailyReload, setDailyReload] = useState(false);
   // eslint-disable-next-line
   const [dailyWon, setDailyWon] = useState(Cookies.get('dailyWon') === 'true');
+  const [randEmojisCorrect, setRandEmojisCorrect] = useState([]);
+  const [randEmojisWrong, setRandEmojisWrong] = useState([]);
+  const [scoreIcon, setScoreIcon] = useState([]);
   const [filters, setFilters] = useState({
     element: [],
     class: [],
@@ -134,6 +147,8 @@ function MainGame({ visibility, mode }) {
   const inputRef = useRef(null);
 
   const MAX_GUESSES = 5;
+  const remainingGuesses = MAX_GUESSES - incorrectGuesses;
+
   const imageMap = {
     //element
     ice: 'https://epic7db.com/images/elements/Ice-circle.png',
@@ -238,6 +253,24 @@ function MainGame({ visibility, mode }) {
     rarity: [3, 4, 5],
     date: ['2018', '2019', '2020', '2021', '2022', '2023', '2024']
   };
+  const scoreIcons = [
+    'miscAssets/extracted_image_14291.png', //SSS
+    'miscAssets/extracted_image_1782.png',  // SS
+    'miscAssets/extracted_image_1639.png',  //  A
+    'miscAssets/extracted_image_1638.png',  //  B
+    'miscAssets/extracted_image_1637.png',  //  C
+    'miscAssets/extracted_image_1783.png'   //  D
+  ]
+
+  const setScoreImage = (isCorrect) => {
+    let i;
+    if (isCorrect)
+      i = guesses.length;
+    else
+      i = guesses.length + 1;
+
+    setScoreIcon(scoreIcons[i])
+  }
 
   // Win Streak Functions
   const getHighestStreak = (mode) => {
@@ -327,6 +360,7 @@ function MainGame({ visibility, mode }) {
 
   // Store solution in cookies
   useEffect(() => {
+    resetGame();
     if (solution && mode !== 'daily') {
       Cookies.set('solution', JSON.stringify(solution), { expires: 7 });
     } // eslint-disable-next-line
@@ -515,7 +549,6 @@ function MainGame({ visibility, mode }) {
       if (savedSolution) {
         setSolution(JSON.parse(savedSolution));
         setImageSrc(JSON.parse(savedSolution).picture);
-        console.log(JSON.parse(savedSolution));
       } else {
         if (!characterList || characterList.length === 0) {
           console.error('Character list is empty. Cannot generate a new solution.');
@@ -564,7 +597,6 @@ function MainGame({ visibility, mode }) {
     Cookies.remove('dailyGameState');
     setDailyGameState(false);
     setDailyGuesses([]);
-    console.log('Daily cookies reset for the new puzzle!');
   };
 
   const checkDailyResetCookie = () => {
@@ -596,6 +628,8 @@ function MainGame({ visibility, mode }) {
   };
 
   useEffect(() => {
+    setRandEmojisCorrect(getRandomImages(emojisCorrect));
+    setRandEmojisWrong(getRandomImages(emojisWrong));
     checkDailyResetCookie(); // Run this check whenever the component mounts
     // eslint-disable-next-line
   }, []);
@@ -603,7 +637,7 @@ function MainGame({ visibility, mode }) {
   useEffect(() => {
     const checkInterval = setInterval(() => {
       checkDailyResetCookie();
-    }, 60000); // Check every minute
+    }, 6000000); // Check every minute
 
     return () => clearInterval(checkInterval); // Clean up interval on component unmount
     // eslint-disable-next-line
@@ -613,10 +647,13 @@ function MainGame({ visibility, mode }) {
   const resetGame = () => {
     setInput('');
     setGamesGuesses([]);
+    setIncorrectGuesses(0);
     setGamesState(false);
     setFeedback('');
     setAnimationReady(false);
     setIsImageLoaded(false);
+    setRandEmojisCorrect(getRandomImages(emojisCorrect));
+    setRandEmojisWrong(getRandomImages(emojisWrong));
     setFilters({
       element: [],
       class: [],
@@ -771,11 +808,16 @@ function MainGame({ visibility, mode }) {
             setGamesState(true); // End game successfully
             setDailySolvedStatus(true);
             setDailyResetDateCookie();
+            setScoreImage(isCorrect);
           } else if (guesses.length + 1 >= MAX_GUESSES) {
             resetWinStreak(mode); // Reset streak based on mode
             setGamesState(true); // End game as a loss
             setDailyResetDateCookie();
             setDailySolvedStatus(false);
+            setScoreImage(isCorrect);
+            setIncorrectGuesses(prev => prev + 1);
+          } else {
+            setIncorrectGuesses(prev => prev + 1);
           }
           setFeedback(isCorrect ? 'Correct! Well done.' : 'Incorrect, try again!');
           setFeedbackSol('Answer is')
@@ -893,6 +935,66 @@ function MainGame({ visibility, mode }) {
     }
   }, [isImageLoaded]);
 
+  // Array of image paths
+  const emojisCorrect = [
+    '/emoticonAssets/extracted_image_3.png',
+    '/emoticonAssets/extracted_image_7.png',
+    '/emoticonAssets/extracted_image_25.png',
+    '/emoticonAssets/extracted_image_30.png',
+    '/emoticonAssets/extracted_image_38.png',
+    '/emoticonAssets/extracted_image_33.png',
+    '/emoticonAssets/extracted_image_78.png',
+    '/emoticonAssets/extracted_image_79.png',
+    '/emoticonAssets/extracted_image_81.png',
+    '/emoticonAssets/extracted_image_85.png',
+    '/emoticonAssets/extracted_image_87.png',
+    '/emoticonAssets/extracted_image_88.png',
+    '/emoticonAssets/extracted_image_89.png',
+    '/emoticonAssets/extracted_image_91.png',
+    '/emoticonAssets/extracted_image_121.png',
+    '/emoticonAssets/extracted_image_92.png',
+    '/emoticonAssets/extracted_image_122.png',
+    '/emoticonAssets/extracted_image_157.png',
+
+  ];
+
+  const emojisWrong = [
+    '/emoticonAssets/extracted_image_1.png',
+    '/emoticonAssets/extracted_image_6.png',
+    '/emoticonAssets/extracted_image_8.png',
+    '/emoticonAssets/extracted_image_16.png',
+    '/emoticonAssets/extracted_image_18.png',
+    '/emoticonAssets/extracted_image_20.png',
+    '/emoticonAssets/extracted_image_29.png',
+    '/emoticonAssets/extracted_image_74.png',
+    '/emoticonAssets/extracted_image_33.png',
+    '/emoticonAssets/extracted_image_75.png',
+    '/emoticonAssets/extracted_image_77.png',
+    '/emoticonAssets/extracted_image_80.png',
+    '/emoticonAssets/extracted_image_82.png',
+    '/emoticonAssets/extracted_image_83.png',
+    '/emoticonAssets/extracted_image_84.png',
+    '/emoticonAssets/extracted_image_86.png',
+    '/emoticonAssets/extracted_image_91.png',
+    '/emoticonAssets/extracted_image_121.png',
+    '/emoticonAssets/extracted_image_99.png',
+    '/emoticonAssets/extracted_image_100.png',
+    '/emoticonAssets/extracted_image_101.png',
+
+  ];
+
+  // Function to get two random images
+  function getRandomImages(emojiList) {
+    let indices = new Set();  // Use a Set to avoid duplicates
+    while (indices.size < 2) {
+      let randomIndex = Math.floor(Math.random() * emojiList.length);
+      indices.add(randomIndex);
+    }
+
+    // Convert the Set to an array and map to image paths
+    return Array.from(indices).map(index => emojiList[index]);
+  }
+
   const characterDisplay = (
     <div className={`character-display ${(gameState && animationReady) ? 'solution-reveal' : ''}`} style={{ transition: 'height 0.2s ease', height: `${height}px` }}>
       {gameState && solution ? (
@@ -977,17 +1079,20 @@ function MainGame({ visibility, mode }) {
         ) : (
           <div className={solution && guesses[0].guess === solution.name ? 'end-screen-correct' : 'end-screen-incorrect'}>
             <div className='end-message-container'>
-              <img src={solution && guesses[0].guess === solution.name ? '/emoticonAssets/extracted_image_32.png' : '/emoticonAssets/extracted_image_6.png'} alt='emoticon' className="emoji1" />
+              <img src={solution && guesses[0].guess === solution.name ? randEmojisCorrect[0] : randEmojisWrong[0]} alt='emoticon' className="emoji1" />
               <div className='end-message-text-container'>
                 <h1 className='end-message-text'>{feedback}</h1>
                 <h1 className='end-message-text2'>{feedbackSol}</h1>
                 <h1 className='end-message-name'>{solution && solution.name}</h1>
               </div>
-              <img src={solution && guesses[0].guess === solution.name ? '/emoticonAssets/extracted_image_7.png' : '/emoticonAssets/extracted_image_16.png'} alt='emoticon' className="emoji2" />
+              <img src={solution && guesses[0].guess === solution.name ? randEmojisCorrect[1] : randEmojisWrong[1]} alt='emoticon' className="emoji2" />
             </div>
             <div className="summary-table">
               <table>
-                <caption>Your Score</caption>
+                <caption className='tablecaption'>
+                  Score:
+                  <img src={scoreIcon} alt='score' className="scoreIcon" />
+                </caption>
                 <tbody>
                   {guesses.map((item, index) => (
                     <tr key={index}>
@@ -1051,6 +1156,16 @@ function MainGame({ visibility, mode }) {
                       {mode === 'daily' ? 'Daily Puzzle' : 'Endless Mode'}
                     </h1>
                     <h3 className='tries-text' >Tries {guesses.length}/{MAX_GUESSES}</h3>
+                    <div className='health-bar-mobile'>
+                      {[...Array(MAX_GUESSES)].map((_, index) => (
+                        <img
+                          key={index}
+                          src={index < remainingGuesses ? 'miscAssets/extracted_image_9905.png' : 'miscAssets/extracted_image_9906.png'}
+                          alt="heart"
+                          className={`heart${index + 1}`}
+                        />
+                      ))}
+                    </div>
                     <div className="streak-info">
                       {mode === 'daily' ? (
                         <>
@@ -1077,6 +1192,16 @@ function MainGame({ visibility, mode }) {
                     {mode === 'daily' ? 'Daily Puzzle' : 'Endless Mode'}
                   </h1>
                   <h3 className='tries-text' >Tries {guesses.length}/{MAX_GUESSES}</h3>
+                  <div className='health-bar'>
+                    {[...Array(MAX_GUESSES)].map((_, index) => (
+                      <img
+                        key={index}
+                        src={index < remainingGuesses ? 'miscAssets/extracted_image_17989.png' : 'miscAssets/extracted_image_17991.png'}
+                        alt="heart"
+                        className={`heart${index + 1}`}
+                      />
+                    ))}
+                  </div>
                   <div className="streak-info">
                     {mode === 'daily' ? (
                       <>

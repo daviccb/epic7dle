@@ -5,7 +5,7 @@
   );
   background-color: #333;
    color: white;
-   padding: 0 20px;  /* Adjust padding to fit all items properly */
+   padding: 0 15px;  /* Adjust padding to fit all items properly */
    width: 100%;
    height: 6.3vh;
    display: flex;
@@ -66,6 +66,8 @@
 .info-button-icon {
   height: 50%;
   width: auto;
+  padding-right: 4px;
+  padding-left: 4px;
 }
 
 .settingsbtn {
@@ -96,6 +98,10 @@
 h1 {
   font-size: 28px;
   margin: auto;
+}
+
+.versiontext {
+  padding-left: 4px;
 }
 
 
@@ -132,7 +138,7 @@ h1 {
     transform: scale(1);  /* Slightly enlarge the link when hovered */
   }
 
-  span {
+  .versiontext {
     font-size: 10px;
   }
 }

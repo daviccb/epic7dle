@@ -179,6 +179,7 @@
 .mobile-info-container {
   display: flex;
   flex-direction: row;
+  align-items: center;
 }
 
 .mobile-info {
@@ -195,8 +196,18 @@
 .tries-text {
   font-size: 28px;
   margin: auto;
-  margin-top: 7px;
+  margin-top: 3px;
   color: #ffffff;
+}
+
+.health-bar img{
+  margin-left: -3px;
+  margin-right: -3px;
+}
+
+.heart {
+  transition: opacity 0.5s ease-in-out;
+  opacity: 1;  /* Ensure it's fully visible by default */
 }
 
 .streak-info {
@@ -204,7 +215,6 @@
   border: 3px solid #6a7ca1;
   display: inline-block;
   margin: auto;
-  margin-top: 15px;
   margin-bottom: 15px;
   border-radius: 4px;
   padding: 2px;
@@ -246,12 +256,15 @@
 .end-message-container {
   display: flex;
   justify-content: center;
+  align-items: center;
   width: fit-content;
   margin: auto;
+  padding-top: 10px;
 }
 
 .end-message-container img {
-  width: clamp(55px, 85px);
+  height: 100%;
+  max-height: 84px;
   height: clamp(55px, 85px);
   margin-bottom: 2%;
 }
@@ -300,6 +313,18 @@
   display: inline-block;
   margin: auto;
   table-layout: fixed; /* This helps in keeping the cells to a fixed size */
+}
+
+.tablecaption {
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  font-size: x-large;
+}
+
+.tablecaption img{
+  height: 40px;
+  margin-left: 5px;
 }
 
 .summary-table td {
@@ -782,6 +807,10 @@ input::placeholder {
 
   .tries-text {
     font-size: 20px;
+  }
+
+  .health-bar-mobile {
+    margin-top: 3px;
   }
 
   .streak-info {
