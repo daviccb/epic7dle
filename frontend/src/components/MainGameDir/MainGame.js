@@ -98,7 +98,6 @@ messed up characterAssets{
   lqc
 }
 
-new moon luna - class (knight to mage)
 */
 
 
@@ -1117,7 +1116,7 @@ function MainGame({ visibility, mode }) {
               </table>
             </div>
             {mode === 'daily'
-              ? <CountdownTimer />
+              ? <CountdownTimer onCountdownComplete={() => setDailyReload(true)} />
               : <button onClick={resetGameAndGenerateNewSolution} className="play-again-button">Play Again</button>}
           </div>
         )}
@@ -1132,7 +1131,7 @@ function MainGame({ visibility, mode }) {
 
   const cellbackside = (
     <div className="back">
-      <img src={'miscAssets/extracted_image_415.png'} alt="cellbackside" />
+      <img src={'miscAssets/directions_icon.png'} alt="cellbackside" />
     </div>
   );
 

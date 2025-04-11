@@ -2,7 +2,7 @@ import os
 import json
 from flask import Flask, jsonify # type: ignore
 from flask_cors import CORS  # type: ignore
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 import random
 
 app = Flask(__name__)
@@ -43,7 +43,8 @@ def character(name):
 @app.route('/api/daily_solution', methods=['GET'])
 def daily_solution():
     # Get the current date (day-level accuracy)
-    current_date = datetime.now().strftime("%Y-%m-%d")
+    current_date = datetime.now(timezone.utc).strftime("%Y-%m-%d-%H")
+    print(current_date)
 
     # Use the date as a consistent seed for pseudo-random selection
     random.seed(current_date)
@@ -58,7 +59,7 @@ def daily_solution():
 @app.route('/api/previous_daily_solution', methods=['GET'])
 def previous_daily_solution():
     # Calculate yesterday's date (day-level accuracy)
-    previous_date = (datetime.now() - timedelta(days=1)).strftime("%Y-%m-%d")
+    previous_date = (datetime.now(timezone.utc) - timedelta(days=1)).strftime("%Y-%m-%d")
 
     # Use the previous date as a consistent seed for pseudo-random selection
     random.seed(previous_date)

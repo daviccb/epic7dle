@@ -43,6 +43,31 @@
   transform: scale(1.05);  /* Slightly enlarge the link when hovered */
 }
 
+.directionsbtn {
+  height: 100%;
+  color: white;
+  cursor: pointer;
+  background: none;
+  border: none;
+  margin-top: 0;  /* Adjust margin-top if necessary */
+  padding: 2px 2px; /* Adjust padding for better spacing */
+  display: flex;  /* Add display flex */
+  align-items: center;  /* Align icon vertically */
+  justify-content: center;  /* Center content horizontally */
+}
+
+.directionsbtn:hover {
+  background: linear-gradient(
+    rgba(0, 0, 0, 0.5), 
+    rgba(0, 0, 0, 0.2)
+  );
+}
+
+.directions-button-icon {
+  height: 80%;
+  width: auto;
+}
+
 .infobtn {
   height: 100%;
   color: white;

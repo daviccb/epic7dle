@@ -13,7 +13,7 @@
   /* Ensure it is above other content */
 }
 
-.modal-content-info {
+.modal-content-directions {
   border: 40px solid transparent;
   /* Adjust for the size of the border area in the image */
   border-image: url('/public/miscAssets/popupbg.png') 40 round;
@@ -21,18 +21,51 @@
   position: relative;
   width: 80%;
   /* Or any specific width */
-  max-width: 500px;
+  max-width: 1000px;
   /* Optional, for wider screens */
+  max-height: 80%;
   color: rgb(253, 250, 243);
+  overflow: auto;
 }
 
-.info-title {
+.modal-content-directions::-webkit-scrollbar {
+  display: none;
+}
+
+.modal-content-fill img {
+  max-width: 100%;
+}
+
+.directions1img {
+  max-height: 40vh;
+}
+
+.directions2img {
+  margin-top: 30px;
+  max-height: 40vh;
+}
+
+.directionsyeararrows-div {
+  margin-top: 30px;
+  display: flex;
+  align-items: center;
+}
+
+.directionsyeararrowsimg {
+  max-height: 30vh;
+}
+
+.directionsyeararrows-div p {
+  margin-left: 20px;
+}
+
+.directions-title {
   text-align: center;
 }
 
-.info-text {
+.directions-text {
   margin: 0;
-  margin-top: 9px;
+  margin-top: 7px;
   font-size: 22px;
   font-weight: bold;
 }
@@ -49,7 +82,7 @@
 }
 
 @media (max-width: 768px) {
-  .info-text {
+  .directions-text {
     font-size: 16px;
     font-weight: bold;
   }

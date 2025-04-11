@@ -6,6 +6,7 @@ import Header from './components/HeaderDir/Header';
 import MainGame from './components/MainGameDir/MainGame';
 import SettingsPage from './components/SettingsPageDir/SettingsPage';
 import InfoPage from './components/InfoPageDir/InfoPage';
+import DirectionsPage from './components/DirectionsPageDir/DirectionsPage';
 
 function App() {
 // CODE FOR BACKGROUND CHANGING:
@@ -82,10 +83,19 @@ function App() {
   const openInfo = () => setIsInfoOpen(true);
   const closeInfo = () => setIsInfoOpen(false);
 
+// CODE FOR INFO PAGE:
+  const [isDirectionsOpen, setIsDirectionsOpen] = useState(false);
+
+  const openDirections = () => setIsDirectionsOpen(true);
+  const closeDirections = () => setIsDirectionsOpen(false);
+
   return (
     <Router>
       <div className="App" style={backgroundStyle}>
-        <Header openSettings={openSettings} openInfo={openInfo} />
+        <Header openSettings={openSettings} openInfo={openInfo} openDirections={openDirections}/>
+        <DirectionsPage isOpen={isDirectionsOpen} onClose={closeDirections} closeDirections={closeDirections} 
+          visibility={visibility}
+        />
         <InfoPage isOpen={isInfoOpen} onClose={closeInfo} closeInfo={closeInfo} />
         <SettingsPage isOpen={isSettingsOpen} onClose={closeSettings} closeSettings={closeSettings}
           //background settings

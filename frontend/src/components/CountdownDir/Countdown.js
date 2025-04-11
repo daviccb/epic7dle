@@ -1,26 +1,28 @@
 import React, { useState, useEffect } from 'react';
-import { toZonedTime } from 'date-fns-tz';
 import './Countdown.css';
 
-function CountdownTimer() {
+function CountdownTimer({ onCountdownComplete }) {
   const [timeLeft, setTimeLeft] = useState('');
 
   // Function to calculate the time left until next reset at 4:00 PM PST
   const calculateTimeLeft = () => {
     const now = new Date();
-    const timeZone = 'America/Los_Angeles';
 
-    // Create the next reset time at 4:00 PM PST today or tomorrow
-    let resetTimePST = toZonedTime(new Date(), timeZone);
-    resetTimePST.setHours(16, 0, 0, 0); // Set to 4:00 PM PST (16:00)
+    // Get the current time in UTC
+    const nowUTC = new Date(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate(),
+      now.getUTCHours(), now.getUTCMinutes(), now.getUTCSeconds());
 
-    // If the reset time has already passed today, set to tomorrow at 4:00 PM PST
-    if (now > resetTimePST) {
-      resetTimePST.setDate(resetTimePST.getDate() + 1);
+    // Create the next reset time at 00:00 UTC today or tomorrow
+    let resetTimeUTC = new Date(nowUTC); // Clone the current UTC date and time
+    resetTimeUTC.setUTCHours(7, 0, 0, 0); // Set to 00:00 UTC
+
+    // If the reset time has already passed today, set to tomorrow at 00:00 UTC
+    if (nowUTC >= resetTimeUTC) {
+      resetTimeUTC.setUTCDate(resetTimeUTC.getUTCDate() + 1);
     }
 
     // Calculate the difference in milliseconds
-    const difference = resetTimePST - now;
+    const difference = resetTimeUTC - nowUTC;
 
     // Calculate hours, minutes, and seconds left
     const hours = Math.floor((difference / (1000 * 60 * 60)) % 24);
@@ -32,17 +34,23 @@ function CountdownTimer() {
   };
 
   useEffect(() => {
-    // Initialize the timer
-    setTimeLeft(calculateTimeLeft());
+    const updateTimer = () => {
+      const newTimeLeft = calculateTimeLeft();
+      setTimeLeft(newTimeLeft);
 
-    // Update the timer every second
-    const timerId = setInterval(() => {
-      setTimeLeft(calculateTimeLeft());
-    }, 1000);
+      // Check if the countdown has reached zero
+      if (newTimeLeft === "00:00:00") {
+        onCountdownComplete();
+      }
+    };
+
+    // Initialize the timer and update every second
+    updateTimer();
+    const timerId = setInterval(updateTimer, 1000);
 
     // Clean up the interval when component unmounts
     return () => clearInterval(timerId);
-  }, []);
+  }, [onCountdownComplete]);
 
   return (
     <div className="countdown-timer">
