@@ -57,6 +57,31 @@ add more background pictures
 } 
 
 Last unit added: Empyrean Ilynav
+units:
+revna
+fenris
+harsetti
+asflan
+ml lua
+shniel
+dark schuri
+ysenya
+bhwa
+new adin
+fenne
+ml piera
+tori
+ml taeyou
+fire krau
++ zio
+skins:
+ssv
+ravi
+tamarinne
+
+
+"practice in endless mode" after daily completion
+yesterdays solution + guesses/state cookies are broken ??
 update info pop up + known issues pop up?
 better seo
 flip table column/rows for mobile users?
@@ -88,10 +113,6 @@ dailymode {
 sagittarius
 messed up characterAssets{
   bmhaste (top of scythe is cut off)
-  chaos sect axe ?
-  taranor guard ?
-  taranor royal guard ?
-  kikirat v2 ?
   angelic momo (take without effect)
   aux lots (is blinking)
   maid chloe
@@ -123,12 +144,12 @@ function MainGame({ visibility, mode }) {
   const [highestEndlessStreak, setHighestEndlessStreak] = useState(parseInt(localStorage.getItem('highestEndlessStreak') || '0', 10));
   const [dailyWinStreak, setDailyWinStreak] = useState(parseInt(Cookies.get('dailyWinStreak') || '0', 10));
   const [endlessWinStreak, setEndlessWinStreak] = useState(parseInt(Cookies.get('endlessWinStreak') || '0', 10));
-  const [imageSrc, setImageSrc] = useState(null);
+  const [imageSrc, setImageSrc] = useState(null); // eslint-disable-next-line
+  const [imageIndex, setImageIndex] = useState(0);
   const [isFocused, setIsFocused] = useState(false);
   const [isAnimating, setIsAnimating] = useState(false);
   const [loading, setLoading] = useState(true);
-  const [dailyReload, setDailyReload] = useState(false);
-  // eslint-disable-next-line
+  const [dailyReload, setDailyReload] = useState(false); // eslint-disable-next-line
   const [dailyWon, setDailyWon] = useState(Cookies.get('dailyWon') === 'true');
   const [randEmojisCorrect, setRandEmojisCorrect] = useState([]);
   const [randEmojisWrong, setRandEmojisWrong] = useState([]);
@@ -383,7 +404,10 @@ function MainGame({ visibility, mode }) {
           date: data[key].date,
           photo: data[key].assets.icon,
           hasSkin: data[key].assets.skin.has,
-          skin: data[key].assets.skin.image,
+          skins: [
+            data[key].assets.skin.image,
+            data[key].assets.skin.image2
+          ].filter(Boolean)
         }));
 
         // Store the character list for use in either mode
@@ -835,12 +859,11 @@ function MainGame({ visibility, mode }) {
 
   // Toggle handler to change the image source
   const toggleImage = () => {
-    // Check if the current image is the default picture
-    if (imageSrc === solution.picture) {
-      setImageSrc(solution.skin);  // Change to skin image
-    } else {
-      setImageSrc(solution.picture);  // Change back to default image
-    }
+    const allImages = [solution.picture, ...(solution.skins || [])];
+    const currentIndex = allImages.indexOf(imageSrc);
+    const nextIndex = (currentIndex + 1) % allImages.length;
+    setImageSrc(allImages[nextIndex]);
+    setImageIndex(nextIndex);
   };
 
   // if on a mobile device, change html structure

@@ -37,10 +37,10 @@ function InfoPage({ isOpen, children, onClose, closeInfo }) {
 
           <img className='divider' src='miscAssets/dividerline.png' alt='divider'/>
 
-          <p className='info-text'>Last updated to Empyrean Ilynav</p>
+          <p className='info-text'>Last updated to Rinak</p>
           <p className='info-text'>This website only uses Cookies for enhancing user experience</p>
           <p className='info-text'>Contact me on Discord @davicc</p>
-          <p className='info-text'>Credits: Epic Seven, Genshindle, nORbDragon, Fribbels, Paula</p>
+          <p className='info-text'>Credits: Epic Seven, Genshindle, nORbDragon, Fribbels, CeciliaBot, UsernameSniped, Paula</p>
 
 
           <button className="close-button" onClick={onClose}>
