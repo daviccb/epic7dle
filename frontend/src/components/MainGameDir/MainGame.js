@@ -56,35 +56,17 @@ add more background pictures
   2024.11.21 - story bg
 } 
 
-Last unit added: Empyrean Ilynav
-units:
-revna
-fenris
-harsetti
-asflan
-ml lua
-shniel
-dark schuri
-ysenya
-bhwa
-new adin
-fenne
-ml piera
-tori
-ml taeyou
-fire krau
-+ zio
-skins:
-ssv
-ravi
-tamarinne
+Last unit added: Rinak
 
 
 "practice in endless mode" after daily completion
+extend dropdown to bottom of screen
+remove buttons from scrollbar and put over content
 yesterdays solution + guesses/state cookies are broken ??
 update info pop up + known issues pop up?
 better seo
 flip table column/rows for mobile users?
+firefox card ? flip doesnt hide
 
 add more backgrounds to settings page (also a featured background)
 cry cuz e7vault is dead and you dont remember the dudes name to contact them
@@ -444,7 +426,10 @@ function MainGame({ visibility, mode }) {
             date: data.date,
             photo: data.assets.icon,
             hasSkin: data.assets.skin.has,
-            skin: data.assets.skin.image,
+            skins: [
+              data.assets.skin.image,
+              data.assets.skin.image2
+            ].filter(Boolean),
           };
 
           setDailySolution(character);
