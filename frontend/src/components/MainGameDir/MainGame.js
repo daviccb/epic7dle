@@ -135,7 +135,7 @@ function MainGame({ visibility, mode }) {
   const [dailyWon, setDailyWon] = useState(Cookies.get('dailyWon') === 'true');
   const [randEmojisCorrect, setRandEmojisCorrect] = useState([]);
   const [randEmojisWrong, setRandEmojisWrong] = useState([]);
-  const [scoreIcon, setScoreIcon] = useState([]);
+  const [scoreIcon, setScoreIcon] = useState(Cookies.get('scoreIcon') || '');
   const [filters, setFilters] = useState({
     element: [],
     class: [],
@@ -270,7 +270,8 @@ function MainGame({ visibility, mode }) {
     else
       i = guesses.length + 1;
 
-    setScoreIcon(scoreIcons[i])
+    setScoreIcon(scoreIcons[i]);
+    Cookies.set('scoreIcon', scoreIcons[i], { expires: 7 });
   }
 
   // Win Streak Functions
@@ -361,7 +362,6 @@ function MainGame({ visibility, mode }) {
 
   // Store solution in cookies
   useEffect(() => {
-    resetGame();
     if (solution && mode !== 'daily') {
       Cookies.set('solution', JSON.stringify(solution), { expires: 7 });
     } // eslint-disable-next-line
@@ -1097,7 +1097,9 @@ function MainGame({ visibility, mode }) {
               <table>
                 <caption className='tablecaption'>
                   Score:
-                  <img src={scoreIcon} alt='score' className="scoreIcon" />
+                  {scoreIcon && (
+                    <img src={scoreIcon} alt="score" className="scoreIcon" />
+                  )}
                 </caption>
                 <tbody>
                   {guesses.map((item, index) => (
